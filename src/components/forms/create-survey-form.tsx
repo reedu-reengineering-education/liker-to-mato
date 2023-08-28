@@ -13,7 +13,7 @@ import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { PlusIcon } from "lucide-react";
 
-export function DialogDemo() {
+export function CreateSurveyDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -45,19 +45,4 @@ export function DialogDemo() {
   );
 }
 
-{
-  /* <Dialog>
-  <DialogTrigger>
-    <Button>Erstelle eine neue Umfrage</Button>
-  </DialogTrigger>
-  <DialogContent>
-    <DialogHeader>
-      <DialogTitle>Are you sure absolutely sure?</DialogTitle>
-      <DialogDescription>
-        This action cannot be undone. This will permanently delete your account
-        and remove your data from our servers.
-      </DialogDescription>
-    </DialogHeader>
-  </DialogContent>
-</Dialog>; */
-}
+

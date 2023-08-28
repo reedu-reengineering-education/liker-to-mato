@@ -8,13 +8,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { DialogDemo } from "@/components/forms/create-survey-form";
+import { CreateSurveyDialog } from "@/components/forms/create-survey-form";
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Input></Input>
-      <DialogDemo></DialogDemo>
+      <CreateSurveyDialog></CreateSurveyDialog>
 
       <Card className="min-w-[20rem]">
         <CardHeader>
