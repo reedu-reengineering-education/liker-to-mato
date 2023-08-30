@@ -16,23 +16,17 @@ export default function Studio() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Button>Hier</Button>
 
-      <Slider
-        className="grid w-full max-w-sm items-center gap-2"
-        defaultValue={[0]}
-        max={100}
-        step={33.33333333333333}
-      />
       <CreateQuestionDialog></CreateQuestionDialog>
       <Card className="min-w-[20rem]">
         <CardHeader>
-          <CardTitle>Title</CardTitle>
-          <CardDescription>Description</CardDescription>
+          <CardTitle>Card Title</CardTitle>
+          <CardDescription>Card Description</CardDescription>
         </CardHeader>
         <CardContent>
-          <p>Content</p>
+          <p>Card Content</p>
         </CardContent>
         <CardFooter>
-          <p>Footer</p>
+          <p>Card Footer</p>
           <Button>Button</Button>
           <Button>Button</Button>
         </CardFooter>

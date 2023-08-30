@@ -9,18 +9,13 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { CreateSurveyDialog } from "@/components/forms/create-survey-form";
-import { Slider } from "@/components/ui/slider";
+
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Input></Input>
-      <Slider
-        className="grid w-full max-w-sm items-center gap-2"
-        defaultValue={[0]}
-        max={100}
-        step={33.33333333333333}
-      />
+
       <CreateSurveyDialog></CreateSurveyDialog>
 
       <Card className="min-w-[20rem]">
