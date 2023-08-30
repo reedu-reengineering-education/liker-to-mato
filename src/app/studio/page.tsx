@@ -1,4 +1,7 @@
-import { Button } from '@/components/ui/button'
+import { Button } from "@/components/ui/button";
+
+import { Slider } from "@/components/ui/slider";
+import { CreateQuestionDialog } from "@/components/forms/create-question-dialog";
 import {
   Card,
   CardContent,
@@ -7,36 +10,33 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { CreateSurveyDialog } from "@/components/forms/create-survey-form";
-import { Slider } from "@/components/ui/slider";
 
-export default function Home() {
+export default function Studio() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Input></Input>
+      <Button>Hier</Button>
+
       <Slider
         className="grid w-full max-w-sm items-center gap-2"
         defaultValue={[0]}
         max={100}
         step={33.33333333333333}
       />
-      <CreateSurveyDialog></CreateSurveyDialog>
-
+      <CreateQuestionDialog></CreateQuestionDialog>
       <Card className="min-w-[20rem]">
         <CardHeader>
-          <CardTitle>Card Title</CardTitle>
-          <CardDescription>Card Description</CardDescription>
+          <CardTitle>Title</CardTitle>
+          <CardDescription>Description</CardDescription>
         </CardHeader>
         <CardContent>
-          <p>Card Content</p>
+          <p>Content</p>
         </CardContent>
         <CardFooter>
-          <p>Card Footer</p>
+          <p>Footer</p>
+          <Button>Button</Button>
+          <Button>Button</Button>
         </CardFooter>
       </Card>
-
-      <Button>Button</Button>
     </main>
   );
 }

@@ -14,7 +14,7 @@ import { Label } from "../ui/label";
 import { PlusIcon } from "lucide-react";
 import { Slider } from "../ui/slider";
 
-export function CreateSurveyDialog() {
+export function CreateQuestionDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -45,5 +45,3 @@ export function CreateSurveyDialog() {
     </Dialog>
   );
 }
-
-
