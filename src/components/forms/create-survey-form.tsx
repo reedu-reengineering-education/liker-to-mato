@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { PlusIcon } from "lucide-react";
+import { Slider } from "../ui/slider";
 
 export function CreateSurveyDialog() {
   return (

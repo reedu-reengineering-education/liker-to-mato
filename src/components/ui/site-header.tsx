@@ -12,7 +12,7 @@ export function SiteHeader() {
             {
               // TODO: add more items
               title: "Studio",
-              href: "#",
+              href: "/studio",
             },
           ]}
         />
