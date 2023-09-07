@@ -34,7 +34,7 @@ export function CreateQuestionDialog() {
 
         <div className="grid gap-4 py-4">
           <div className="grid w-full max-w-sm items-center gap-2">
-            <Label htmlFor="name" className="ml-3">
+            <Label htmlFor="name" className="flex">
               Frage
             </Label>
             <Input
@@ -44,8 +44,8 @@ export function CreateQuestionDialog() {
             />
           </div>
           <div>
-            <Label htmlFor="name" className="ml-3">
-              Beschreib mit ein paar Worten deine Frage
+            <Label htmlFor="name" className=" flex-3">
+              Fragestellung
             </Label>
             <Textarea
               id="name"
@@ -54,16 +54,24 @@ export function CreateQuestionDialog() {
             ></Textarea>
           </div>
         </div>
-        <div className="flex space-x-4">
-          <Input className="text" placeholder="Min"></Input>
-          <Input className="text" placeholder="Steps"></Input>
-          <Input className="text" placeholder="Max"></Input>
+        <div className="mb-6 flex flex-row gap-4 ">
+          <div className=" flex-col">
+            <Label>Minimum</Label>
+            <Input type="text" placeholder="text"></Input>
+          </div>
+          <div className=" flex-col">
+            <Label>Stepps</Label>
+            <Input type="number" placeholder="zahl"></Input>
+          </div>
+          <div className=" flex-col">
+            <Label>Maximum</Label>
+            <Input type="text" placeholder="text"></Input>
+          </div>
         </div>
-
         <DialogFooter>
           <div>
-            <Button variant="destructive" type="submit">
-              Delete
+            <Button variant="secondary" type="submit">
+              Cancel
             </Button>
           </div>
           <div>
