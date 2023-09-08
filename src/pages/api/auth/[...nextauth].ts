@@ -1,8 +1,13 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+import { NextAuthOptions } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 export const authOptions: NextAuthOptions = {
-  // export default NextAuth({
+  adapter: PrismaAdapter(prisma),
+
   providers: [
     EmailProvider({
       server: {
@@ -16,15 +21,4 @@ export const authOptions: NextAuthOptions = {
       from: process.env.EMAIL_FROM,
     }),
   ],
-  theme: {
-    colorScheme: "light",
-  },
-  callbacks: {
-    async jwt({ token }) {
-      token.userRole = "admin";
-      return token; // The return type will match the one returned in `useSession()`
-    },
-  },
 };
-
-export default NextAuth(authOptions);
