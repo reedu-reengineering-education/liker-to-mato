@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 
-import { Slider } from "@/components/ui/slider";
+
 import { CreateQuestionDialog } from "@/components/forms/create-question-dialog";
 import {
   Card,
