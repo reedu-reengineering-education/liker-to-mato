@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   postgres:
-    image: postgres
+    image: postgres:15
     ports:
       - '5432:5432'
     env_file:
@@ -11,15 +11,4 @@ services:
     healthcheck:
       test: 'exit 0'
 
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    volumes:
-      - .:/app
-    ports:
-      - "3000:3000"
-    depends_on:
-      - postgres
-    environment:
-      DATABASE_URL: postgresql://johndoe:randompassword@localhost:5432/mydb?schema=public"
+  
