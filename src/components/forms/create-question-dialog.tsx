@@ -1,4 +1,4 @@
-"as client";
+"use client";
 import React, { useState } from "react";
 import {
   Dialog,
@@ -26,13 +26,15 @@ export function CreateQuestionDialog() {
   const [surveyId, setSurveyId] = useState<string>("");
 
   const handleSaveClick = async () => {
+    // Standardwert für steps, wenn es undefined ist
+    const stepsValue = steps !== undefined ? steps : 0;
     try {
       // Rufe die createQuestionData-Funktion auf, um die Frage zu erstellen
       const questionData = await createQuestionData(
         name,
         description,
         min,
-        steps,
+        stepsValue,
         max,
         surveyId
       );
@@ -67,6 +69,8 @@ export function CreateQuestionDialog() {
             </Label>
             <Input
               id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               placeholder="for example, how is it outside "
               className="col-span-3"
             />
@@ -76,7 +80,9 @@ export function CreateQuestionDialog() {
               Fragestellung
             </Label>
             <Textarea
-              id="name"
+              id="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               placeholder="for example, describe here?"
               className="col-span-3"
             ></Textarea>
@@ -85,22 +91,35 @@ export function CreateQuestionDialog() {
         <div className="mb-6 flex flex-row gap-4 ">
           <div className=" flex-col">
             <Label>Minimum</Label>
-            <Input type="text" placeholder="text"></Input>
+            <Input
+              value={min}
+              onChange={(e) => setMinimum(e.target.value)}
+              placeholder="text"
+            ></Input>
           </div>
           <div className=" flex-col">
             <Label>Stepps</Label>
-            <Input type="number" placeholder="zahl"></Input>
+            <Input
+              value={steps === undefined ? "" : steps.toString()} // Konvertiere steps in einen String
+              onChange={(e) => {
+                const newValue = parseInt(e.target.value); // Versuche, den eingegebenen Wert in eine Zahl umzuwandeln
+                setStep(isNaN(newValue) ? undefined : newValue); // Wenn die Umwandlung fehlschlägt, setze steps auf undefined
+              }}
+              placeholder="zahl"
+            ></Input>
           </div>
           <div className=" flex-col">
             <Label>Maximum</Label>
-            <Input type="text" placeholder="text"></Input>
+            <Input
+              value={max}
+              onChange={(e) => setMaximum(e.target.value)}
+              placeholder="text"
+            ></Input>
           </div>
         </div>
         <DialogFooter>
           <div>
-            <Button variant="secondary" type="submit">
-              Cancel
-            </Button>
+            <Button variant="secondary">Cancel</Button>
           </div>
           <div>
             <Button onClick={handleSaveClick}>Save</Button>

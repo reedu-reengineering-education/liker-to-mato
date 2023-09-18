@@ -4,9 +4,9 @@ import axios from "axios";
 async function createQuestionData(
   name: string,
   description: string,
-  min: number,
+  min: string,
   steps: number,
-  max: number,
+  max: string,
   surveyId: string
 ) {
   const apiUrl = "/api/question/index.ts"; // API-Endpunkt für das Erstellen von Fragen

@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
-import createSurveyData from "@/utils/surveyApiClient";
 
 const prisma = new PrismaClient();
 

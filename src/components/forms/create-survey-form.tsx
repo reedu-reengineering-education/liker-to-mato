@@ -60,7 +60,7 @@ export function CreateSurveyDialog() {
             <Input
               id="name"
               value={name}
-              onClick={handleNameChange}
+              onChange={handleNameChange}
               placeholder="Name"
               className="col-span-3"
             />
