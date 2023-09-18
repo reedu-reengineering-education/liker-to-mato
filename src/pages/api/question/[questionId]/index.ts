@@ -1,5 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
+import {
+  getQuestionData,
+  updateQuestionData,
+  deleteQuestionData,
+} from "@/utils/[questionId]ApiClient";
 
 const prisma = new PrismaClient();
 

@@ -1,3 +1,5 @@
+"as client";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -12,10 +14,36 @@ import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { PlusIcon } from "lucide-react";
-
 import { Textarea } from "../ui/textarea";
+import createQuestionData from "@/utils/questionApiClient";
 
 export function CreateQuestionDialog() {
+  const [name, setName] = useState<string>(""); // Zustand für den Namen
+  const [description, setDescription] = useState<string>(""); // Zustand für den Benutzer-ID
+  const [min, setMinimum] = useState<string>("");
+  const [steps, setStep] = useState<number | undefined>(undefined);
+  const [max, setMaximum] = useState<string>("");
+  const [surveyId, setSurveyId] = useState<string>("");
+
+  const handleSaveClick = async () => {
+    try {
+      // Rufe die createQuestionData-Funktion auf, um die Frage zu erstellen
+      const questionData = await createQuestionData(
+        name,
+        description,
+        min,
+        steps,
+        max,
+        surveyId
+      );
+      console.log("Frage erstellt:", questionData);
+      // Hier kannst du die Daten der erstellten Frage weiter verarbeiten
+    } catch (error) {
+      console.error("Fehler beim Erstellen der Frage:", error);
+      // Hier kannst du den Fehler behandeln
+    }
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -75,7 +103,7 @@ export function CreateQuestionDialog() {
             </Button>
           </div>
           <div>
-            <Button type="submit">Save</Button>
+            <Button onClick={handleSaveClick}>Save</Button>
           </div>
         </DialogFooter>
       </DialogContent>

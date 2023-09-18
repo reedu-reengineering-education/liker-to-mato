@@ -1,3 +1,5 @@
+"use client";
+import React from "react";
 import {
   Dialog,
   DialogContent,
@@ -12,9 +14,29 @@ import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { PlusIcon } from "lucide-react";
-import { Slider } from "../ui/slider";
+import createSurveyData from "@/utils/surveyApiClient";
+import { useState } from "react";
 
 export function CreateSurveyDialog() {
+  const [name, setName] = useState<string>(""); // Zustand für den Namen
+  const [userId] = useState<string>(""); // Zustand für den Benutzer-ID
+
+  // Funktion zum Speichern der Umfrage
+  async function saveSurveyData() {
+    try {
+      // Rufe die createSurveyData-Funktion auf
+      const surveyData = await createSurveyData(name, userId); // Hier solltest du userId setzen
+      console.log("Umfrage erstellt:", surveyData);
+      // Hier kannst du die Umfrage-Daten weiter verarbeiten
+    } catch (error) {
+      console.error("Fehler beim Erstellen der Umfrage:", error);
+      // Hier kannst du den Fehler behandeln
+    }
+  }
+  const handleNameChange = (e: any) => {
+    setName(e.target.value);
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -35,15 +57,19 @@ export function CreateSurveyDialog() {
             <Label htmlFor="name" className="ml-3">
               Name
             </Label>
-            <Input id="name" placeholder="Name" className="col-span-3" />
+            <Input
+              id="name"
+              value={name}
+              onClick={handleNameChange}
+              placeholder="Name"
+              className="col-span-3"
+            />
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit">Speichern</Button>
+          <Button onClick={saveSurveyData}>Speichern</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
 }
-
-

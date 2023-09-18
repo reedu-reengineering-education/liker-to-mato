@@ -3,6 +3,7 @@ import EmailProvider from "next-auth/providers/email";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 
+
 const prisma = new PrismaClient();
 
 const authOptions: NextAuthOptions = {
