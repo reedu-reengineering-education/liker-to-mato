@@ -15,22 +15,19 @@ import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { PlusIcon } from "lucide-react";
 import { Textarea } from "../ui/textarea";
-import createQuestionData from "@/utils/questionApiClient";
+import createQuestion from "@/lib/api/createQuestion";
 
-export function CreateQuestionDialog() {
-  const [name, setName] = useState<string>(""); // Zustand für den Namen
-  const [description, setDescription] = useState<string>(""); // Zustand für den Benutzer-ID
+export function CreateQuestionDialog(surveyId: string) {
+  const [name, setName] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
   const [min, setMinimum] = useState<string>("");
   const [steps, setStep] = useState<number | undefined>(undefined);
   const [max, setMaximum] = useState<string>("");
-  const [surveyId, setSurveyId] = useState<string>("");
 
   const handleSaveClick = async () => {
-    // Standardwert für steps, wenn es undefined ist
     const stepsValue = steps !== undefined ? steps : 0;
     try {
-      // Rufe die createQuestionData-Funktion auf, um die Frage zu erstellen
-      const questionData = await createQuestionData(
+      const questionData = await createQuestion(
         name,
         description,
         min,
@@ -38,11 +35,9 @@ export function CreateQuestionDialog() {
         max,
         surveyId
       );
-      console.log("Frage erstellt:", questionData);
-      // Hier kannst du die Daten der erstellten Frage weiter verarbeiten
+      console.log("Question created:", questionData);
     } catch (error) {
-      console.error("Fehler beim Erstellen der Frage:", error);
-      // Hier kannst du den Fehler behandeln
+      console.error("Error when creating the question:", error);
     }
   };
 
@@ -100,10 +95,10 @@ export function CreateQuestionDialog() {
           <div className=" flex-col">
             <Label>Stepps</Label>
             <Input
-              value={steps === undefined ? "" : steps.toString()} // Konvertiere steps in einen String
+              value={steps === undefined ? "" : steps.toString()}
               onChange={(e) => {
-                const newValue = parseInt(e.target.value); // Versuche, den eingegebenen Wert in eine Zahl umzuwandeln
-                setStep(isNaN(newValue) ? undefined : newValue); // Wenn die Umwandlung fehlschlägt, setze steps auf undefined
+                const newValue = parseInt(e.target.value);
+                setStep(isNaN(newValue) ? undefined : newValue);
               }}
               placeholder="zahl"
             ></Input>
