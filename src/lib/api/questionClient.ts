@@ -1,6 +1,33 @@
 import axios from "axios";
 
-export async function readQuestion(questionId: string) {
+export async function createQuestion(
+  name: String,
+  description: String,
+  min: String,
+  steps: number,
+  max: String,
+  surveyId: String
+) {
+  const apiUrl = "/api/question";
+  try {
+    const response = await axios.post(apiUrl, {
+      name,
+      description,
+      min,
+      steps,
+      max,
+      surveyId,
+    });
+
+    const createQuestion = response.data;
+    return createQuestion;
+  } catch (error) {
+    console.error("Error when creating the question:", error);
+    throw error;
+  }
+}
+
+export async function readQuestion(questionId: String) {
   const apiUrl = `/api/question/${questionId}`;
 
   try {
@@ -52,3 +79,4 @@ export async function deleteQuestion(questionId: String) {
     throw error;
   }
 }
+

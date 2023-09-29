@@ -16,7 +16,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Input></Input>
 
-      <CreateSurveyDialog></CreateSurveyDialog>
+      {/* <CreateSurveyDialog></CreateSurveyDialog> */}
 
       <Card className="min-w-[20rem]">
         <CardHeader>
