@@ -1,19 +1,6 @@
 import axios from "axios";
 
-export async function createSurvey(name: String) {
-  const apiUrl = `/api/survey`;
-
-  try {
-    const response = await axios.post(apiUrl, { name });
-    const crateSurvey = response.data;
-    return crateSurvey;
-  } catch (error) {
-    console.error("Error when creating the survey:", error);
-    throw error;
-  }
-}
-
-export async function readSurvey(surveyId: String) {
+export async function readSurvey(surveyId: any) {
   const apiUrl = `/api/survey/${surveyId}`;
 
   try {
@@ -43,7 +30,7 @@ export async function updateSurvey(
   }
 }
 
-export async function deleteSurvey(surveyId: String) {
+export async function deleteSurvey(surveyId: any) {
   const apiUrl = `/api/survey/${surveyId}`;
 
   try {

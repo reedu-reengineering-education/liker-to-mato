@@ -1,18 +1,36 @@
-import CreateQuestionForm from "@/components/forms/create-question-form";
-import React from "react";
-import { useForm } from "@/helper/formHandling";
-import { FormProps } from "@/helper/formHandling";
+import { Button } from "@/components/ui/button";
 
-const Studio = ({ setQuestionData, questionData, handleSave }: FormProps) => {
+
+import { CreateQuestionDialog } from "@/components/forms/create-question-dialog";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
+export default function Studio() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <CreateQuestionForm
-        handleSave={handleSave}
-        setQuestionData={setQuestionData}
-        questionData={questionData}
-      />
+      <Button>Hier</Button>
+
+      <CreateQuestionDialog></CreateQuestionDialog>
+      <Card className="min-w-[20rem]">
+        <CardHeader>
+          <CardTitle>Card Title</CardTitle>
+          <CardDescription>Card Description</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p>Card Content</p>
+        </CardContent>
+        <CardFooter>
+          <p>Card Footer</p>
+          <Button>Button</Button>
+          <Button>Button</Button>
+        </CardFooter>
+      </Card>
     </main>
   );
-};
-
-export default Studio;
+}
