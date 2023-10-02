@@ -1,11 +1,19 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
+import { getServerSession } from "next-auth/next";
+import authOptions from "../../../pages/api/auth/[...nextauth]";
 
 const prisma = new PrismaClient();
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
-    const { name, description, min, steps, max, surveyId } = req.body;
+    const session = await getServerSession(req, res, authOptions);
+
+    if (!session) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    const { name, description, min, steps, max, surveyId } = req.body.query;
 
     try {
       const question = await prisma.question.create({
