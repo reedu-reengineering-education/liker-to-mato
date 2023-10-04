@@ -9,6 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import axios from "axios";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
@@ -17,14 +18,15 @@ import { PlusIcon } from "lucide-react";
 import { Textarea } from "../ui/textarea";
 import createQuestion from "@/lib/api/createQuestion";
 
-export function CreateQuestionDialog(surveyId: string) {
+export function CreateQuestionDialog(): JSX.Element {
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [min, setMinimum] = useState<string>("");
   const [steps, setStep] = useState<number | undefined>(undefined);
   const [max, setMaximum] = useState<string>("");
+  const [survey, setSurvey] = useState<string>("");
 
-  const handleSaveClick = async () => {
+  const onSubmit = async () => {
     const stepsValue = steps !== undefined ? steps : 0;
     try {
       const questionData = await createQuestion(
@@ -33,7 +35,7 @@ export function CreateQuestionDialog(surveyId: string) {
         min,
         stepsValue,
         max,
-        surveyId
+        survey
       );
       console.log("Question created:", questionData);
     } catch (error) {
@@ -117,10 +119,12 @@ export function CreateQuestionDialog(surveyId: string) {
             <Button variant="secondary">Cancel</Button>
           </div>
           <div>
-            <Button onClick={handleSaveClick}>Save</Button>
+            <Button onClick={onSubmit}>Save</Button>
           </div>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
 }
+
+export default CreateQuestionDialog;
