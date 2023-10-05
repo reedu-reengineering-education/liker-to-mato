@@ -14,18 +14,14 @@ import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { PlusIcon } from "lucide-react";
-import { createSurvey } from "@/lib/api/createSurvey";
+import createSurvey from "@/lib/api/surveyClient";
 
 export function CreateSurveyDialog() {
   const [name, setName] = useState<string>("");
-  const [user, setUser] = useState<string>("");
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
-    setUser(event.target.value);
-  };
+
   const onSubmit = async () => {
     try {
-      const surveyData = await createSurvey(name, user);
+      const surveyData = await createSurvey(name);
 
       console.log("Survey created:", surveyData);
     } catch (error) {

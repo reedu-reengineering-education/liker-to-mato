@@ -17,7 +17,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { name, description, min, steps, max, surveyId } = req.body;
     const existingSurvey = await prisma.survey.findUnique({
       where: {
-        id: session.user.id,
+        id: surveyId,
       },
     });
 
@@ -33,11 +33,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           min,
           steps,
           max,
-          survey: {
-            connect: {
-              id: session.user.id,
-            },
-          },
+          surveyId,
         },
       });
 
