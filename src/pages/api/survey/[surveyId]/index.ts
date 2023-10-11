@@ -1,11 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
+import { withMethods } from "@/lib/apiMiddlewares/withMethods";
+import { withSurvey } from "@/lib/apiMiddlewares/withSurvey";
 
 const prisma = new PrismaClient();
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
-    // GET-Methode
     const { surveyId } = req.query;
 
     try {
@@ -46,14 +47,14 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         where: { id: surveyId as string },
       });
 
-      res.status(204).end(); // Delete successful, no survey content
+      res.status(204).end();
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Server error" });
     }
   } else {
-    res.status(405).end(); // Method not allowed
+    res.status(405).end();
   }
 }
 
-export default handler;
+export default withMethods(["GET", "PUT", "DELETE"], withSurvey(handler));
