@@ -15,19 +15,22 @@ import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { PlusIcon } from "lucide-react";
 import createSurvey from "@/lib/api/surveyClient";
+import { useRouter } from "next/navigation";
 
 export function CreateSurveyDialog() {
   const [name, setName] = useState<string>("");
+  const router = useRouter();
 
   const onSubmit = async () => {
     try {
       const surveyData = await createSurvey(name);
-
       console.log("Survey created:", surveyData);
+      router.push(`/studio/${surveyData.id}`);
     } catch (error) {
       console.error("Error when creating the survey:", error);
     }
   };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -65,6 +68,7 @@ export function CreateSurveyDialog() {
     </Dialog>
   );
 }
+
 
 export default CreateSurveyDialog;
 
