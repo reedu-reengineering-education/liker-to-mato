@@ -1,7 +1,5 @@
 import { Button } from "@/components/ui/button";
-
-
-import { CreateQuestionDialog } from "@/components/forms/create-question-dialog";
+import CreateQuestionDialog from "@/components/forms/create-question-form";
 import {
   Card,
   CardContent,
@@ -11,12 +9,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export default function Studio() {
+export default function Studio({ params }: { params: { surveyId: string } }) {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Button>Hier</Button>
 
-      <CreateQuestionDialog></CreateQuestionDialog>
+      <CreateQuestionDialog surveyId={params.surveyId} />
       <Card className="min-w-[20rem]">
         <CardHeader>
           <CardTitle>Card Title</CardTitle>

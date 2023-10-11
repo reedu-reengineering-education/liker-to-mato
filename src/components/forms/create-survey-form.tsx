@@ -1,3 +1,5 @@
+"use client";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -12,9 +14,23 @@ import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { PlusIcon } from "lucide-react";
-import { Slider } from "../ui/slider";
+import createSurvey from "@/lib/api/surveyClient";
+import { useRouter } from "next/navigation";
 
 export function CreateSurveyDialog() {
+  const [name, setName] = useState<string>("");
+  const router = useRouter();
+
+  const onSubmit = async () => {
+    try {
+      const surveyData = await createSurvey(name);
+      console.log("Survey created:", surveyData);
+      router.push(`/studio/${surveyData.id}`);
+    } catch (error) {
+      console.error("Error when creating the survey:", error);
+    }
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -30,20 +46,29 @@ export function CreateSurveyDialog() {
             Gib einen Namen für eine neue Umfrage ein.
           </DialogDescription>
         </DialogHeader>
+
         <div className="grid gap-4 py-4">
           <div className="grid w-full max-w-sm items-center gap-2">
             <Label htmlFor="name" className="ml-3">
               Name
             </Label>
-            <Input id="name" placeholder="Name" className="col-span-3" />
+            <Input
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Name"
+              className="col-span-3"
+            />
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit">Speichern</Button>
+          <Button onClick={onSubmit}>Speichern</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
 }
 
+
+export default CreateSurveyDialog;
 

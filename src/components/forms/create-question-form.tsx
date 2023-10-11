@@ -1,3 +1,5 @@
+"use client";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -12,10 +14,35 @@ import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { PlusIcon } from "lucide-react";
-
 import { Textarea } from "../ui/textarea";
+import createQuestion from "@/lib/api/questionClient";
 
-export function CreateQuestionDialog() {
+type CreateQuestionProps = { surveyId: string };
+
+export function CreateQuestionDialog(props: CreateQuestionProps) {
+  const [name, setName] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [min, setMinimum] = useState<string>("");
+  const [steps, setStep] = useState<number | undefined>(undefined);
+  const [max, setMaximum] = useState<string>("");
+
+  const onSubmit = async () => {
+    const stepsValue = steps !== undefined ? steps : 0;
+    try {
+      const questionData = await createQuestion(
+        name,
+        description,
+        min,
+        stepsValue,
+        max,
+        props.surveyId
+      );
+      console.log("Question created:", questionData);
+    } catch (error) {
+      console.error("Error when creating the question:", error);
+    }
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -39,6 +66,8 @@ export function CreateQuestionDialog() {
             </Label>
             <Input
               id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               placeholder="for example, how is it outside "
               className="col-span-3"
             />
@@ -48,7 +77,9 @@ export function CreateQuestionDialog() {
               Fragestellung
             </Label>
             <Textarea
-              id="name"
+              id="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               placeholder="for example, describe here?"
               className="col-span-3"
             ></Textarea>
@@ -57,28 +88,43 @@ export function CreateQuestionDialog() {
         <div className="mb-6 flex flex-row gap-4 ">
           <div className=" flex-col">
             <Label>Minimum</Label>
-            <Input type="text" placeholder="text"></Input>
+            <Input
+              value={min}
+              onChange={(e) => setMinimum(e.target.value)}
+              placeholder="text"
+            ></Input>
           </div>
           <div className=" flex-col">
             <Label>Stepps</Label>
-            <Input type="number" placeholder="zahl"></Input>
+            <Input
+              value={steps === undefined ? "" : steps.toString()}
+              onChange={(e) => {
+                const newValue = parseInt(e.target.value);
+                setStep(isNaN(newValue) ? undefined : newValue);
+              }}
+              placeholder="zahl"
+            ></Input>
           </div>
           <div className=" flex-col">
             <Label>Maximum</Label>
-            <Input type="text" placeholder="text"></Input>
+            <Input
+              value={max}
+              onChange={(e) => setMaximum(e.target.value)}
+              placeholder="text"
+            ></Input>
           </div>
         </div>
         <DialogFooter>
           <div>
-            <Button variant="secondary" type="submit">
-              Cancel
-            </Button>
+            <Button variant="secondary">Cancel</Button>
           </div>
           <div>
-            <Button type="submit">Save</Button>
+            <Button onClick={onSubmit}>Save</Button>
           </div>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
 }
+
+export default CreateQuestionDialog;

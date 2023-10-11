@@ -1,17 +1,25 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
 const prisma = new PrismaClient();
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
-    const { name, userId } = req.body;
+    const session = await getServerSession(req, res, authOptions);
+
+    if (!session) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    console.log(session);
+    const { name } = req.body;
 
     try {
       const survey = await prisma.survey.create({
         data: {
           name,
-          userId,
+          userId: session.user.id,
         },
       });
 
@@ -24,3 +32,5 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 }
 
 export default handler;
+
+
