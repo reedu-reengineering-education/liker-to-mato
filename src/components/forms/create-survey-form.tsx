@@ -16,8 +16,10 @@ import { Label } from "../ui/label";
 import { PlusIcon } from "lucide-react";
 import createSurvey from "@/lib/api/surveyClient";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export function CreateSurveyDialog() {
+  const { data: session } = useSession();
   const [name, setName] = useState<string>("");
   const router = useRouter();
 
@@ -34,10 +36,12 @@ export function CreateSurveyDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">
-          <PlusIcon className="mr-2 h-4 w-4"></PlusIcon>
-          Erstelle eine neue Umfrage
-        </Button>
+        {session && (
+          <Button variant="outline">
+            <PlusIcon className="mr-2 h-4 w-4"></PlusIcon>
+            Erstelle eine neue Umfrage
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
