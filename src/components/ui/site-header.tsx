@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { MainNav } from "./navigation";
 import { useSession, signIn, signOut } from "next-auth/react";
 
+// const links = [Studenten... ];
+
 export function SiteHeader() {
   const { data: session } = useSession();
 
