@@ -11,7 +11,7 @@ export function SiteHeader() {
   const { data: session } = useSession();
 
   return (
-    <header className="bg-background sticky top-0 z-40 w-full border-b">
+    <header className=" bg-gradient-to-r from-[#dafd2b] to-[#f3a5ed] sticky top-0 z-40 w-full border-b">
       <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
         <MainNav
           items={[
