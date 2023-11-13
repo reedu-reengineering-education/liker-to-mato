@@ -40,6 +40,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
   } else if (req.method === "DELETE") {
     const { surveyId } = req.query;
+   
 
     try {
       await prisma.survey.delete({

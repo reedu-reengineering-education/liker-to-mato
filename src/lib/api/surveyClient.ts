@@ -48,7 +48,6 @@ export async function deleteSurvey(surveyId: String) {
     const response = await axios.delete(apiUrl);
     const deletedSurvey = response.data;
     return deletedSurvey;
-    console.log("Survey deleted");
   } catch (error) {
     console.error("Error when deleting the survey:", error);
     throw error;

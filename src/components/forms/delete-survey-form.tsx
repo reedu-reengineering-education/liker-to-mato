@@ -14,20 +14,20 @@ import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { PlusIcon } from "lucide-react";
-import { createSurvey, deleteSurvey } from "@/lib/api/surveyClient";
+import { deleteSurvey } from "@/lib/api/surveyClient";
 import { useRouter } from "next/navigation";
 
-export function CreateSurveyDialog() {
+export function DeleteSurveyDialog() {
   const [name, setName] = useState<string>("");
   const router = useRouter();
 
-  const onSubmitCreate = async () => {
+  const onSubmitDelete = async () => {
     try {
-      const surveyData = await createSurvey(name);
-      console.log("Survey created:", surveyData);
+      const surveyData = await deleteSurvey(name); //
+      console.log("Survey deleted:", surveyData);
       router.push(`/studio/${surveyData.id}`);
     } catch (error) {
-      console.error("Error when creating the survey:", error);
+      console.error("Error when deleting the survey:", error);
     }
   };
 
@@ -36,21 +36,21 @@ export function CreateSurveyDialog() {
       <DialogTrigger asChild>
         <Button variant="outline">
           <PlusIcon className="mr-2 h-4 w-4"></PlusIcon>
-          Erstelle eine neue Umfrage
+          Lösche eine Umfrage
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Erstelle eine neue Umfrage</DialogTitle>
+          <DialogTitle>Lösche eine Umfrage.</DialogTitle>
           <DialogDescription>
-            Gib einen Namen für eine neue Umfrage ein.
+            Gib den Namen der Umfrage ein, die du löschen möchtest.
           </DialogDescription>
         </DialogHeader>
 
         <div className="grid gap-4 py-4">
           <div className="grid w-full max-w-sm items-center gap-2">
             <Label htmlFor="name" className="ml-3">
-              Name
+              Umfrage-Id eingeben
             </Label>
             <Input
               id="name"
@@ -63,7 +63,7 @@ export function CreateSurveyDialog() {
         </div>
         <DialogFooter>
           <div>
-            <Button onClick={onSubmitCreate}>Speichern</Button>
+            <Button onClick={onSubmitDelete}>Löschen</Button>
           </div>
         </DialogFooter>
       </DialogContent>
@@ -71,6 +71,4 @@ export function CreateSurveyDialog() {
   );
 }
 
-
-export default CreateSurveyDialog;
-
+export default DeleteSurveyDialog;
