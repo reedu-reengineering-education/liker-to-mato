@@ -15,25 +15,24 @@ import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { PlusIcon } from "lucide-react";
 import { deleteSurvey } from "@/lib/api/surveyClient";
-import { useRouter } from "next/navigation";
 
 export function DeleteSurveyDialog() {
   const [name, setName] = useState<string>("");
-  const router = useRouter();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const onSubmitDelete = async () => {
     try {
       const surveyData = await deleteSurvey(name); //
       console.log("Survey deleted:", surveyData);
-      router.push(`/studio/${surveyData.id}`);
+      setIsDialogOpen(false);
     } catch (error) {
       console.error("Error when deleting the survey:", error);
     }
   };
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
+    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+      <DialogTrigger asChild onClick={() => setIsDialogOpen(true)}>
         <Button variant="outline">
           <PlusIcon className="mr-2 h-4 w-4"></PlusIcon>
           Lösche eine Umfrage

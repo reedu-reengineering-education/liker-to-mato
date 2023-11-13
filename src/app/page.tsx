@@ -1,5 +1,7 @@
 import { CreateSurveyDialog } from "@/components/forms/create-survey-form";
 import { DeleteSurveyDialog } from "@/components/forms/delete-survey-form";
+import { notFound, redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
 
 export default function Home() {
   return (
