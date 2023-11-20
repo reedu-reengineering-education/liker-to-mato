@@ -1,12 +1,13 @@
-import React from "react";
+import { UserSettingsForm } from "@/components/forms/setting-forms/user-settings-form";
 
-import { CreateSurveyDialog } from "@/components/forms/create-survey-form";
-
-export function Home() {
+export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <CreateSurveyDialog />
+      <div className="flex justify-center items-center space-x-5 ">
+        <div className="flex justify-center items-center space-x-5 ">
+          <UserSettingsForm />
+        </div>
+      </div>
     </main>
   );
 }
-export default Home;

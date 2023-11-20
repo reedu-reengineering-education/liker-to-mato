@@ -29,6 +29,26 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       res.status(500).json({ error: "Server error" });
     }
   }
+  if (req.method === "GET") {
+    const session = await getServerSession(req, res, authOptions);
+
+    if (!session) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    try {
+      const surveys = await prisma.survey.findMany({
+        where: {
+          userId: session.user.id,
+        },
+      });
+
+      res.status(200).json(surveys);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Server error" });
+    }
+  }
 }
 
 export default handler;
