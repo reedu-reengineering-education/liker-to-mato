@@ -18,6 +18,18 @@ export function SiteHeader() {
               title: "Studio",
               href: "/studio",
             },
+            {
+              title: "About",
+              href: "/about",
+            },
+            {
+              title: "FAQ",
+              href: "/faq",
+            },
+            {
+              title: "Contact",
+              href: "/contact",
+            },
           ]}
         />
         <div className="flex flex-1 items-center justify-end space-x-4">
