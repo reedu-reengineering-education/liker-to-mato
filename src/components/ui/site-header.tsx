@@ -71,16 +71,11 @@ export function SiteHeader() {
                   <DropdownMenuRadioGroup
                     value="position"
                     onValueChange={setPosition}
+                    className="gap-4 pl-2"
                   >
-                    <div className="flex">
-                      <ArrowRightSquareIcon />
-                      <DropdownMenuRadioItem
-                        value="top"
-                        onClick={() => signIn()}
-                      >
-                        {"Login"}
-                      </DropdownMenuRadioItem>
-                    </div>
+                    <DropdownMenuRadioItem value="top" onClick={() => signIn()}>
+                      <ArrowRightSquareIcon /> {"Login"}
+                    </DropdownMenuRadioItem>
                   </DropdownMenuRadioGroup>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -99,15 +94,13 @@ export function SiteHeader() {
                     value="position"
                     onValueChange={setPosition}
                   >
-                    <div className="flex">
-                      <ArrowLeftSquareIcon />
-                      <DropdownMenuRadioItem
-                        value="top"
-                        onClick={() => signOut()}
-                      >
-                        {"Logout"}
-                      </DropdownMenuRadioItem>
-                    </div>
+                    <DropdownMenuRadioItem
+                      value="top"
+                      onClick={() => signOut()}
+                      className="gap-4 pl-2"
+                    >
+                      <ArrowLeftSquareIcon /> {"Logout"}
+                    </DropdownMenuRadioItem>
                   </DropdownMenuRadioGroup>
                 </DropdownMenuContent>
               </DropdownMenu>
