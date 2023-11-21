@@ -40,11 +40,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       res.status(500).json({ error: "Server error" });
     }
   } else if (req.method === "DELETE") {
-    const { surveyId } = req.query;
+    const surveyId = req.query.surveyId as string;
 
     try {
       await prisma.survey.delete({
-        where: { id: surveyId as string },
+        where: { id: surveyId },
       });
 
       res.status(204).end();

@@ -14,47 +14,42 @@ import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { PlusIcon } from "lucide-react";
-import { createSurvey, deleteSurvey } from "@/lib/api/surveyClient";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { deleteSurvey } from "@/lib/api/surveyClient";
 
-export function CreateSurveyDialog() {
-  const { data: session } = useSession();
+export function DeleteSurveyDialog() {
   const [name, setName] = useState<string>("");
-  const router = useRouter();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const onSubmitCreate = async () => {
+  const onSubmitDelete = async () => {
     try {
-      const surveyData = await createSurvey(name);
-      console.log("Survey created:", surveyData);
-      router.push(`/studio/${surveyData.id}`);
+      const surveyData = await deleteSurvey(name); //
+      console.log("Survey deleted:", surveyData);
+      setIsDialogOpen(false);
     } catch (error) {
-      console.error("Error when creating the survey:", error);
+      console.error("Error when deleting the survey:", error);
     }
   };
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        {session && (
-          <Button variant="outline">
-            <PlusIcon className="mr-2 h-4 w-4"></PlusIcon>
-            Erstelle eine neue Umfrage
-          </Button>
-        )}
+    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+      <DialogTrigger asChild onClick={() => setIsDialogOpen(true)}>
+        <Button variant="outline">
+          <PlusIcon className="mr-2 h-4 w-4"></PlusIcon>
+          Lösche eine Umfrage
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Erstelle eine neue Umfrage</DialogTitle>
+          <DialogTitle>Lösche eine Umfrage.</DialogTitle>
           <DialogDescription>
-            Gib einen Namen für eine neue Umfrage ein.
+            Gib den Namen der Umfrage ein, die du löschen möchtest.
           </DialogDescription>
         </DialogHeader>
 
         <div className="grid gap-4 py-4">
           <div className="grid w-full max-w-sm items-center gap-2">
             <Label htmlFor="name" className="ml-3">
-              Name
+              Umfrage-Id eingeben
             </Label>
             <Input
               id="name"
@@ -67,7 +62,7 @@ export function CreateSurveyDialog() {
         </div>
         <DialogFooter>
           <div>
-            <Button onClick={onSubmitCreate}>Speichern</Button>
+            <Button onClick={onSubmitDelete}>Löschen</Button>
           </div>
         </DialogFooter>
       </DialogContent>
@@ -75,6 +70,4 @@ export function CreateSurveyDialog() {
   );
 }
 
-
-export default CreateSurveyDialog;
-
+export default DeleteSurveyDialog;

@@ -29,7 +29,7 @@ model Question {
   max       String
   createdAt DateTime @default(now())
   surveyId  String
-  survey    Survey   @relation(fields: [surveyId], references: [id])
+  survey    Survey   @relation(fields: [surveyId], references: [id], onDelete: Cascade)
  
 }
 

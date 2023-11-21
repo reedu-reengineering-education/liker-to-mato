@@ -41,12 +41,13 @@ export async function updateSurvey(surveyId: String, name: String) {
   }
 }
 
-export async function deleteSurvey(surveyId: any) {
+export async function deleteSurvey(surveyId: String) {
   const apiUrl = `/api/survey/${surveyId}`;
 
   try {
-    await axios.delete(apiUrl);
-    console.log("Survey deleted");
+    const response = await axios.delete(apiUrl);
+    const deletedSurvey = response.data;
+    return deletedSurvey;
   } catch (error) {
     console.error("Error when deleting the survey:", error);
     throw error;
