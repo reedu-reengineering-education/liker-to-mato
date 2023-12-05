@@ -1,3 +1,4 @@
+import SurveyId from "@/pages/api/survey/[surveyId]";
 import axios from "axios";
 
 export async function createSurvey(name: String) {
@@ -33,26 +34,26 @@ export async function updateSurvey(surveyId: String, name: String) {
 
   try {
     const response = await axios.put(apiUrl, { name });
-    const updatedSurvey = response.data;
-    return updatedSurvey;
+    const updateSurvey = response.data;
+    return updateSurvey;
   } catch (error) {
     console.error("Error when updating the survey:", error);
     throw error;
   }
 }
 
-export async function deleteSurvey(surveyId: any) {
+export async function deleteSurvey(surveyId: String) {
   const apiUrl = `/api/survey/${surveyId}`;
 
   try {
-    await axios.delete(apiUrl);
-    console.log("Survey deleted");
+    const response = await axios.delete(apiUrl);
+    const deleteSurvey = response.data;
+    return deleteSurvey;
   } catch (error) {
     console.error("Error when deleting the survey:", error);
     throw error;
   }
 }
-
 
 export async function userSurveys() {
   const apiUrl = `/api/survey`;
@@ -63,6 +64,19 @@ export async function userSurveys() {
     return surveyList;
   } catch (error) {
     console.error("Error when requesting the survey:", error);
+    throw error;
+  }
+}
+
+export async function surveyQuestions(surveyId: String) {
+  const apiUrl = `/api/question/survey/${surveyId}`;
+
+  try {
+    const response = await axios.get(apiUrl);
+    const questionList = response.data;
+    return questionList;
+  } catch (error) {
+    console.error("Error when requesting the questions:", error);
     throw error;
   }
 }

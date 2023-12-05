@@ -68,14 +68,29 @@ export async function updateQuestion(
   }
 }
 
+
 export async function deleteQuestion(questionId: String) {
   const apiUrl = `/api/question/${questionId}`;
 
   try {
-    await axios.delete(apiUrl);
-    console.log("Question deleted");
+    const response = await axios.delete(apiUrl);
+    const deleteQuestion = response.data;
+    return deleteQuestion;
   } catch (error) {
     console.error("Error when deleting the survey:", error);
+    throw error;
+  }
+}
+
+export async function surveyQuestions(surveyId: String) {
+  const apiUrl = `/api/question/survey/${surveyId}`;
+
+  try {
+    const response = await axios.get(apiUrl);
+    const questionList = response.data;
+    return questionList;
+  } catch (error) {
+    console.error("Error when requesting the survey:", error);
     throw error;
   }
 }
