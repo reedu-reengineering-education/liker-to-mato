@@ -2,6 +2,7 @@ import React from "react";
 import CreateQuestionDialog from "@/components/forms/create-question-form";
 import { ListQuestions } from "@/components/forms/setting-forms/questionList";
 
+
 export default function Studio({ params }: { params: { surveyId: string } }) {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -15,9 +16,7 @@ export default function Studio({ params }: { params: { surveyId: string } }) {
             <ListQuestions surveyId={params.surveyId} />
           </div>
         </div>
-        <div className="flex mb-96">
-          <CreateQuestionDialog surveyId={params.surveyId} />
-        </div>
+        <div className="flex mb-96"></div>
       </div>
     </main>
   );

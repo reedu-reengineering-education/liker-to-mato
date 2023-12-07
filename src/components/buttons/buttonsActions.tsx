@@ -6,8 +6,8 @@ import {
   updateSurvey,
   userSurveys,
   readSurvey,
+  surveyQuestions,
 } from "@/lib/api/surveyClient";
-import SurveyId from "@/pages/api/survey/[surveyId]";
 
 export function ButtonActions() {
   const handleSave = async (updatedSurvey: { id: String; name: String }) => {
@@ -57,21 +57,24 @@ export function ButtonActions() {
     }
   };
 
-  // const handleCreateNewQuestion = async (
-  //   surveyId: String,
-  //   onCreateSuccess: (createdQuestionId: String) => void
-  // ) => {
-  //   try {
-  //     await readSurvey(surveyId);
-  //     onCreateSuccess(surveyId);
-  //     return true;
-  //   } catch (error) {
-  //     console.error("Error when creating the question", error);
-  //     return false;
-  //   }
-  // };
+  const handleQuestionCreated = async (
+    surveyId: String,
+    onQuestionCreated: (
+      createdQuestionId: String,
+      onQuestionCreated: String
+    ) => void
+  ) => {
+    try {
+      await surveyQuestions(surveyId);
+      onQuestionCreated(surveyId, "Success");
+      return true;
+    } catch (error) {
+      console.error("Error when creating the question", error);
+      return false;
+    }
+  };
 
-  return { handleSave, handleDelete, handleRead };
+  return { handleSave, handleDelete, handleRead, handleQuestionCreated };
 }
 
 export default ButtonActions;

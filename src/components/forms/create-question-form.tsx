@@ -17,11 +17,12 @@ import { PlusIcon } from "lucide-react";
 import { Textarea } from "../ui/textarea";
 import createQuestion from "@/lib/api/questionClient";
 import { useSession } from "next-auth/react";
-import { surveyQuestions } from "@/lib/api/surveyClient";
+
+
 
 type CreateQuestionProps = {
   surveyId: string;
-  onQuestionCreated: (questionId: string) => void;
+  handleQuestionCreated: () => void;
 };
 
 export function CreateQuestionDialog(props: CreateQuestionProps) {
@@ -46,7 +47,7 @@ export function CreateQuestionDialog(props: CreateQuestionProps) {
       );
       console.log("Question created:", questionData);
       setIsDialogOpen(false);
-      props.onQuestionCreated(questionData.id);
+      props.handleQuestionCreated();
     } catch (error) {
       console.error("Error when creating the question:", error);
     }
@@ -62,8 +63,8 @@ export function CreateQuestionDialog(props: CreateQuestionProps) {
       >
         {session && (
           <Button variant="outline">
-            <PlusIcon className="mr-2 h-4 w-4"></PlusIcon>
-            Frage hinzufügen
+            <PlusIcon className="mr-1.5 h-5 w-5" aria-hidden="true" />
+            New
           </Button>
         )}
       </DialogTrigger>
