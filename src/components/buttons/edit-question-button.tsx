@@ -31,22 +31,22 @@ export function EditQuestionDialog(props: EditQuestionProps) {
   const [max, setMaximum] = useState<string>(props.question.max);
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
 
-  // ... (weitere Zustandsvariablen für min, max, steps)
-
-  const onSubmitEdit = async () => {
-    // Logik zum Senden der aktualisierten Frage an den Server
+  const onSubmitUpdate = async () => {
+    const stepsValue = steps !== undefined ? steps : 0;
     try {
       await updateQuestion(
         props.question.id,
-        props.question.name,
-        props.question.description,
-        props.question.min,
-        props.question.steps,
-        props.question.max,
+        name,
+        description,
+        min,
+        stepsValue,
+        max,
         props.surveyId
       );
       console.log("Question updated");
+      setIsDialogOpen(false);
       props.handleQuestionUpdated();
+      // props.onQuestionUpdated();
     } catch (error) {
       console.error("Error when updating the question:", error);
     }
@@ -102,8 +102,12 @@ export function EditQuestionDialog(props: EditQuestionProps) {
             <Label>Steps</Label>
             <Input
               type="number"
-              value={steps}
-              onChange={(e) => setStep(parseInt(e.target.value))}
+              id="steps"
+              value={steps === undefined ? "" : steps}
+              onChange={(e) => {
+                const newValue = parseInt(e.target.value);
+                setStep(isNaN(newValue) ? undefined : newValue);
+              }}
             />
           </div>
           <div className="flex-col">
@@ -123,7 +127,7 @@ export function EditQuestionDialog(props: EditQuestionProps) {
             </Button>
           </div>
           <div>
-            <Button onClick={onSubmitEdit}>Speichern</Button>
+            <Button onClick={onSubmitUpdate}>Speichern</Button>
           </div>
         </DialogFooter>
       </DialogContent>

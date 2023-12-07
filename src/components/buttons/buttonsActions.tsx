@@ -3,7 +3,6 @@ import {
   deleteSurvey,
   updateSurvey,
   userSurveys,
-  readSurvey,
   surveyQuestions,
 } from "@/lib/api/surveyClient";
 
@@ -72,7 +71,30 @@ export function ButtonActions() {
     }
   };
 
-  return { handleSave, handleDelete, handleRead, handleQuestionCreated };
+  // const handleQuestionUpdated = async (
+  //   surveyId: String,
+  //   onQuestionUpdated: (
+  //     updatedQuestionId: String,
+  //     onQuestionUpdated: String
+  //   ) => void
+  // ) => {
+  //   try {
+  //     await surveyQuestions(surveyId);
+  //     onQuestionUpdated(surveyId, "Success");
+  //     return true;
+  //   } catch (error) {
+  //     console.error("Error when updating the question", error);
+  //     return false;
+  //   }
+  // };
+
+  return {
+    handleSave,
+    handleDelete,
+    handleRead,
+    handleQuestionCreated,
+    // handleQuestionUpdated,
+  };
 }
 
 export default ButtonActions;
