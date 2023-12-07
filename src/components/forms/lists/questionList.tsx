@@ -2,10 +2,11 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Question } from "@prisma/client";
 import { Button } from "@/components/ui/button";
-import { PencilIcon, TrashIcon, PlusIcon } from "@heroicons/react/20/solid";
+import { TrashIcon } from "@heroicons/react/20/solid";
 import { surveyQuestions } from "@/lib/api/surveyClient";
 import { deleteQuestion } from "@/lib/api/questionClient";
 import CreateQuestionDialog from "../create-question-form";
+import EditQuestionDialog from "@/components/buttons/edit-question-button";
 
 export function ListQuestions({ surveyId }: { surveyId: string }) {
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -67,10 +68,11 @@ export function ListQuestions({ surveyId }: { surveyId: string }) {
             <p className="mb-4 text-lg font-semibold"> {question.steps}</p>
             <p className="mb-4 text-lg font-semibold"> {question.min}</p>
             <div className="flex space-x-2 mt-3">
-              <Button variant="outline" onClick={() => handleEdit(question.id)}>
-                <PencilIcon className="mr-1.5 h-5 w-5" aria-hidden="true" />
-                Edit
-              </Button>
+              <EditQuestionDialog
+                question={question}
+                surveyId={surveyId}
+                handleQuestionUpdated={onQuestionCreated}
+              />
 
               <Button
                 variant="destructive"

@@ -1,6 +1,5 @@
 import React from "react";
-import CreateQuestionDialog from "@/components/forms/create-question-form";
-import { ListQuestions } from "@/components/forms/setting-forms/questionList";
+import { ListQuestions } from "@/components/forms/lists/questionList";
 
 
 export default function Studio({ params }: { params: { surveyId: string } }) {

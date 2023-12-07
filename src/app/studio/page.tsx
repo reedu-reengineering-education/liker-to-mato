@@ -1,6 +1,6 @@
 import React from "react";
 import { CreateSurveyDialog } from "@/components/forms/create-survey-form";
-import { ListSurvey } from "@/components/forms/setting-forms/surveyList";
+import { ListSurvey } from "@/components/forms/lists/surveyList";
 
 export default function Studio() {
   return (

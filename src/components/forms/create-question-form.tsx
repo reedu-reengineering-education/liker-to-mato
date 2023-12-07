@@ -110,7 +110,7 @@ export function CreateQuestionDialog(props: CreateQuestionProps) {
             ></Input>
           </div>
           <div className=" flex-col">
-            <Label>Stepps</Label>
+            <Label>Steps</Label>
             <Input
               value={steps === undefined ? "" : steps.toString()}
               onChange={(e) => {
