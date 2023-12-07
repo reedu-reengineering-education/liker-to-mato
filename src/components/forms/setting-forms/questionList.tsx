@@ -47,34 +47,42 @@ export function ListQuestions({ surveyId }: { surveyId: string }) {
 
   return (
     <div>
-      {questions.map((question) => (
-        <div key={question.id} className="mt-4 p-4 shadow rounded-lg bg-white">
-          <li className="mb-4 text-lg font-semibold"></li>
-          <p className="mb-4 text-lg font-semibold">{question.name}</p>
-          <p className="mb-4 text-lg font-semibold"> {question.description}</p>
-          <p className="mb-4 text-lg font-semibold"> {question.max}</p>
-          <p className="mb-4 text-lg font-semibold"> {question.steps}</p>
-          <p className="mb-4 text-lg font-semibold"> {question.min}</p>
-          <div className="flex space-x-2 mt-3">
-            <Button variant="outline" onClick={() => handleEdit(question.id)}>
-              <PencilIcon className="mr-1.5 h-5 w-5" aria-hidden="true" />
-              Edit
-            </Button>
-            <CreateQuestionDialog
-              surveyId={surveyId}
-              handleQuestionCreated={onQuestionCreated}
-            />
+      <CreateQuestionDialog
+        surveyId={surveyId}
+        handleQuestionCreated={onQuestionCreated}
+      />
+      <div>
+        {questions.map((question) => (
+          <div
+            key={question.id}
+            className="mt-4 p-4 shadow rounded-lg bg-white"
+          >
+            <li className="mb-4 text-lg font-semibold"></li>
+            <p className="mb-4 text-lg font-semibold">{question.name}</p>
+            <p className="mb-4 text-lg font-semibold">
+              {" "}
+              {question.description}
+            </p>
+            <p className="mb-4 text-lg font-semibold"> {question.max}</p>
+            <p className="mb-4 text-lg font-semibold"> {question.steps}</p>
+            <p className="mb-4 text-lg font-semibold"> {question.min}</p>
+            <div className="flex space-x-2 mt-3">
+              <Button variant="outline" onClick={() => handleEdit(question.id)}>
+                <PencilIcon className="mr-1.5 h-5 w-5" aria-hidden="true" />
+                Edit
+              </Button>
 
-            <Button
-              variant="destructive"
-              onClick={() => handleDelete(question.id)}
-            >
-              <TrashIcon className="mr-1.5 h-5 w-5" aria-hidden="true" />
-              Delete
-            </Button>
+              <Button
+                variant="destructive"
+                onClick={() => handleDelete(question.id)}
+              >
+                <TrashIcon className="mr-1.5 h-5 w-5" aria-hidden="true" />
+                Delete
+              </Button>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }

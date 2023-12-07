@@ -1,4 +1,3 @@
-import SurveyId from "@/pages/api/survey/[surveyId]";
 import axios from "axios";
 
 export async function createSurvey(name: String) {

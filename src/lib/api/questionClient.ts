@@ -82,15 +82,3 @@ export async function deleteQuestion(questionId: String) {
   }
 }
 
-export async function surveyQuestions(surveyId: String) {
-  const apiUrl = `/api/question/survey/${surveyId}`;
-
-  try {
-    const response = await axios.get(apiUrl);
-    const questionList = response.data;
-    return questionList;
-  } catch (error) {
-    console.error("Error when requesting the survey:", error);
-    throw error;
-  }
-}

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -17,8 +17,6 @@ import { PlusIcon } from "lucide-react";
 import { Textarea } from "../ui/textarea";
 import createQuestion from "@/lib/api/questionClient";
 import { useSession } from "next-auth/react";
-
-
 
 type CreateQuestionProps = {
   surveyId: string;
@@ -64,7 +62,7 @@ export function CreateQuestionDialog(props: CreateQuestionProps) {
         {session && (
           <Button variant="outline">
             <PlusIcon className="mr-1.5 h-5 w-5" aria-hidden="true" />
-            New
+            New Question
           </Button>
         )}
       </DialogTrigger>
