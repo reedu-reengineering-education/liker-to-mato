@@ -27,9 +27,7 @@ export function ListQuestions({ surveyId }: { surveyId: string }) {
       .catch((error) => console.error(error));
   }, [surveyId]);
 
-  const handleEdit = (questionId: string) => {
-    // Logik für das Bearbeiten einer Frage fehlt noch
-  };
+
 
   const handleDelete = async (questionId: string) => {
     try {
