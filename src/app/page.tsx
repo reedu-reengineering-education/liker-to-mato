@@ -1,3 +1,20 @@
+// // pages/index.tsx
+// import React from "react";
+// import { PenroseTiling } from "../components/forms/peni";
+
+// export default function Home() {
+//   return (
+//     <div className="container mx-auto">
+//       <h1 className="text-center text-4xl font-bold my-6">
+//         3D Penrose Parkettierung
+//       </h1>
+//       <div className="flex justify-center">
+//         <PenroseTiling />
+//       </div>
+//     </div>
+//   );
+// }
+
 export default function Home() {
   return (
     <div className="container mx-auto px-6 py-10">

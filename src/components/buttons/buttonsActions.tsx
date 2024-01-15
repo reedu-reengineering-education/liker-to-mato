@@ -1,10 +1,12 @@
 "use client";
-import {
+import createSurvey, {
   deleteSurvey,
   updateSurvey,
   userSurveys,
   surveyQuestions,
 } from "@/lib/api/surveyClient";
+import SurveyId from "@/pages/api/survey/[surveyId]";
+import QRCode from "qrcode.react";
 
 export function ButtonActions() {
   const handleSave = async (updatedSurvey: { id: String; name: String }) => {
@@ -71,29 +73,11 @@ export function ButtonActions() {
     }
   };
 
-  // const handleQuestionUpdated = async (
-  //   surveyId: String,
-  //   onQuestionUpdated: (
-  //     updatedQuestionId: String,
-  //     onQuestionUpdated: String
-  //   ) => void
-  // ) => {
-  //   try {
-  //     await surveyQuestions(surveyId);
-  //     onQuestionUpdated(surveyId, "Success");
-  //     return true;
-  //   } catch (error) {
-  //     console.error("Error when updating the question", error);
-  //     return false;
-  //   }
-  // };
-
   return {
     handleSave,
     handleDelete,
     handleRead,
     handleQuestionCreated,
-    // handleQuestionUpdated,
   };
 }
 

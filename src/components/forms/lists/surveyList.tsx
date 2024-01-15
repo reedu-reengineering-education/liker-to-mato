@@ -11,6 +11,7 @@ import {
 import ButtonActions from "@/components/buttons/buttonsActions";
 import { userSurveys } from "@/lib/api/surveyClient";
 import { useRouter } from "next/navigation";
+import { QrCodeDialog } from "../qrCode";
 
 export function ListSurvey() {
   const [survey, setSurvey] = useState<Survey[]>([]);
@@ -52,11 +53,9 @@ export function ListSurvey() {
               <ShareIcon className="mr-1.5 h-5 w-5" aria-hidden="true" />
               Edit
             </Button>
-            <Button variant="outline">
-              <QrCodeIcon className="mr-1.5 h-5 w-5" aria-hidden="true" />
-              Edit
-            </Button>
-
+            <div>
+              <QrCodeDialog surveyId=""></QrCodeDialog>
+            </div>
             <Button
               variant="destructive"
               onClick={() => {
