@@ -9,9 +9,8 @@ export function withSurvey(handler: NextApiHandler) {
   return async function (req: NextApiRequest, res: NextApiResponse) {
     try {
       const session = await getServerSession(req, res, authOptions);
-      if (!session || !session.user) {
-      }
-      const surveys = await prisma.survey.findMany({
+
+      const surveys = await prisma.survey.findUnique({
         where: {
           id: req.query.surveyId as string,
           userId: session?.user.id,
@@ -21,7 +20,7 @@ export function withSurvey(handler: NextApiHandler) {
         },
       });
 
-      if (!surveys.length) {
+      if (!surveys) {
         return res.status(403).end();
       }
 
