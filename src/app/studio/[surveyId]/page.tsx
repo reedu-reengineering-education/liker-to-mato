@@ -1,22 +1,34 @@
-import CreateQuestionDialog from "@/components/forms/create-question-form";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import { getServerSession } from "next-auth";
-import { notFound, redirect } from "next/navigation";
+import React from "react";
+import { ListQuestions } from "@/components/forms/lists/questionList";
+import { EditSurveyName } from "@/components/buttons/edit-survey-option";
+import {
+  Card,
+  CardHeader,
+  CardFooter,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/card";
 
-export default async function Studio({
-  params,
-}: {
-  params: { surveyId: string };
-}) {
-  const session = await getServerSession(authOptions);
+export default function Studio({ params }: { params: { surveyId: string } }) {
+  return (
+    <main className="p-24">
+      <div className="space-y-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>
+              <EditSurveyName surveyId={params.surveyId} />
+            </CardTitle>
+            <CardFooter></CardFooter>
+          </CardHeader>
+        </Card>
 
-  if (!session) {
-    return redirect("/api/auth/signin") || notFound();
-  } else {
-    return (
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <CreateQuestionDialog surveyId={params.surveyId} />
-      </main>
-    );
-  }
+        <Card>
+          <CardHeader></CardHeader>
+          <CardContent>
+            <ListQuestions surveyId={params.surveyId} />
+          </CardContent>
+        </Card>
+      </div>
+    </main>
+  );
 }

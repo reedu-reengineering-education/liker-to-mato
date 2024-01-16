@@ -43,8 +43,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     const surveyId = req.query.surveyId as string;
 
     try {
-      await prisma.survey.delete({
-        where: { id: surveyId },
+
+      const deleteSurvey = await prisma.survey.delete({
+        where: { id: surveyId as string },
+
       });
 
       res.status(204).end();

@@ -68,14 +68,17 @@ export async function updateQuestion(
   }
 }
 
+
 export async function deleteQuestion(questionId: String) {
   const apiUrl = `/api/question/${questionId}`;
 
   try {
-    await axios.delete(apiUrl);
-    console.log("Question deleted");
+    const response = await axios.delete(apiUrl);
+    const deleteQuestion = response.data;
+    return deleteQuestion;
   } catch (error) {
     console.error("Error when deleting the survey:", error);
     throw error;
   }
 }
+

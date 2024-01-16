@@ -39,7 +39,7 @@ export function CreateSurveyDialog() {
         {session && (
           <Button variant="outline">
             <PlusIcon className="mr-2 h-4 w-4"></PlusIcon>
-            Erstelle eine neue Umfrage
+            Neue Umfrage erstellen
           </Button>
         )}
       </DialogTrigger>

@@ -22,7 +22,7 @@ model Survey {
 
 model Question {
   id        String   @id @default(cuid())
-  name      String   @unique
+  name      String   
   description String 
   min       String
   steps     Int

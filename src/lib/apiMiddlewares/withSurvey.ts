@@ -9,14 +9,18 @@ export function withSurvey(handler: NextApiHandler) {
   return async function (req: NextApiRequest, res: NextApiResponse) {
     try {
       const session = await getServerSession(req, res, authOptions);
-      const surveys = await prisma.survey.findMany({
+
+      const surveys = await prisma.survey.findUnique({
         where: {
           id: req.query.surveyId as string,
           userId: session?.user.id,
         },
+        include: {
+          questions: true,
+        },
       });
 
-      if (!surveys.length) {
+      if (!surveys) {
         return res.status(403).end();
       }
 
