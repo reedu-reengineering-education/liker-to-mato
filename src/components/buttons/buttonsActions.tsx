@@ -5,8 +5,7 @@ import createSurvey, {
   userSurveys,
   surveyQuestions,
 } from "@/lib/api/surveyClient";
-import SurveyId from "@/pages/api/survey/[surveyId]";
-import QRCode from "qrcode.react";
+
 
 export function ButtonActions() {
   const handleSave = async (updatedSurvey: { id: String; name: String }) => {

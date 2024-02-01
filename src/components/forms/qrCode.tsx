@@ -1,6 +1,14 @@
 import * as React from "react";
 import { Button } from "../ui/button";
-import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogDescription,
+  DialogFooter,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import QRCode from "qrcode.react";
 import { QrCodeIcon } from "@heroicons/react/20/solid";
 
@@ -10,6 +18,8 @@ type Props = {
 };
 
 export function QrCodeDialog({ surveyId, children }: Props) {
+  const url = `http://192.168.2.178:3000/survey/${surveyId}`;
+
   return (
     <div className="flex">
       <Dialog>
@@ -20,9 +30,16 @@ export function QrCodeDialog({ surveyId, children }: Props) {
           </Button>
         </DialogTrigger>
         <DialogContent>
-          <div className="flex justify-center">
-            <QRCode value={surveyId} />
-          </div>
+          <DialogHeader>
+            <DialogTitle className="flex">This survey</DialogTitle>
+            <DialogDescription>
+              <div className="flex justify-center">
+                <QRCode value={url} />
+              </div>
+            </DialogDescription>
+          </DialogHeader>
+          url: {url}
+          <DialogFooter></DialogFooter>
         </DialogContent>
       </Dialog>
     </div>

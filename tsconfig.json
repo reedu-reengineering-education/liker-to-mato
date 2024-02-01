@@ -1,8 +1,15 @@
 {
   "compilerOptions": {
-    "typeRoots": ["./typings", "./vendor/types"],
+    "typeRoots": [
+      "./typings",
+      "./vendor/types"
+    ],
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -20,7 +27,9 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ]
     }
   },
   "include": [
@@ -31,5 +40,7 @@
     "src/pages/api/auth/[...nextauth].js",
     "src/pages/api/auth/[...nextauth].js"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

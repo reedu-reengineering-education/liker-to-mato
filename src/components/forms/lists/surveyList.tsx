@@ -54,7 +54,7 @@ export function ListSurvey() {
               Edit
             </Button>
             <div>
-              <QrCodeDialog surveyId=""></QrCodeDialog>
+              <QrCodeDialog surveyId={survey.id}></QrCodeDialog>
             </div>
             <Button
               variant="destructive"
