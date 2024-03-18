@@ -10,7 +10,7 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
-
+import { Dialog } from "../ui/dialog";
 import { Slider } from "../ui/slider";
 
 import { Survey, Question } from "@prisma/client";
@@ -18,8 +18,6 @@ import { Survey, Question } from "@prisma/client";
 export function SurveyPage({ surveyId }: { surveyId: string }) {
   const [survey, setSurvey] = useState<Survey | null>(null);
   const [questions, setQuestions] = useState<Question[]>([]);
-  const [question, setQuestion] = useState<Question | null>(null);
-  const router = useRouter();
 
   useEffect(() => {
     if (surveyId) {
