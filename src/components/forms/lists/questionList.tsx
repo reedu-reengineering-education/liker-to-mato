@@ -1,4 +1,3 @@
-"use client";
 import React, { useEffect, useState, useRef } from "react";
 import { Question } from "@prisma/client";
 import { Button } from "@/components/ui/button";
@@ -26,8 +25,6 @@ export function ListQuestions({ surveyId }: { surveyId: string }) {
       .then(setQuestions)
       .catch((error) => console.error(error));
   }, [surveyId]);
-
-
 
   const handleDelete = async (questionId: string) => {
     try {

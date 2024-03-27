@@ -1,4 +1,3 @@
-"use client";
 import React, { useState } from "react";
 import {
   Dialog,
@@ -73,6 +72,4 @@ export function CreateSurveyDialog() {
   );
 }
 
-
 export default CreateSurveyDialog;
-

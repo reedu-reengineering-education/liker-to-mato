@@ -1,4 +1,3 @@
-"use client";
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -14,8 +13,9 @@ import { Dialog } from "../ui/dialog";
 import { Slider } from "../ui/slider";
 
 import { Survey, Question } from "@prisma/client";
+import CreateAnswerDialog from "./create-answer-form";
 
-export function SurveyPage({ surveyId }: { surveyId: string }) {
+export function StudentSurveyView({ surveyId }: { surveyId: string }) {
   const [survey, setSurvey] = useState<Survey | null>(null);
   const [questions, setQuestions] = useState<Question[]>([]);
 
@@ -69,6 +69,9 @@ export function SurveyPage({ surveyId }: { surveyId: string }) {
                     {question.name},{question.description},{question.min},
                     {question.steps},{question.max}
                   </p>
+                  <div className="space-y-6">
+                    <CreateAnswerDialog questionId={question.id} />
+                  </div>
                 </div>
               ))
             ) : (
@@ -81,4 +84,4 @@ export function SurveyPage({ surveyId }: { surveyId: string }) {
   );
 }
 
-export default SurveyPage;
+export default StudentSurveyView;

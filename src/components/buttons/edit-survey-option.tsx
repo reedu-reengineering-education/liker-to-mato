@@ -1,4 +1,3 @@
-"use client";
 import React, { useState, useEffect } from "react";
 import { readSurvey, updateSurvey } from "@/lib/api/surveyClient";
 import {

@@ -1,19 +1,26 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import prisma from "@/lib/db";
 
 export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { value, questionId } = req.body;
-  if (typeof value !== "string" || value.trim() === "") {
-    return res.status(400).json({ error: "Invalid or missing value" });
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
-  if (typeof questionId !== "string" || questionId.trim() === "") {
-    return res.status(400).json({ error: "Invalid or missing questionId" });
+  const { value, questionId } = req.body;
+  console.log(value, questionId);
+
+  const existingQuestion = await prisma.question.findUnique({
+    where: {
+      id: questionId,
+    },
+  });
+
+  // Überprüfe, ob die Frage gefunden wurde
+  if (!existingQuestion) {
+    return res.status(404).json({ error: "Question not found" });
   }
 
   try {
@@ -25,6 +32,12 @@ export default async function handle(
     });
     res.status(201).json(answer);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Unable to create answer" });
   }
 }
+
+
+
+
+

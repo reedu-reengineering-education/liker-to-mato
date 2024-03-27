@@ -1,11 +1,9 @@
-"use client";
 import createSurvey, {
   deleteSurvey,
   updateSurvey,
   userSurveys,
   surveyQuestions,
 } from "@/lib/api/surveyClient";
-
 
 export function ButtonActions() {
   const handleSave = async (updatedSurvey: { id: String; name: String }) => {
@@ -46,8 +44,7 @@ export function ButtonActions() {
   ) => {
     try {
       await deleteSurvey(surveyId);
-      onDeleteSuccess(surveyId, "Success"); // Pass both surveyId and a string as arguments
-
+      onDeleteSuccess(surveyId, "Success");
       return true;
     } catch (error) {
       console.error("Error when deleting the survey", error);

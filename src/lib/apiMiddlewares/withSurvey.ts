@@ -1,9 +1,9 @@
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth/next";
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/lib/db";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
-const prisma = new PrismaClient();
+
 
 export function withSurvey(handler: NextApiHandler) {
   return async function (req: NextApiRequest, res: NextApiResponse) {

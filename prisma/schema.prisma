@@ -38,12 +38,10 @@ model Question {
 model Answer {
   id         String   @id @default(cuid())
   value      String   
-  questionId String @unique
+  questionId String 
   createdAt  DateTime @default(now())
   question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
   
-
-  @@index([questionId])
 
 }
 

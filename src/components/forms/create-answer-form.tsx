@@ -1,5 +1,4 @@
-"use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -14,26 +13,64 @@ import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { PlusIcon } from "lucide-react";
-import { Textarea } from "../ui/textarea";
+
 import { createAnswer } from "@/lib/api/answerClient";
-import { useSession } from "next-auth/react";
 
-type CreateAnswerProps = {
-  questionId: string;
-  handleAnswerCreated: () => void;
-};
+// export function CreateAnswerDialog({ questionId }: { questionId: string }) {
+//   const [value, setValue] = useState<string>("");
+//   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+//   const [selectedQuestionId, setSelectedQuestionId] = useState<string | null>(
+//     null
+//   );
 
-export function CreateAnswerDialog(props: CreateAnswerProps) {
+//   const onSubmitCreate = async () => {
+//     const handleOpenDialog = (questionId: string) => {
+//       setSelectedQuestionId(questionId);
+//       setIsDialogOpen(false);
+//     };
+
+//     try {
+//       const answerData = await createAnswer(value, questionId);
+//       console.log("Answer created:", answerData);
+//       handleOpenDialog;
+//       // setIsDialogOpen(false); // Schließt den Dialog nach erfolgreicher Antwort-Erstellung
+//     } catch (error) {
+//       console.error("Error when creating the answer:", error);
+//     }
+//   };
+
+//   return (
+//     {isDialogOpen && selectedQuestionId && <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+//       <DialogTrigger asChild>
+//         <Button variant="outline" onClick={() => setIsDialogOpen(true)}>
+//           <PlusIcon className="mr-1.5 h-5 w-5" aria-hidden="true" />
+//           Your answer
+//         </Button>
+//       </DialogTrigger>
+//       <DialogContent className="sm:max-w-[425px]">
+//         {/* Dialog-Inhalte und Input-Felder */}
+//         <DialogFooter>
+//           <Button variant="secondary" onClick={() => setIsDialogOpen(false)}>
+//             Cancel
+//           </Button>
+//           <Button onClick={() => onSubmitCreate()}>Save</Button>
+//         </DialogFooter>
+//       </DialogContent>
+//     </Dialog>)
+
+//   );
+
+// }
+
+export function CreateAnswerDialog({ questionId }: { questionId: string }) {
   const [value, setValue] = useState<string>("");
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
-  const { data: session } = useSession();
 
   const onSubmitCreate = async () => {
     try {
-      const answerData = await createAnswer(value, props.questionId);
+      const answerData = await createAnswer(value, questionId);
       console.log("Answer created:", answerData);
       setIsDialogOpen(false);
-      props.handleAnswerCreated();
     } catch (error) {
       console.error("Error when creating the answer:", error);
     }
@@ -41,12 +78,7 @@ export function CreateAnswerDialog(props: CreateAnswerProps) {
 
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-      <DialogTrigger
-        asChild
-        onClick={() => {
-          setIsDialogOpen(true);
-        }}
-      >
+      <DialogTrigger asChild>
         <Button variant="outline">
           <PlusIcon className="mr-1.5 h-5 w-5" aria-hidden="true" />
           Your answer
@@ -77,7 +109,9 @@ export function CreateAnswerDialog(props: CreateAnswerProps) {
 
         <DialogFooter>
           <div>
-            <Button variant="secondary">Cancel</Button>
+            <Button variant="secondary" onClick={() => setIsDialogOpen(false)}>
+              Cancel
+            </Button>
           </div>
           <div>
             <Button onClick={() => onSubmitCreate()}>Save</Button>
