@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState, useRef } from "react";
 import { Question } from "@prisma/client";
 import { Button } from "@/components/ui/button";

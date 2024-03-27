@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 import { Button } from "../ui/button";
 import {
@@ -11,14 +12,20 @@ import {
 } from "@/components/ui/dialog";
 import QRCode from "qrcode.react";
 import { QrCodeIcon } from "@heroicons/react/20/solid";
+import { useSession } from "next-auth/react";
+
+import { useRouter } from "next/navigation";
 
 type Props = {
   surveyId: string;
   children?: React.ReactNode;
+  url: string;
 };
 
 export function QrCodeDialog({ surveyId, children }: Props) {
+  const { data: session } = useSession();
   const url = `http://192.168.2.178:3000/survey/${surveyId}`;
+  const router = useRouter();
 
   return (
     <div className="flex">
@@ -38,8 +45,17 @@ export function QrCodeDialog({ surveyId, children }: Props) {
               </div>
             </DialogDescription>
           </DialogHeader>
-          url: {url}
-          <DialogFooter></DialogFooter>
+          <div>
+            <DialogFooter>
+              <Button
+                onClick={() => {
+                  router.push(url);
+                }}
+              >
+                link to set your answer
+              </Button>
+            </DialogFooter>
+          </div>
         </DialogContent>
       </Dialog>
     </div>
