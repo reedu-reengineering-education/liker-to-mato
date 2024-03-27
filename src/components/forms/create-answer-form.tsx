@@ -13,54 +13,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { PlusIcon } from "lucide-react";
-
 import { createAnswer } from "@/lib/api/answerClient";
 
-// export function CreateAnswerDialog({ questionId }: { questionId: string }) {
-//   const [value, setValue] = useState<string>("");
-//   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
-//   const [selectedQuestionId, setSelectedQuestionId] = useState<string | null>(
-//     null
-//   );
-
-//   const onSubmitCreate = async () => {
-//     const handleOpenDialog = (questionId: string) => {
-//       setSelectedQuestionId(questionId);
-//       setIsDialogOpen(false);
-//     };
-
-//     try {
-//       const answerData = await createAnswer(value, questionId);
-//       console.log("Answer created:", answerData);
-//       handleOpenDialog;
-//       // setIsDialogOpen(false); // Schließt den Dialog nach erfolgreicher Antwort-Erstellung
-//     } catch (error) {
-//       console.error("Error when creating the answer:", error);
-//     }
-//   };
-
-//   return (
-//     {isDialogOpen && selectedQuestionId && <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-//       <DialogTrigger asChild>
-//         <Button variant="outline" onClick={() => setIsDialogOpen(true)}>
-//           <PlusIcon className="mr-1.5 h-5 w-5" aria-hidden="true" />
-//           Your answer
-//         </Button>
-//       </DialogTrigger>
-//       <DialogContent className="sm:max-w-[425px]">
-//         {/* Dialog-Inhalte und Input-Felder */}
-//         <DialogFooter>
-//           <Button variant="secondary" onClick={() => setIsDialogOpen(false)}>
-//             Cancel
-//           </Button>
-//           <Button onClick={() => onSubmitCreate()}>Save</Button>
-//         </DialogFooter>
-//       </DialogContent>
-//     </Dialog>)
-
-//   );
-
-// }
 
 export function CreateAnswerDialog({ questionId }: { questionId: string }) {
   const [value, setValue] = useState<string>("");
