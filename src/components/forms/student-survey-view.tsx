@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import axios from "axios";
 import {
   Card,
@@ -9,8 +8,6 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
-import { Dialog } from "../ui/dialog";
-import { Slider } from "../ui/slider";
 
 import { Survey, Question } from "@prisma/client";
 import CreateAnswerDialog from "./create-answer-form";
@@ -70,8 +67,12 @@ export function StudentSurveyView({ surveyId }: { surveyId: string }) {
                     {question.steps},{question.max}
                   </p>
                   <div className="space-y-6">
-                    <CreateAnswerDialog questionId={question.id} />
+                    <CreateAnswerDialog
+                      questionId={question.id}
+                      steps={question.steps}
+                    />
                   </div>
+                  <div className="space-y-6"></div>
                 </div>
               ))
             ) : (

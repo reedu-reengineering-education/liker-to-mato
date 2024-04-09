@@ -26,10 +26,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { answerId } = req.query;
     const { value } = req.body;
 
-    if (!value || typeof value !== "string" || value.trim() === "") {
-      res.status(400).json({ error: "Invalid value" });
-      return;
-    }
+    // if (!value || typeof value !== "number") {
+    //   res.status(400).json({ error: "Invalid value" });
+    //   return;
+    // }
 
     try {
       const updateAnswer = await prisma.answer.update({

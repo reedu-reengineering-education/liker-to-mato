@@ -18,7 +18,6 @@ export default async function handle(
     },
   });
 
-  // Überprüfe, ob die Frage gefunden wurde
   if (!existingQuestion) {
     return res.status(404).json({ error: "Question not found" });
   }

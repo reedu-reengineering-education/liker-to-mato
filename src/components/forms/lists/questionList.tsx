@@ -11,7 +11,7 @@ import EditQuestionDialog from "@/components/buttons/edit-question-button";
 export function ListQuestions({ surveyId }: { surveyId: string }) {
   const [questions, setQuestions] = useState<Question[]>([]);
   const loadQuestionsRef = useRef(() => {});
-
+  const mydiv = useRef<HTMLDivElement>(null);
   loadQuestionsRef.current = () => {
     surveyQuestions(surveyId)
       .then(setQuestions)
@@ -26,7 +26,7 @@ export function ListQuestions({ surveyId }: { surveyId: string }) {
       .then(setQuestions)
       .catch((error) => console.error(error));
   }, [surveyId]);
-
+  console.log(mydiv.current);
   const handleDelete = async (questionId: string) => {
     try {
       await deleteQuestion(questionId);
@@ -43,7 +43,7 @@ export function ListQuestions({ surveyId }: { surveyId: string }) {
   };
 
   return (
-    <div>
+    <div ref={mydiv}>
       <CreateQuestionDialog
         surveyId={surveyId}
         handleQuestionCreated={onQuestionCreated}
@@ -84,3 +84,4 @@ export function ListQuestions({ surveyId }: { surveyId: string }) {
     </div>
   );
 }
+

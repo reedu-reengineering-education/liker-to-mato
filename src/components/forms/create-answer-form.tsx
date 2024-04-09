@@ -1,78 +1,58 @@
-import React, { useEffect, useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import React, { ChangeEvent, useState } from "react";
 
-import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
-import { PlusIcon } from "lucide-react";
+
+import { Slider } from "../ui/slider";
+
 import { createAnswer } from "@/lib/api/answerClient";
 
-
-export function CreateAnswerDialog({ questionId }: { questionId: string }) {
-  const [value, setValue] = useState<string>("");
-  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+export function CreateAnswerDialog({
+  questionId,
+  steps,
+}: {
+  questionId: string;
+  steps: number;
+}) {
+  const [value, setValue] = useState<number>(Number);
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
 
   const onSubmitCreate = async () => {
     try {
+      console.log(value);
       const answerData = await createAnswer(value, questionId);
       console.log("Answer created:", answerData);
-      setIsDialogOpen(false);
+      setIsButtonDisabled(true);
     } catch (error) {
       console.error("Error when creating the answer:", error);
     }
   };
 
   return (
-    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-      <DialogTrigger asChild>
-        <Button variant="outline">
-          <PlusIcon className="mr-1.5 h-5 w-5" aria-hidden="true" />
-          Your answer
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Add your answer</DialogTitle>
-          <DialogDescription>
-            Gib einen Namen für eine neue Umfrage ein.
-          </DialogDescription>
-        </DialogHeader>
-
-        <div className="grid gap-4 py-4">
-          <div className="grid w-full max-w-sm items-center gap-2">
-            <Label htmlFor="name" className="flex">
-              Antwort
-            </Label>
-            <Input
-              id="value"
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
-              placeholder="for example, how is it outside "
-              className="col-span-3"
-            />
-          </div>
-        </div>
-
-        <DialogFooter>
-          <div>
-            <Button variant="secondary" onClick={() => setIsDialogOpen(false)}>
-              Cancel
-            </Button>
-          </div>
-          <div>
-            <Button onClick={() => onSubmitCreate()}>Save</Button>
-          </div>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+    <div className="flex flex-col gap-4 py-4">
+      <div className="flex justify-between w-full">
+        <Label>min</Label>
+        <Label>max</Label>
+      </div>
+      <Slider
+        id="value"
+        disabled={isButtonDisabled}
+        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          setValue(Number(e.target.value))
+        }
+        className="col-span-3"
+        min={1}
+        max={steps}
+      />
+      <Button
+        disabled={isButtonDisabled}
+        onClick={() => {
+          onSubmitCreate();
+        }}
+      >
+        Submit
+      </Button>
+    </div>
   );
 }
 
