@@ -7,16 +7,20 @@ import { Slider } from "../ui/slider";
 
 import { createAnswer } from "@/lib/api/answerClient";
 
+
 export function CreateAnswerDialog({
   questionId,
   steps,
+  min,
+  max,
 }: {
   questionId: string;
   steps: number;
+  min: string;
+  max: string;
 }) {
   const [value, setValue] = useState<number>(Number);
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
-
   const onSubmitCreate = async () => {
     try {
       console.log(value);
@@ -30,10 +34,11 @@ export function CreateAnswerDialog({
 
   return (
     <div className="flex flex-col gap-4 py-4">
-      <div className="flex justify-between w-full">
-        <Label>min</Label>
-        <Label>max</Label>
+      <div className="flex justify-between left-0  ">
+        {min}
+        <div className="flex justify-between ">{max}</div>
       </div>
+
       <Slider
         id="value"
         disabled={isButtonDisabled}
@@ -44,7 +49,9 @@ export function CreateAnswerDialog({
         min={1}
         max={steps}
       />
+
       <Button
+        className="flex mt-5 mb-5"
         disabled={isButtonDisabled}
         onClick={() => {
           onSubmitCreate();

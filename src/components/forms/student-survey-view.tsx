@@ -50,37 +50,31 @@ export function StudentSurveyView({ surveyId }: { surveyId: string }) {
 
   return (
     <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle>
-            <p className="mb-4 text-lg font-semibold">{survey.name}</p>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <CardDescription></CardDescription>
-          <div>
-            {questions.length > 0 ? (
-              questions.map((question) => (
-                <div key={question.id} className="">
-                  <p className="mb-4 text-lg font-semibold">
-                    {question.name},{question.description},{question.min},
-                    {question.steps},{question.max}
-                  </p>
-                  <div className="space-y-6">
-                    <CreateAnswerDialog
-                      questionId={question.id}
-                      steps={question.steps}
-                    />
-                  </div>
-                  <div className="space-y-6"></div>
-                </div>
-              ))
-            ) : (
-              <p>No questions</p>
-            )}
-          </div>
-        </CardContent>
-      </Card>
+      {/* <p className="mb-4 text-lg font-semibold">{survey.name}</p> */}
+
+      <div>
+        {questions.length > 0 ? (
+          questions.map((question) => (
+            <div key={question.id} className="">
+              <p className="mb-4 text-lg font-extrabold ">{question.name}</p>
+              <CardContent className="text-lg font-semibold">
+                {question.description}
+              </CardContent>
+              <div className="space-y-6">
+                <CreateAnswerDialog
+                  questionId={question.id}
+                  steps={question.steps}
+                  min={question.min}
+                  max={question.max}
+                />
+              </div>
+              <div className="space-y-6"></div>
+            </div>
+          ))
+        ) : (
+          <p>No questions</p>
+        )}
+      </div>
     </div>
   );
 }
