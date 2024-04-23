@@ -21,6 +21,8 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY  . . 
 
+RUN npx prisma generate
+
 RUN yarn build
 
 #-------------------------> Start Next.JS Server
