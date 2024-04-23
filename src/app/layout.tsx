@@ -30,7 +30,9 @@ export default async function RootLayout({
         <Providers session={session}>
           <div className="relative flex min-h-screen flex-col">
             <SiteHeader />
-            <div className="flex-1">{children}</div>
+            <div className="flex-1 container mx-auto max-w-4xl p-8">
+              {children}
+            </div>
           </div>
         </Providers>
       </body>

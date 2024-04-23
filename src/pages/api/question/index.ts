@@ -42,6 +42,53 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       console.error(error);
       res.status(500).json({ error: "Server error" });
     }
+  } else if (req.method === "PUT") {
+    const session = await getServerSession(req, res, authOptions);
+
+    if (!session) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    const { questionId } = req.query;
+    const { name, description, min, steps, max, surveyId } = req.body;
+
+    try {
+      const updatedQuestion = await prisma.question.update({
+        where: { id: questionId as string },
+        data: {
+          name,
+          description,
+          min,
+          steps,
+          max,
+          surveyId,
+        },
+      });
+
+      res.status(200).json(updatedQuestion);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Server error" });
+    }
+  } else if (req.method === "GET") {
+    const session = await getServerSession(req, res, authOptions);
+
+    if (!session) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    try {
+      const questions = await prisma.question.findMany({
+        where: {
+          surveyId: req.query.surveyId as string,
+        },
+      });
+
+      res.status(200).json(questions);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Server error" });
+    }
   }
 }
 
