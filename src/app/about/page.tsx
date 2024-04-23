@@ -6,7 +6,7 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 
-export function About() {
+export default function  About() {
   return (
     <main className="p-24">
       <Card>
@@ -73,4 +73,3 @@ export function About() {
   );
 }
 
-export default About;
