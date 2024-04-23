@@ -22,14 +22,14 @@ model Survey {
 
 model Question {
   id        String   @id @default(cuid())
-  name      String   @unique
+  name      String   
   description String 
   min       String
   steps     Int
   max       String
   createdAt DateTime @default(now())
   surveyId  String
-  survey    Survey   @relation(fields: [surveyId], references: [id])
+  survey    Survey   @relation(fields: [surveyId], references: [id], onDelete: Cascade)
  
 }
 

@@ -49,9 +49,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { questionId } = req.query;
 
     try {
-      await prisma.question.delete({
-        where: { id: questionId as string },
-      });
+       const deleteQuestion = await prisma.question.delete({
+         where: { id: questionId as string },
+       });
 
       res.status(204).end(); // Delete successful, no response content
     } catch (error) {

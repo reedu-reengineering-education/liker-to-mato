@@ -1,14 +1,38 @@
 "use client";
 import Link from "next/link";
-
+import {
+  Ghost,
+  UserCircle,
+  ArrowLeftSquareIcon,
+  ArrowRightSquareIcon,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MainNav } from "./navigation";
 import { useSession, signIn, signOut } from "next-auth/react";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuCheckboxItem,
+  DropdownMenuRadioItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuGroup,
+  DropdownMenuPortal,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuRadioGroup,
+} from "@/components/ui/dropdown-menu";
+import React from "react";
 
 // const links = [Studenten... ];
 
 export function SiteHeader() {
   const { data: session } = useSession();
+  const [position, setPosition] = React.useState("top");
 
   return (
     <header className="bg-background sticky top-0 z-40 w-full border-b">
@@ -36,8 +60,53 @@ export function SiteHeader() {
         />
         <div className="flex flex-1 items-center justify-end space-x-4">
           <nav className="flex items-center space-x-1">
-            {!session && <Button onClick={() => signIn()}>Login</Button>}
-            {session && <Button onClick={() => signOut()}>Logout</Button>}
+            {!session && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost">
+                    <UserCircle>Account</UserCircle>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-50">
+                  <DropdownMenuLabel>Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuRadioGroup
+                    value="position"
+                    onValueChange={setPosition}
+                    className="gap-4 pl-2"
+                  >
+                    <DropdownMenuRadioItem value="top" onClick={() => signIn()}>
+                      <ArrowRightSquareIcon /> {"Login"}
+                    </DropdownMenuRadioItem>
+                  </DropdownMenuRadioGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
+            {session && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost">
+                    <UserCircle>Account</UserCircle>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-54">
+                  <DropdownMenuLabel>Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuRadioGroup
+                    value="position"
+                    onValueChange={setPosition}
+                  >
+                    <DropdownMenuRadioItem
+                      value="top"
+                      onClick={() => signOut()}
+                      className="gap-4 pl-2"
+                    >
+                      <ArrowLeftSquareIcon /> {"Logout"}
+                    </DropdownMenuRadioItem>
+                  </DropdownMenuRadioGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </nav>
         </div>
       </div>

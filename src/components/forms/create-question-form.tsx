@@ -16,8 +16,12 @@ import { Label } from "../ui/label";
 import { PlusIcon } from "lucide-react";
 import { Textarea } from "../ui/textarea";
 import createQuestion from "@/lib/api/questionClient";
+import { useSession } from "next-auth/react";
 
-type CreateQuestionProps = { surveyId: string };
+type CreateQuestionProps = {
+  surveyId: string;
+  handleQuestionCreated: () => void;
+};
 
 export function CreateQuestionDialog(props: CreateQuestionProps) {
   const [name, setName] = useState<string>("");
@@ -25,8 +29,10 @@ export function CreateQuestionDialog(props: CreateQuestionProps) {
   const [min, setMinimum] = useState<string>("");
   const [steps, setStep] = useState<number | undefined>(undefined);
   const [max, setMaximum] = useState<string>("");
+  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+  const { data: session } = useSession();
 
-  const onSubmit = async () => {
+  const onSubmitCreate = async () => {
     const stepsValue = steps !== undefined ? steps : 0;
     try {
       const questionData = await createQuestion(
@@ -38,18 +44,27 @@ export function CreateQuestionDialog(props: CreateQuestionProps) {
         props.surveyId
       );
       console.log("Question created:", questionData);
+      setIsDialogOpen(false);
+      props.handleQuestionCreated();
     } catch (error) {
       console.error("Error when creating the question:", error);
     }
   };
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline">
-          <PlusIcon className="mr-2 h-4 w-4"></PlusIcon>
-          Frage hinzufügen
-        </Button>
+    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+      <DialogTrigger
+        asChild
+        onClick={() => {
+          setIsDialogOpen(true);
+        }}
+      >
+        {session && (
+          <Button variant="outline">
+            <PlusIcon className="mr-1.5 h-5 w-5" aria-hidden="true" />
+            New Question
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -95,7 +110,7 @@ export function CreateQuestionDialog(props: CreateQuestionProps) {
             ></Input>
           </div>
           <div className=" flex-col">
-            <Label>Stepps</Label>
+            <Label>Steps</Label>
             <Input
               value={steps === undefined ? "" : steps.toString()}
               onChange={(e) => {
@@ -119,7 +134,7 @@ export function CreateQuestionDialog(props: CreateQuestionProps) {
             <Button variant="secondary">Cancel</Button>
           </div>
           <div>
-            <Button onClick={onSubmit}>Save</Button>
+            <Button onClick={() => onSubmitCreate()}>Save</Button>
           </div>
         </DialogFooter>
       </DialogContent>
