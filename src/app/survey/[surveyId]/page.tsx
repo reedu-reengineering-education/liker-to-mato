@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 import { StudentSurveyView } from "@/components/forms/student-survey-view";
 
-export function Student({ params }: { params: { surveyId: string } }) {
+export default function Student({ params }: { params: { surveyId: string } }) {
   return (
     <main className="p-24">
       <Card>
@@ -19,4 +19,4 @@ export function Student({ params }: { params: { surveyId: string } }) {
   );
 }
 
-export default Student;
+
