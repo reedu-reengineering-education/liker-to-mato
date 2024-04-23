@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { PlusIcon } from "lucide-react";
-import createSurvey from "@/lib/api/surveyClient";
+import { createSurvey, deleteSurvey } from "@/lib/api/surveyClient";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
@@ -23,7 +23,7 @@ export function CreateSurveyDialog() {
   const [name, setName] = useState<string>("");
   const router = useRouter();
 
-  const onSubmit = async () => {
+  const onSubmitCreate = async () => {
     try {
       const surveyData = await createSurvey(name);
       console.log("Survey created:", surveyData);
@@ -66,7 +66,9 @@ export function CreateSurveyDialog() {
           </div>
         </div>
         <DialogFooter>
-          <Button onClick={onSubmit}>Speichern</Button>
+          <div>
+            <Button onClick={onSubmitCreate}>Speichern</Button>
+          </div>
         </DialogFooter>
       </DialogContent>
     </Dialog>
