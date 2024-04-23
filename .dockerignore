@@ -1,20 +1,28 @@
-
-.next
+#---------------> Ignore directories
 node_modules
-public
+.next
 out
+build
 
+#---------------> Ignore environment files
+.env*
+!.env.example
+
+#---------------> Local development
 *.log
-npm-debug.log
-yarn-error.log
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+*.cache
+.npm
+.nuxt
 
+#---------------> System files
 .DS_Store
 Thumbs.db
 
-.dockerignore
+#---------------> Version control
 .git
 .gitignore
+
+#---------------> Dependency directories
+bower_components
+.jest
+coverage
