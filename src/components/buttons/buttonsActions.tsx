@@ -1,5 +1,4 @@
-"use client";
-import {
+import createSurvey, {
   deleteSurvey,
   updateSurvey,
   userSurveys,
@@ -45,8 +44,7 @@ export function ButtonActions() {
   ) => {
     try {
       await deleteSurvey(surveyId);
-      onDeleteSuccess(surveyId, "Success"); // Pass both surveyId and a string as arguments
-
+      onDeleteSuccess(surveyId, "Success");
       return true;
     } catch (error) {
       console.error("Error when deleting the survey", error);
@@ -71,29 +69,11 @@ export function ButtonActions() {
     }
   };
 
-  // const handleQuestionUpdated = async (
-  //   surveyId: String,
-  //   onQuestionUpdated: (
-  //     updatedQuestionId: String,
-  //     onQuestionUpdated: String
-  //   ) => void
-  // ) => {
-  //   try {
-  //     await surveyQuestions(surveyId);
-  //     onQuestionUpdated(surveyId, "Success");
-  //     return true;
-  //   } catch (error) {
-  //     console.error("Error when updating the question", error);
-  //     return false;
-  //   }
-  // };
-
   return {
     handleSave,
     handleDelete,
     handleRead,
     handleQuestionCreated,
-    // handleQuestionUpdated,
   };
 }
 

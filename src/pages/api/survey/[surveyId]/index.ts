@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/lib/db";
 import { withMethods } from "@/lib/apiMiddlewares/withMethods";
 import { withSurvey } from "@/lib/apiMiddlewares/withSurvey";
 
-const prisma = new PrismaClient();
+
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
