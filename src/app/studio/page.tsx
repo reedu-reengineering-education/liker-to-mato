@@ -9,10 +9,8 @@ export default function Studio() {
       <div className="space-y-6">
         <Card>
           <CardHeader>
-            <CardTitle>
-              <h4 className="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:tracking-tight">
-                Meine Umfragen
-              </h4>
+            <CardTitle className="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:tracking-tight">
+              Meine Umfragen
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -22,10 +20,8 @@ export default function Studio() {
 
         <Card>
           <CardHeader>
-            <CardTitle>
-              <h4 className="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:tracking-tight">
-                Neue Umfrage erstellen
-              </h4>
+            <CardTitle className="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:tracking-tight">
+              Neue Umfrage erstellen
             </CardTitle>
           </CardHeader>
           <CardContent>

@@ -26,7 +26,9 @@ export default function  About() {
             und die Meinungen Ihrer Studenten zu erfassen.
           </CardDescription>
           <div className="mb-4">
-            <h2 className="text-xl font-semibold mb-2">Hauptmerkmale:</h2>
+            <div>
+              <h2 className="text-xl font-semibold mb-2">Hauptmerkmale:</h2>
+            </div>
             <ul className="list-disc pl-5 space-y-2">
               <li>
                 Anpassbare Likert-Skalen: Erstellen Sie Umfragen, die auf der
@@ -56,13 +58,15 @@ export default function  About() {
               </li>
             </ul>
           </div>
-          <CardDescription>
-            Mit Likert-to-Mat können Sie wertvolle Einblicke in die Lehr- und
-            Lernprozesse gewinnen, Ihre Vorlesungsinhalte kontinuierlich
-            verbessern und auf die Bedürfnisse Ihrer Studenten eingehen.
-            Beginnen Sie noch heute und optimieren Sie Ihre Unterrichtsmethoden
-            mit präzisem Feedback dank Likert-to-Mat.
-          </CardDescription>
+          <div>
+            <CardDescription>
+              Mit Likert-to-Mat können Sie wertvolle Einblicke in die Lehr- und
+              Lernprozesse gewinnen, Ihre Vorlesungsinhalte kontinuierlich
+              verbessern und auf die Bedürfnisse Ihrer Studenten eingehen.
+              Beginnen Sie noch heute und optimieren Sie Ihre
+              Unterrichtsmethoden mit präzisem Feedback dank Likert-to-Mat.
+            </CardDescription>
+          </div>
         </CardContent>
       </Card>
     </main>
