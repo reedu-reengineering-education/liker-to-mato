@@ -4,6 +4,7 @@ import prisma from "@/lib/db";
 
 
 
+
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
     const { answerId } = req.query;
