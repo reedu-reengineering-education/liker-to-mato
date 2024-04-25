@@ -24,7 +24,7 @@ type Props = {
 
 export function QrCodeDialog({ surveyId, children }: Props) {
   const { data: session } = useSession();
-  const url = `http://192.168.2.179:3000/survey/${surveyId}`;
+  const url = `/survey/${surveyId}`;
   // const router = useRouter();
 
   return (
