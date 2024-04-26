@@ -1,10 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/db";
 
-
-
-
-
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
     const { answerId } = req.query;
@@ -26,8 +22,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   } else if (req.method === "PUT") {
     const { answerId } = req.query;
     const { value } = req.body;
-
- 
 
     try {
       const updateAnswer = await prisma.answer.update({

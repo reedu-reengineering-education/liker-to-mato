@@ -14,8 +14,6 @@ import QRCode from "qrcode.react";
 import { QrCodeIcon } from "@heroicons/react/20/solid";
 import { useSession } from "next-auth/react";
 
-
-
 type Props = {
   surveyId: string;
   children?: React.ReactNode;

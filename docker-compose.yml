@@ -1,14 +1,12 @@
-version: '3.3'
+version: "3.3"
 
 services:
   postgres:
     image: postgres:15
     ports:
-      - '5432:5432'
+      - "5432:5432"
     env_file:
       - .env
     restart: on-failure
     healthcheck:
-      test: 'exit 0'
-
-  
+      test: "exit 0"

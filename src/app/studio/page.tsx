@@ -32,10 +32,3 @@ export default function Studio() {
     </main>
   );
 }
-
-
-
-
-
-
-

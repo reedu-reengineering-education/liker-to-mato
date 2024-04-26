@@ -3,8 +3,6 @@ import { getServerSession } from "next-auth/next";
 import prisma from "@/lib/db";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
-
-
 export function withSurvey(handler: NextApiHandler) {
   return async function (req: NextApiRequest, res: NextApiResponse) {
     try {

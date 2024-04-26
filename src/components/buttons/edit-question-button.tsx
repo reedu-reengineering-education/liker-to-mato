@@ -24,7 +24,7 @@ type EditQuestionProps = {
 export function EditQuestionDialog(props: EditQuestionProps) {
   const [name, setName] = useState<string>(props.question.name);
   const [description, setDescription] = useState<string>(
-    props.question.description
+    props.question.description,
   );
   const [min, setMinimum] = useState<string>(props.question.min);
   const [steps, setStep] = useState<number | undefined>(props.question.steps);
@@ -41,7 +41,7 @@ export function EditQuestionDialog(props: EditQuestionProps) {
         min,
         stepsValue,
         max,
-        props.surveyId
+        props.surveyId,
       );
       console.log("Question updated");
       setIsDialogOpen(false);

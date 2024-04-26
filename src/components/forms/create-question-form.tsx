@@ -40,7 +40,7 @@ export function CreateQuestionDialog(props: CreateQuestionProps) {
         min,
         stepsValue,
         max,
-        props.surveyId
+        props.surveyId,
       );
       console.log("Question created:", questionData);
       setIsDialogOpen(false);
