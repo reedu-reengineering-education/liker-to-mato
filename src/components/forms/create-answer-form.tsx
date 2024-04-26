@@ -7,7 +7,6 @@ import { Slider } from "../ui/slider";
 
 import { createAnswer } from "@/lib/api/answerClient";
 
-
 export function CreateAnswerDialog({
   questionId,
   steps,

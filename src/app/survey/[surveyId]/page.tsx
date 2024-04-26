@@ -18,5 +18,3 @@ export default function Student({ params }: { params: { surveyId: string } }) {
     </main>
   );
 }
-
-

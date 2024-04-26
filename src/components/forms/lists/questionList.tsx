@@ -31,7 +31,7 @@ export function ListQuestions({ surveyId }: { surveyId: string }) {
     try {
       await deleteQuestion(questionId);
       setQuestions((questions) =>
-        questions.filter((question) => question.id !== questionId)
+        questions.filter((question) => question.id !== questionId),
       );
     } catch (error) {
       console.error("Error when deleting the question:", error);
@@ -84,4 +84,3 @@ export function ListQuestions({ surveyId }: { surveyId: string }) {
     </div>
   );
 }
-

@@ -40,7 +40,7 @@ export function ButtonActions() {
 
   const handleDelete = async (
     surveyId: String,
-    onDeleteSuccess: (deletedSurveyId: String, onDeleteSuccess: String) => void
+    onDeleteSuccess: (deletedSurveyId: String, onDeleteSuccess: String) => void,
   ) => {
     try {
       await deleteSurvey(surveyId);
@@ -56,8 +56,8 @@ export function ButtonActions() {
     surveyId: String,
     onQuestionCreated: (
       createdQuestionId: String,
-      onQuestionCreated: String
-    ) => void
+      onQuestionCreated: String,
+    ) => void,
   ) => {
     try {
       await surveyQuestions(surveyId);

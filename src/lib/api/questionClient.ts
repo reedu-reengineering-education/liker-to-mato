@@ -6,7 +6,7 @@ async function createQuestion(
   min: string,
   steps: number,
   max: string,
-  surveyId: string
+  surveyId: string,
 ) {
   const apiUrl = "/api/question";
   try {
@@ -47,7 +47,7 @@ export async function updateQuestion(
   min: String,
   steps: number,
   max: String,
-  surveyId: String
+  surveyId: String,
 ): Promise<any> {
   const apiUrl = `/api/question/${questionId}`;
 
@@ -68,7 +68,6 @@ export async function updateQuestion(
   }
 }
 
-
 export async function deleteQuestion(questionId: String) {
   const apiUrl = `/api/question/${questionId}`;
 
@@ -81,4 +80,3 @@ export async function deleteQuestion(questionId: String) {
     throw error;
   }
 }
-

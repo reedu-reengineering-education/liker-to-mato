@@ -3,8 +3,6 @@ import prisma from "@/lib/db";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
-
-
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
     const session = await getServerSession(req, res, authOptions);
@@ -52,5 +50,3 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 }
 
 export default handler;
-
-

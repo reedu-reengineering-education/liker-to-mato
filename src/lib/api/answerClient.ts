@@ -10,5 +10,3 @@ export async function createAnswer(value: number, questionId: string) {
     console.error("Error when creating the answer:", error);
   }
 }
-
-

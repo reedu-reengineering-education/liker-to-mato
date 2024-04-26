@@ -31,5 +31,4 @@ export default function Studio({ params }: { params: { surveyId: string } }) {
       </div>
     </main>
   );
-
 }
