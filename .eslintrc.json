@@ -20,10 +20,5 @@
     "react": {
       "version": "detect" // Automatisch die React-Version erkennen
     }
-  },
-  "env": {
-    "browser": true,
-    "node": true,
-    "es2021": true
   }
 }
