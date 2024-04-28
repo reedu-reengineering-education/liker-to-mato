@@ -1,7 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
 
 import { Button } from "../ui/button";
-import { Label } from "../ui/label";
 
 import { Slider } from "../ui/slider";
 

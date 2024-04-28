@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/dialog";
 import QRCode from "qrcode.react";
 import { QrCodeIcon } from "@heroicons/react/20/solid";
-import { useSession } from "next-auth/react";
 
 type Props = {
   surveyId: string;
@@ -20,8 +19,7 @@ type Props = {
   url: string;
 };
 
-export function QrCodeDialog({ surveyId, children }: Props) {
-  const { data: session } = useSession();
+export function QrCodeDialog({ surveyId }: Props) {
   const url = `/survey/${surveyId}`;
   // const router = useRouter();
 

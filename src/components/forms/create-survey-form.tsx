@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { PlusIcon } from "lucide-react";
-import { createSurvey, deleteSurvey } from "@/lib/api/surveyClient";
+import { createSurvey } from "@/lib/api/surveyClient";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 

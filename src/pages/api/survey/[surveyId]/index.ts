@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/db";
 import { withMethods } from "@/lib/apiMiddlewares/withMethods";

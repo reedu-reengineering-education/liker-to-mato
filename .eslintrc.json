@@ -1,7 +1,29 @@
 {
-  "extends": ["next", "prettier"],
-
+  "extends": ["prettier", "eslint:recommended", "next"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "tsconfig.eslint.json"
+  },
   "rules": {
-    "react/no-unescaped-entities": "off"
+    "react/no-unescaped-entities": "off",
+    "react/react-in-jsx-scope": "off", // Deaktiviere diese Regel für React 17+
+    "no-unused-vars": [
+      "error",
+      {
+        "ignoreRestSiblings": true,
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "no-undef": "off" // Optional, falls du Probleme mit undefinierten Variablen hast, die eigentlich definiert sind
+  },
+  "settings": {
+    "react": {
+      "version": "detect" // Automatisch die React-Version erkennen
+    }
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2021": true
   }
 }

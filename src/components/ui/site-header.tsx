@@ -1,7 +1,6 @@
 "use client";
-import Link from "next/link";
+
 import {
-  Ghost,
   UserCircle,
   ArrowLeftSquareIcon,
   ArrowRightSquareIcon,
@@ -13,25 +12,16 @@ import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuCheckboxItem,
   DropdownMenuRadioItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuGroup,
-  DropdownMenuPortal,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuRadioGroup,
 } from "@/components/ui/dropdown-menu";
 import React from "react";
 
-// const links = [Studenten... ];
-
 export function SiteHeader() {
   const { data: session } = useSession();
+  // eslint-disable-next-line no-unused-vars
   const [position, setPosition] = React.useState("top");
 
   return (
