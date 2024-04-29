@@ -33,7 +33,7 @@ jobs:
         with:
           eslint: true
           prettier: true
-          eslint_dir: "./"
-          prettier_dir: "./"
-          eslint_extensions: "js,json,jsx,ts,tsx"
-          prettier_extensions: "css,html,js,json,jsx,md,sass,scss,ts,tsx,vue,yaml,yml"
+          # eslint_dir: "./"
+          # prettier_dir: "./"
+          # eslint_extensions: "js,json,jsx,ts,tsx"
+          # prettier_extensions: "css,html,js,json,jsx,md,sass,scss,ts,tsx,vue,yaml,yml"
