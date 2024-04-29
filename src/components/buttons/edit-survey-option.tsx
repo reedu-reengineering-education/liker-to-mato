@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import Router, { useRouter } from "next/router";
 import { readSurvey, updateSurvey } from "@/lib/api/surveyClient";
 import {
   Dialog,
@@ -17,6 +18,7 @@ import { Label } from "../ui/label";
 import { PencilIcon } from "@heroicons/react/20/solid";
 
 export function EditSurveyName({ surveyId }: { surveyId: string }) {
+  const router = useRouter;
   const [surveyName, setSurveyName] = useState<string>("");
   const [newName, setNewName] = useState<string>("");
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);

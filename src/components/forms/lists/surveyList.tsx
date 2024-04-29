@@ -2,12 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Survey } from "@prisma/client";
 import { Button } from "@/components/ui/button";
-import {
-  PencilIcon,
-  ShareIcon,
-  QrCodeIcon,
-  TrashIcon,
-} from "@heroicons/react/20/solid";
+import { PencilIcon, ShareIcon, TrashIcon } from "@heroicons/react/20/solid";
 import ButtonActions from "@/components/buttons/buttonsActions";
 import { userSurveys } from "@/lib/api/surveyClient";
 import { useRouter } from "next/navigation";
