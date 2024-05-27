@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-
 import { Button } from "../ui/button";
-
 import { Slider } from "../ui/slider";
-
 import { createAnswer } from "@/lib/api/answerClient";
 
 export function CreateAnswerDialog({

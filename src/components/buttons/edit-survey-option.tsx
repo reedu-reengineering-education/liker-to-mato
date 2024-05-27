@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Router, { useRouter } from "next/router";
 import { readSurvey, updateSurvey } from "@/lib/api/surveyClient";
 import {
   Dialog,
