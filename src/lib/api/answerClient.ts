@@ -11,13 +11,14 @@ export async function createAnswer(value: number, questionId: string) {
   }
 }
 
-export async function questionAnswers(questionId: String) {
-  const apiUrl = `/api/answer/${questionId}`;
+export async function getAnswers(questionId: String) {
+  const apiUrl = `/api/answer/question/[questionId]`;
 
   try {
     const response = await axios.get(apiUrl);
-    const answerList = response.data;
-    return answerList;
+    // const answerList = response.data;
+    // return answerList;
+    return response.data;
   } catch (error) {
     console.error("Error when requesting the answer", error);
     throw error;

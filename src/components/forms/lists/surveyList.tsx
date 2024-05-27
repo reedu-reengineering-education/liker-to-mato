@@ -7,7 +7,7 @@ import ButtonActions from "@/components/buttons/buttonsActions";
 import { userSurveys } from "@/lib/api/surveyClient";
 import { useRouter } from "next/navigation";
 import { QrCodeDialog } from "../qrCode";
-import { ListAnswer } from "@/components/forms/lists/answerList";
+import DrawerDemo from "@/components/forms/lists/answerList";
 
 export function ListSurvey() {
   const [survey, setSurvey] = useState<Survey[]>([]);
@@ -61,10 +61,8 @@ export function ListSurvey() {
               <TrashIcon className="mr-1.5 h-5 w-5" aria-hidden="true" />
               Delete
             </Button>
-            {/* Zuesrt erstelle ich einen Button */}
-            <Button>
-              <ListAnswer questionId={survey.id}></ListAnswer>
-            </Button>
+
+            <DrawerDemo questionId={survey.id}></DrawerDemo>
           </div>
         </div>
       ))}

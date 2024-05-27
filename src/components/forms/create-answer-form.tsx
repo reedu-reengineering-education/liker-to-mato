@@ -1,7 +1,6 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
 
 import { Button } from "../ui/button";
-
 
 import { Slider } from "../ui/slider";
 
@@ -41,9 +40,10 @@ export function CreateAnswerDialog({
       <Slider
         id="value"
         disabled={isButtonDisabled}
-        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          setValue(Number(e.target.value))
-        }
+        onValueChange={(value: number[]) => {
+          console.log(value);
+          setValue(Number(value[0]));
+        }}
         className="col-span-3"
         min={1}
         max={steps}
