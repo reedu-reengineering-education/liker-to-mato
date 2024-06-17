@@ -1,5 +1,12 @@
 import axios from "axios";
 
+interface GroupedAnswer {
+  value: number;
+  _count: {
+    value: number;
+  };
+}
+
 export async function createAnswer(value: number, questionId: string) {
   const apiUrl = `/api/answer`;
 
@@ -16,11 +23,18 @@ export async function getAnswers(questionId: String) {
 
   try {
     const response = await axios.get(apiUrl);
-    // const answerList = response.data;
-    // return answerList;
     return response.data;
   } catch (error) {
     console.error("Error when requesting the answer", error);
     throw error;
   }
 }
+
+export const getGroupedAnswers = async (
+  questionId: string
+): Promise<GroupedAnswer[]> => {
+  const response = await axios.get<GroupedAnswer[]>(
+    `/api/groupedAnswers?questionId=${questionId}`
+  );
+  return response.data;
+};

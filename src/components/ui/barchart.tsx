@@ -1,43 +1,60 @@
 "use client";
 import { useRef, useEffect, useState } from "react";
 import { Chart, ChartConfiguration } from "chart.js/auto";
-import { getAnswers } from "@/lib/api/answerClient";
-import { Answer } from "@prisma/client";
+import { getGroupedAnswers } from "@/lib/api/answerClient";
 
-export default function BarChart({ questionId }: { questionId: string }) {
+interface BarChartProps {
+  questionId: string;
+}
+
+interface GroupedAnswer {
+  value: number;
+  _count: {
+    value: number;
+  };
+}
+
+function generateColors(numColors: number): string[] {
+  const colors = [];
+  for (let i = 0; i < numColors; i++) {
+    const hue = (i * 360) / numColors;
+    colors.push(`hsla(${hue}, 70%, 50%, 0.5)`);
+  }
+  return colors;
+}
+
+export default function BarChart({ questionId }: BarChartProps) {
   const chartRef = useRef<HTMLCanvasElement>(null);
   const [chartInstance, setChartInstance] = useState<Chart | null>(null);
-  const [answers, setAnswers] = useState<Answer[]>([]);
+  const [groupedAnswers, setGroupedAnswers] = useState<GroupedAnswer[]>([]);
 
   useEffect(() => {
-    async function fetchAnswers() {
+    async function fetchGroupedAnswers() {
       try {
-        const data = await getAnswers(questionId);
-        setAnswers(data);
+        const data = await getGroupedAnswers(questionId);
+        setGroupedAnswers(data);
       } catch (error) {
-        console.error("Error fetching answers:", error);
+        console.error("Error fetching grouped answers:", error);
       }
     }
-    fetchAnswers();
+    fetchGroupedAnswers();
   }, [questionId]);
 
   useEffect(() => {
-    if (chartRef.current && answers.length > 0) {
+    if (chartRef.current && groupedAnswers.length > 0) {
       const context = chartRef.current.getContext("2d");
       if (context) {
         if (chartInstance) {
           chartInstance.destroy();
         }
 
-        const valueCounts: Record<number, number> = {};
-        answers.forEach((answer) => {
-          valueCounts[answer.value] = (valueCounts[answer.value] || 0) + 1;
-        });
+        const labels = groupedAnswers.map((answer) => answer.value.toString());
+        const data = groupedAnswers.map((answer) => answer._count.value);
 
-        const labels: string[] = Object.keys(valueCounts)
-          .map(Number)
-          .map(String);
-        const data: number[] = Object.values(valueCounts);
+        const backgroundColors = generateColors(labels.length);
+        const borderColors = backgroundColors.map((color) =>
+          color.replace("0.5)", "1)")
+        );
 
         const config: ChartConfiguration<"bar", number[], unknown> = {
           type: "bar",
@@ -45,15 +62,17 @@ export default function BarChart({ questionId }: { questionId: string }) {
             labels,
             datasets: [
               {
-                label: "Anzahl der Antworten",
+                label: "Frage",
                 data,
-                backgroundColor: "rgba(75, 192, 192, 0.2)",
-                borderColor: "rgba(75, 192, 192, 1)",
+                backgroundColor: backgroundColors,
+                borderColor: borderColors,
                 borderWidth: 1,
               },
             ],
           },
           options: {
+            responsive: true,
+            maintainAspectRatio: false,
             scales: {
               y: {
                 beginAtZero: true,
@@ -66,9 +85,7 @@ export default function BarChart({ questionId }: { questionId: string }) {
         setChartInstance(newChart);
       }
     }
-  }, [answers, chartInstance]);
+  }, [groupedAnswers]);
 
-  return (
-    <canvas ref={chartRef} style={{ width: "100%", height: "400px" }}></canvas>
-  );
+  return <canvas ref={chartRef} className="w-full h-full"></canvas>;
 }

@@ -62,7 +62,7 @@ export function ListSurvey() {
               Delete
             </Button>
 
-            <DrawerDemo questionId={survey.id}></DrawerDemo>
+            <DrawerDemo surveyId={survey.id}></DrawerDemo>
           </div>
         </div>
       ))}
