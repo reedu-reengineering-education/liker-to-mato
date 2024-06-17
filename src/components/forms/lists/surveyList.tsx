@@ -2,16 +2,12 @@
 import React, { useEffect, useState } from "react";
 import { Survey } from "@prisma/client";
 import { Button } from "@/components/ui/button";
-import {
-  PencilIcon,
-  ShareIcon,
-  QrCodeIcon,
-  TrashIcon,
-} from "@heroicons/react/20/solid";
+import { PencilIcon, ShareIcon, TrashIcon } from "@heroicons/react/20/solid";
 import ButtonActions from "@/components/buttons/buttonsActions";
 import { userSurveys } from "@/lib/api/surveyClient";
 import { useRouter } from "next/navigation";
 import { QrCodeDialog } from "../qrCode";
+import DrawerDemo from "@/components/forms/lists/answerList";
 
 export function ListSurvey() {
   const [survey, setSurvey] = useState<Survey[]>([]);
@@ -65,6 +61,8 @@ export function ListSurvey() {
               <TrashIcon className="mr-1.5 h-5 w-5" aria-hidden="true" />
               Delete
             </Button>
+
+            <DrawerDemo surveyId={survey.id}></DrawerDemo>
           </div>
         </div>
       ))}

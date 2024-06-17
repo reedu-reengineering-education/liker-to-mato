@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import QRCode from "qrcode.react";
 import { QrCodeIcon } from "@heroicons/react/20/solid";
-import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 type Props = {
   surveyId: string;
@@ -21,9 +21,7 @@ type Props = {
 };
 
 export function QrCodeDialog({ surveyId, children }: Props) {
-  const { data: session } = useSession();
   const url = `/survey/${surveyId}`;
-  // const router = useRouter();
 
   return (
     <div className="flex">
@@ -45,14 +43,9 @@ export function QrCodeDialog({ surveyId, children }: Props) {
           </DialogHeader>
           <div>
             <DialogFooter>
-              <Button
-                onClick={() => {
-                  // router.push(url);
-                  window.open(url);
-                }}
-              >
-                link to set your answer
-              </Button>
+              <Link href={url}>
+                <Button>link to set your answer</Button>
+              </Link>
             </DialogFooter>
           </div>
         </DialogContent>
