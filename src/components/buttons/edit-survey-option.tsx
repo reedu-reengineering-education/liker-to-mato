@@ -46,15 +46,12 @@ export function EditSurveyName({ surveyId }: { surveyId: string }) {
       <div>
         <h4>{surveyName}</h4>
       </div>
-
       <div>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
             <Button variant="outline">
               <PencilIcon className="mr-2 h-4 w-4" aria-hidden="true" />
               Name ändern
-
-
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
@@ -65,7 +62,6 @@ export function EditSurveyName({ surveyId }: { surveyId: string }) {
                 Änderungen.
               </DialogDescription>
             </DialogHeader>
-
             <Label htmlFor="name">Neuer Name</Label>
             <Input
               id="name"
@@ -73,7 +69,6 @@ export function EditSurveyName({ surveyId }: { surveyId: string }) {
               onChange={(e) => setNewName(e.target.value)}
               placeholder="Neuer Name der Umfrage"
             />
-
             <DialogFooter>
               <Button onClick={handleSave}>Speichern</Button>
             </DialogFooter>
