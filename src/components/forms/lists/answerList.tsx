@@ -94,7 +94,7 @@ className="w-full"
 </div>
 </TabsContent>
 <TabsContent value="pie">
-<div className="p-4 pb-0">
+
 <Carousel
 opts={{
 align: "start",
@@ -120,7 +120,7 @@ className="w-full"
 <CarouselPrevious />
 <CarouselNext />
 </Carousel>
-</div>
+
 </TabsContent>
 </Tabs>
 </DrawerDescription>
