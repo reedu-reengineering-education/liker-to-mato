@@ -1,0 +1,4 @@
+{
+    "editor.defaultFoldingRangeProvider": "GitHub.copilot",
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+}

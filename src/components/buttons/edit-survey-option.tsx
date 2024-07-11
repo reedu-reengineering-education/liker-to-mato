@@ -53,6 +53,8 @@ export function EditSurveyName({ surveyId }: { surveyId: string }) {
             <Button variant="outline">
               <PencilIcon className="mr-2 h-4 w-4" aria-hidden="true" />
               Name ändern
+
+
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">

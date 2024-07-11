@@ -2,9 +2,13 @@
 import { useRef, useEffect, useState } from "react";
 import { Chart, ChartConfiguration } from "chart.js/auto";
 import { getGroupedAnswers } from "@/lib/api/answerClient";
+import { Question } from "@prisma/client";
+
 
 interface BarChartProps {
   questionId: string;
+  questionName: string;
+  
 }
 
 interface GroupedAnswer {
@@ -23,10 +27,11 @@ function generateColors(numColors: number): string[] {
   return colors;
 }
 
-export default function BarChart({ questionId }: BarChartProps) {
+export default function BarChart({ questionId, questionName }: BarChartProps) {
   const chartRef = useRef<HTMLCanvasElement>(null);
   const [chartInstance, setChartInstance] = useState<Chart | null>(null);
   const [groupedAnswers, setGroupedAnswers] = useState<GroupedAnswer[]>([]);
+
 
   useEffect(() => {
     async function fetchGroupedAnswers() {
@@ -62,7 +67,7 @@ export default function BarChart({ questionId }: BarChartProps) {
             labels,
             datasets: [
               {
-                label: "Frage",
+                label: questionName,
                 data,
                 backgroundColor: backgroundColors,
                 borderColor: borderColors,
@@ -85,7 +90,7 @@ export default function BarChart({ questionId }: BarChartProps) {
         setChartInstance(newChart);
       }
     }
-  }, [groupedAnswers]);
+  }, [groupedAnswers, questionName]);
 
   return <canvas ref={chartRef} className="w-full h-full"></canvas>;
 }
