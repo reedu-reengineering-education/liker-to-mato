@@ -48,7 +48,7 @@ export function CreateAccount() {
                 : "transition ease-in duration-75 transform opacity-0 scale-95"
             }`}
           >
-            <Tabs defaultValue="account" className="w-[400px]">
+            <Tabs defaultValue="account" className="w-96">
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="account">Account</TabsTrigger>
                 <TabsTrigger value="password">Password</TabsTrigger>

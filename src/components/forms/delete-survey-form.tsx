@@ -40,7 +40,7 @@ export function DeleteSurveyDialog() {
           Lösche eine Umfrage
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Lösche eine Umfrage.</DialogTitle>
           <DialogDescription>

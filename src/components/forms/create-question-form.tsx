@@ -40,7 +40,7 @@ export function CreateQuestionDialog(props: CreateQuestionProps) {
         min,
         stepsValue,
         max,
-        props.surveyId,
+        props.surveyId
       );
       console.log("Question created:", questionData);
       setIsDialogOpen(false);
@@ -65,7 +65,7 @@ export function CreateQuestionDialog(props: CreateQuestionProps) {
           </Button>
         )}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Stell eine Frage</DialogTitle>
           <DialogDescription>

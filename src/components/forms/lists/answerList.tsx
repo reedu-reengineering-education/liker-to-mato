@@ -47,36 +47,44 @@ export default function ListAnswer(props: AnswerListProps) {
       <DrawerContent>
         <div className="mx-auto w-full max-w-7xl">
           <DrawerHeader>
-            <DrawerTitle>Chart Data</DrawerTitle>
+            <DrawerTitle></DrawerTitle>
             <DrawerDescription>
               <Tabs defaultValue="bar" className="w-full">
-                <TabsList className="w-72 flex justify-center mx-[30rem]">
-                  <TabsTrigger value="bar" className="flex-1 flex justify-center">
+                <TabsList className="w-72 flex justify-center mx-96">
+                  <TabsTrigger
+                    value="bar"
+                    className="flex-1 flex justify-center"
+                  >
                     <ChartBarIcon className="w-5" />
                   </TabsTrigger>
-                  <TabsTrigger value="pie" className="flex-1 flex justify-center">
+                  <TabsTrigger
+                    value="pie"
+                    className="flex-1 flex justify-center"
+                  >
                     <ChartPieIcon className="w-5" />
                   </TabsTrigger>
                 </TabsList>
                 <TabsContent value="bar">
                   <div className="p-4 pb-0">
-                    <Carousel opts={{ align: "start" }} className="w-full">
+                    <Carousel
+                      opts={{ align: "start" }}
+                      className="w-full max-w-6xl mx-auto"
+                    >
                       <CarouselContent>
                         {questions.map((question) => (
                           <CarouselItem
                             key={question.id}
-                            className="md:basis-1/2 lg:basis-1/2"
+                            // className="md:basis-1/2 lg:basis-1/2"
                           >
-                            <div className="p-5">
-                              <Card className="mx-[2.3rem]">
-                                <CardContent className="aspect-square items-center h-[65vh] w-full">
-                                  <BarChart
-                                    questionId={question.id}
-                                    questionName={question.name}
-                                  />
-                                </CardContent>
-                              </Card>
-                            </div>
+                            {/* <div className="p-5"> */}
+                            <Card className="w-full ">
+                              <CardContent className="h-[65vh] mx-auto">
+                                <BarChart
+                                  questionId={question.id}
+                                  questionName={question.name}
+                                />
+                              </CardContent>
+                            </Card>
                           </CarouselItem>
                         ))}
                       </CarouselContent>
@@ -86,29 +94,34 @@ export default function ListAnswer(props: AnswerListProps) {
                   </div>
                 </TabsContent>
                 <TabsContent value="pie">
-                  <Carousel opts={{ align: "start" }} className="w-full">
-                    <CarouselContent>
-                      {questions.map((question) => (
-                        <CarouselItem
-                          key={question.id}
-                          className="md:basis-1/2 lg:basis-1/2"
-                        >
-                          <div className="p-5">
-                            <Card className="mx-[2.3rem]">
-                              <CardContent className="aspect-square items-center h-[65vh] w-full">
+                  <div className="p-4 pb-0">
+                    <Carousel
+                      opts={{ align: "start" }}
+                      className="w-full max-w-6xl mx-auto"
+                    >
+                      <CarouselContent>
+                        {questions.map((question) => (
+                          <CarouselItem
+                            key={question.id}
+                            // className="md:basis-1/2 lg:basis-1/2"
+                          >
+                            {/* <div className="p-5"> */}
+                            <Card className="w-full ">
+                              <CardContent className="aspect-square h-[65vh] mx-auto">
                                 <PieChart
                                   questionId={question.id}
                                   questionName={question.name}
                                 />
                               </CardContent>
                             </Card>
-                          </div>
-                        </CarouselItem>
-                      ))}
-                    </CarouselContent>
-                    <CarouselPrevious />
-                    <CarouselNext />
-                  </Carousel>
+                            {/* </div> */}
+                          </CarouselItem>
+                        ))}
+                      </CarouselContent>
+                      <CarouselPrevious />
+                      <CarouselNext />
+                    </Carousel>
+                  </div>
                 </TabsContent>
               </Tabs>
             </DrawerDescription>

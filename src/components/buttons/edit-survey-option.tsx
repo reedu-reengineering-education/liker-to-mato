@@ -52,7 +52,7 @@ export function EditSurveyName({ surveyId }: { surveyId: string }) {
               Name ändern
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
+          <DialogContent className="sm:max-w-md">
             <DialogHeader>
               <DialogTitle>Umfrage umbenennen</DialogTitle>
               <DialogDescription>
