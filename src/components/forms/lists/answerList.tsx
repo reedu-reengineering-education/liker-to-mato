@@ -19,12 +19,12 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import BarChart from "@/components/ui/barchart";
-import PieChart from "@/components/ui/piechart";
+import CustomPieChart from "@/components/ui/piechart"; // Korrekte Import
 import { surveyQuestions } from "@/lib/api/surveyClient";
 import { Question } from "@prisma/client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ChartBarIcon, ChartPieIcon } from "@heroicons/react/20/solid";
+import CustomBarChart from "@/components/ui/barchart";
 
 type AnswerListProps = {
   surveyId: string;
@@ -49,8 +49,8 @@ export default function ListAnswer(props: AnswerListProps) {
           <DrawerHeader>
             <DrawerTitle></DrawerTitle>
             <DrawerDescription>
-              <Tabs defaultValue="bar" className="w-full">
-                <TabsList className="w-72 flex justify-center mx-96">
+              <Tabs defaultValue="bar" className="w-full ">
+                <TabsList className="w-72 flex justify-center mx-auto">
                   <TabsTrigger
                     value="bar"
                     className="flex-1 flex justify-center"
@@ -76,15 +76,18 @@ export default function ListAnswer(props: AnswerListProps) {
                             key={question.id}
                             // className="md:basis-1/2 lg:basis-1/2"
                           >
-                            {/* <div className="p-5"> */}
-                            <Card className="w-full ">
+                            <CustomBarChart
+                              questionId={question.id}
+                              questionName={question.name}
+                            />
+                            {/* <Card className="w-full ">
                               <CardContent className="h-[65vh] mx-auto">
                                 <BarChart
                                   questionId={question.id}
                                   questionName={question.name}
                                 />
                               </CardContent>
-                            </Card>
+                            </Card> */}
                           </CarouselItem>
                         ))}
                       </CarouselContent>
@@ -105,16 +108,10 @@ export default function ListAnswer(props: AnswerListProps) {
                             key={question.id}
                             // className="md:basis-1/2 lg:basis-1/2"
                           >
-                            {/* <div className="p-5"> */}
-                            <Card className="w-full ">
-                              <CardContent className="aspect-square h-[65vh] mx-auto">
-                                <PieChart
-                                  questionId={question.id}
-                                  questionName={question.name}
-                                />
-                              </CardContent>
-                            </Card>
-                            {/* </div> */}
+                            <CustomPieChart
+                              questionId={question.id}
+                              questionName={question.name}
+                            />
                           </CarouselItem>
                         ))}
                       </CarouselContent>
