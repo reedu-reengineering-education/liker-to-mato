@@ -51,10 +51,16 @@ export default function ListAnswer(props: AnswerListProps) {
             <DrawerDescription>
               <Tabs defaultValue="bar" className="w-full">
                 <TabsList className="w-72 flex justify-center mx-[30rem]">
-                  <TabsTrigger value="bar" className="flex-1 flex justify-center">
+                  <TabsTrigger
+                    value="bar"
+                    className="flex-1 flex justify-center"
+                  >
                     <ChartBarIcon className="w-5" />
                   </TabsTrigger>
-                  <TabsTrigger value="pie" className="flex-1 flex justify-center">
+                  <TabsTrigger
+                    value="pie"
+                    className="flex-1 flex justify-center"
+                  >
                     <ChartPieIcon className="w-5" />
                   </TabsTrigger>
                 </TabsList>
@@ -80,35 +86,42 @@ export default function ListAnswer(props: AnswerListProps) {
                           </CarouselItem>
                         ))}
                       </CarouselContent>
-                      <CarouselPrevious />
-                      <CarouselNext />
+                      {/* <CarouselPrevious
+                      // className="absolute top-1/2 left-4 transform -translate-y-1/2"
+                      /> */}
+
+                      {/* <CarouselNext
+                      // className="absolute top-1/2 right-4 transform -translate-y-1/2"
+                      ></CarouselNext> */}
                     </Carousel>
                   </div>
                 </TabsContent>
                 <TabsContent value="pie">
-                  <Carousel opts={{ align: "start" }} className="w-full">
-                    <CarouselContent>
-                      {questions.map((question) => (
-                        <CarouselItem
-                          key={question.id}
-                          className="md:basis-1/2 lg:basis-1/2"
-                        >
-                          <div className="p-5">
-                            <Card className="mx-[2.3rem]">
-                              <CardContent className="aspect-square items-center h-[65vh] w-full">
-                                <PieChart
-                                  questionId={question.id}
-                                  questionName={question.name}
-                                />
-                              </CardContent>
-                            </Card>
-                          </div>
-                        </CarouselItem>
-                      ))}
-                    </CarouselContent>
-                    <CarouselPrevious />
-                    <CarouselNext />
-                  </Carousel>
+                  <div className="p-4 pb-0">
+                    <Carousel opts={{ align: "start" }} className="w-full">
+                      <CarouselContent>
+                        {questions.map((question) => (
+                          <CarouselItem
+                            key={question.id}
+                            className="md:basis-1/2 lg:basis-1/2"
+                          >
+                            <div className="p-5">
+                              <Card className="mx-[2.3rem]">
+                                <CardContent className="aspect-square items-center h-[65vh] w-full">
+                                  <PieChart
+                                    questionId={question.id}
+                                    questionName={question.name}
+                                  />
+                                </CardContent>
+                              </Card>
+                            </div>
+                          </CarouselItem>
+                        ))}
+                      </CarouselContent>
+                      <CarouselPrevious />
+                      <CarouselNext />
+                    </Carousel>
+                  </div>
                 </TabsContent>
               </Tabs>
             </DrawerDescription>
