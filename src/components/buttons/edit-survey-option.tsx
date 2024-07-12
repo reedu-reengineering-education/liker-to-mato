@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState, useEffect } from "react";
 import { readSurvey, updateSurvey } from "@/lib/api/surveyClient";
 import {
@@ -11,7 +10,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
 import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
@@ -46,7 +44,6 @@ export function EditSurveyName({ surveyId }: { surveyId: string }) {
       <div>
         <h4>{surveyName}</h4>
       </div>
-
       <div>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
@@ -63,7 +60,6 @@ export function EditSurveyName({ surveyId }: { surveyId: string }) {
                 Änderungen.
               </DialogDescription>
             </DialogHeader>
-
             <Label htmlFor="name">Neuer Name</Label>
             <Input
               id="name"
@@ -71,7 +67,6 @@ export function EditSurveyName({ surveyId }: { surveyId: string }) {
               onChange={(e) => setNewName(e.target.value)}
               placeholder="Neuer Name der Umfrage"
             />
-
             <DialogFooter>
               <Button onClick={handleSave}>Speichern</Button>
             </DialogFooter>
