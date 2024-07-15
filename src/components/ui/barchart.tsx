@@ -31,6 +31,8 @@ import {
 interface BarChartProps {
   questionId: string;
   questionName: string;
+  min: string;
+  max: string;
 }
 
 interface GroupedAnswer {
@@ -62,6 +64,8 @@ function generateColors(numColors: number): DynamicChartConfig {
 const CustomBarChart: React.FC<BarChartProps> = ({
   questionId,
   questionName,
+  min,
+  max,
 }) => {
   const [groupedAnswers, setGroupedAnswers] = useState<GroupedAnswer[]>([]);
   const [chartData, setChartData] = useState<any[]>([]);
@@ -81,27 +85,33 @@ const CustomBarChart: React.FC<BarChartProps> = ({
 
   useEffect(() => {
     if (groupedAnswers.length > 0) {
-      const colorsConfig = generateColors(groupedAnswers.length);
+      const minValue = parseInt(min, 10);
+      const maxValue = parseInt(max, 10);
+      const colorsConfig = generateColors(maxValue - minValue + 1);
       setChartConfig(colorsConfig);
 
-      const data = groupedAnswers.map((answer, index) => ({
-        name: answer.value.toString(),
-        value: answer._count.value,
-        fill: colorsConfig[`color${index + 1}`].color,
-      }));
+      const data = [];
+      for (let i = minValue; i <= maxValue; i++) {
+        const answer = groupedAnswers.find((ans) => ans.value === i);
+        data.push({
+          name: i.toString(),
+          value: answer ? answer._count.value : 0,
+          fill: colorsConfig[`color${i - minValue + 1}`].color,
+        });
+      }
       setChartData(data);
     }
-  }, [groupedAnswers]);
+  }, [groupedAnswers, min, max]);
 
   return (
-    <Card className="w-full">
+    <Card>
       <CardHeader className="items-center pb-0">
         <CardTitle>{questionName}</CardTitle>
         <CardDescription>Data visualization</CardDescription>
       </CardHeader>
-      <CardContent className="h-[55vh] mx-auto">
-        <ChartContainer config={chartConfig}>
-          <ResponsiveContainer width="100%" height={250}>
+      <CardContent>
+        <ChartContainer config={chartConfig} className="w-full h-[55vh] ">
+          <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={chartData}
               margin={{
