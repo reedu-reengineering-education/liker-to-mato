@@ -22,6 +22,8 @@ import {
 interface PieChartProps {
   questionId: string;
   questionName: string;
+  min: string;
+  max: string;
 }
 
 interface GroupedAnswer {
@@ -53,6 +55,8 @@ function generateColors(numColors: number): DynamicChartConfig {
 const CustomPieChart: React.FC<PieChartProps> = ({
   questionId,
   questionName,
+  min,
+  max,
 }) => {
   const [groupedAnswers, setGroupedAnswers] = useState<GroupedAnswer[]>([]);
   const [chartData, setChartData] = useState<any[]>([]);
@@ -90,14 +94,14 @@ const CustomPieChart: React.FC<PieChartProps> = ({
         <CardTitle>{questionName}</CardTitle>
         <CardDescription>Data visualization</CardDescription>
       </CardHeader>
-      <CardContent className="aspect-square h-[55vh] mx-auto">
+      <CardContent>
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square w-full  pb-0 [&_.recharts-pie-label-text]:fill-foreground"
+          className=" w-full h-[53vh] mx-auto aspect-square pb-0 [&_.recharts-pie-label-text]:fill-foreground"
         >
           <ResponsiveContainer width="100%" height={250}>
             <PieChart>
-              <Tooltip content={<ChartTooltipContent hideLabel />} />
+              {/* <Tooltip content={<ChartTooltipContent hideLabel />} /> */}
               <Pie data={chartData} dataKey="value" nameKey="name" label>
                 {chartData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={entry.fill} />

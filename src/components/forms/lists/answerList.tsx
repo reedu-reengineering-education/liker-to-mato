@@ -19,7 +19,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import CustomPieChart from "@/components/ui/piechart"; // Korrekte Import
+import CustomPieChart from "@/components/ui/piechart";
 import { surveyQuestions } from "@/lib/api/surveyClient";
 import { Question } from "@prisma/client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -79,6 +79,9 @@ export default function ListAnswer(props: AnswerListProps) {
                             <CustomBarChart
                               questionId={question.id}
                               questionName={question.name}
+                              min={question.min}
+                              max={question.max}
+                              steps={question.steps}
                             />
                             {/* <Card className="w-full ">
                               <CardContent className="h-[65vh] mx-auto">
@@ -111,6 +114,8 @@ export default function ListAnswer(props: AnswerListProps) {
                             <CustomPieChart
                               questionId={question.id}
                               questionName={question.name}
+                              min={question.min}
+                              max={question.max}
                             />
                           </CarouselItem>
                         ))}

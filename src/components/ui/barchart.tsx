@@ -1,5 +1,3 @@
-"use client";
-
 import { TrendingUp } from "lucide-react";
 import {
   Bar,
@@ -24,13 +22,14 @@ import {
 import {
   ChartConfig,
   ChartContainer,
-  ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart";
+} from "@/components/ui/chart"; // Importe für ChartContainer und ChartTooltipContent
 
 interface BarChartProps {
   questionId: string;
   questionName: string;
+  min: string;
+  max: string;
 }
 
 interface GroupedAnswer {
@@ -62,6 +61,8 @@ function generateColors(numColors: number): DynamicChartConfig {
 const CustomBarChart: React.FC<BarChartProps> = ({
   questionId,
   questionName,
+  min,
+  max,
 }) => {
   const [groupedAnswers, setGroupedAnswers] = useState<GroupedAnswer[]>([]);
   const [chartData, setChartData] = useState<any[]>([]);
@@ -84,24 +85,31 @@ const CustomBarChart: React.FC<BarChartProps> = ({
       const colorsConfig = generateColors(groupedAnswers.length);
       setChartConfig(colorsConfig);
 
-      const data = groupedAnswers.map((answer, index) => ({
-        name: answer.value.toString(),
-        value: answer._count.value,
-        fill: colorsConfig[`color${index + 1}`].color,
-      }));
+      const data = [];
+      for (let i = 0; i < groupedAnswers.length; i++) {
+        const answer = groupedAnswers[i];
+        const value = answer ? answer._count.value : 0;
+        const name =
+          i === 0 ? min : i === groupedAnswers.length - 1 ? max : "●";
+        data.push({
+          name,
+          value,
+          fill: colorsConfig[`color${i + 1}`].color,
+        });
+      }
       setChartData(data);
     }
-  }, [groupedAnswers]);
+  }, [groupedAnswers, min, max]);
 
   return (
-    <Card className="w-full">
+    <Card>
       <CardHeader className="items-center pb-0">
         <CardTitle>{questionName}</CardTitle>
         <CardDescription>Data visualization</CardDescription>
       </CardHeader>
-      <CardContent className="h-[55vh] mx-auto">
-        <ChartContainer config={chartConfig}>
-          <ResponsiveContainer width="100%" height={250}>
+      <CardContent>
+        <ChartContainer config={chartConfig} className="w-full h-[53vh]">
+          <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={chartData}
               margin={{
@@ -113,7 +121,7 @@ const CustomBarChart: React.FC<BarChartProps> = ({
             >
               <CartesianGrid vertical={false} />
               <XAxis dataKey="name" />
-              <Tooltip />
+              {/* <Tooltip content={<ChartTooltipContent />} /> */}
               <Bar dataKey="value" radius={8}>
                 <LabelList dataKey="value" position="top" />
               </Bar>
