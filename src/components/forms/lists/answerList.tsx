@@ -81,6 +81,7 @@ export default function ListAnswer(props: AnswerListProps) {
                               questionName={question.name}
                               min={question.min}
                               max={question.max}
+                              steps={question.steps}
                             />
                             {/* <Card className="w-full ">
                               <CardContent className="h-[65vh] mx-auto">

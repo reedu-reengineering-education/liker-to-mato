@@ -97,11 +97,11 @@ const CustomPieChart: React.FC<PieChartProps> = ({
       <CardContent>
         <ChartContainer
           config={chartConfig}
-          className=" w-full h-[55vh] mx-auto aspect-square pb-0 [&_.recharts-pie-label-text]:fill-foreground"
+          className=" w-full h-[53vh] mx-auto aspect-square pb-0 [&_.recharts-pie-label-text]:fill-foreground"
         >
           <ResponsiveContainer width="100%" height={250}>
             <PieChart>
-              <Tooltip content={<ChartTooltipContent hideLabel />} />
+              {/* <Tooltip content={<ChartTooltipContent hideLabel />} /> */}
               <Pie data={chartData} dataKey="value" nameKey="name" label>
                 {chartData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={entry.fill} />

@@ -1,5 +1,3 @@
-"use client";
-
 import { TrendingUp } from "lucide-react";
 import {
   Bar,
@@ -24,9 +22,8 @@ import {
 import {
   ChartConfig,
   ChartContainer,
-  ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart";
+} from "@/components/ui/chart"; // Importe für ChartContainer und ChartTooltipContent
 
 interface BarChartProps {
   questionId: string;
@@ -85,18 +82,19 @@ const CustomBarChart: React.FC<BarChartProps> = ({
 
   useEffect(() => {
     if (groupedAnswers.length > 0) {
-      const minValue = parseInt(min, 10);
-      const maxValue = parseInt(max, 10);
-      const colorsConfig = generateColors(maxValue - minValue + 1);
+      const colorsConfig = generateColors(groupedAnswers.length);
       setChartConfig(colorsConfig);
 
       const data = [];
-      for (let i = minValue; i <= maxValue; i++) {
-        const answer = groupedAnswers.find((ans) => ans.value === i);
+      for (let i = 0; i < groupedAnswers.length; i++) {
+        const answer = groupedAnswers[i];
+        const value = answer ? answer._count.value : 0;
+        const name =
+          i === 0 ? min : i === groupedAnswers.length - 1 ? max : "●";
         data.push({
-          name: i.toString(),
-          value: answer ? answer._count.value : 0,
-          fill: colorsConfig[`color${i - minValue + 1}`].color,
+          name,
+          value,
+          fill: colorsConfig[`color${i + 1}`].color,
         });
       }
       setChartData(data);
@@ -110,7 +108,7 @@ const CustomBarChart: React.FC<BarChartProps> = ({
         <CardDescription>Data visualization</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="w-full h-[55vh] ">
+        <ChartContainer config={chartConfig} className="w-full h-[53vh]">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={chartData}
@@ -123,7 +121,7 @@ const CustomBarChart: React.FC<BarChartProps> = ({
             >
               <CartesianGrid vertical={false} />
               <XAxis dataKey="name" />
-              <Tooltip />
+              {/* <Tooltip content={<ChartTooltipContent />} /> */}
               <Bar dataKey="value" radius={8}>
                 <LabelList dataKey="value" position="top" />
               </Bar>
