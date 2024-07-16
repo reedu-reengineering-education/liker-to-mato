@@ -11,7 +11,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { Card, CardContent } from "@/components/ui/card";
+
 import {
   Carousel,
   CarouselContent,
@@ -81,7 +81,6 @@ export default function ListAnswer(props: AnswerListProps) {
                               questionName={question.name}
                               min={question.min}
                               max={question.max}
-                              steps={question.steps}
                             />
                             {/* <Card className="w-full ">
                               <CardContent className="h-[65vh] mx-auto">
