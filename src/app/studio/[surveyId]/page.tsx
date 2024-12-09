@@ -1,34 +1,52 @@
+// path: src/app/studio/%5BsurveyId%5D/page.tsx
+"use client";
+
 import React from "react";
-import { ListQuestions } from "@/components/forms/lists/questionList";
+import { SurveyEditor } from "@/components/forms/edit/SurveyEditor";
+import { SurveyAnalytics } from "@/components/analytics/SurveyAnalytics";
 import { EditSurveyName } from "@/components/buttons/edit-survey-option";
-import {
-  Card,
-  CardHeader,
-  CardFooter,
-  CardTitle,
-  CardContent,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Container } from "@/components/ui/layout/Container";
 
 export default function Studio({ params }: { params: { surveyId: string } }) {
   return (
-    <main className="p-24">
-      <div className="space-y-6">
-        <Card>
+    <Container>
+      <div className="py-6">
+        <Card className="mb-6">
           <CardHeader>
             <CardTitle>
               <EditSurveyName surveyId={params.surveyId} />
             </CardTitle>
-            <CardFooter></CardFooter>
           </CardHeader>
         </Card>
 
-        <Card>
-          <CardHeader></CardHeader>
-          <CardContent>
-            <ListQuestions surveyId={params.surveyId} />
-          </CardContent>
-        </Card>
+        <Tabs defaultValue="editor" className="w-full">
+          <TabsList className="mb-4">
+            <TabsTrigger value="editor">Umfrage bearbeiten</TabsTrigger>
+            <TabsTrigger value="analytics">Analytics</TabsTrigger>
+            <TabsTrigger value="settings">Einstellungen</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="editor" className="mt-0">
+            <SurveyEditor surveyId={params.surveyId} />
+          </TabsContent>
+
+          <TabsContent value="analytics" className="mt-0">
+            <SurveyAnalytics surveyId={params.surveyId} />
+          </TabsContent>
+
+          <TabsContent value="settings" className="mt-0">
+            <Card>
+              <CardContent className="pt-6">
+                <p className="text-muted-foreground">
+                  Einstellungen werden bald verfügbar sein...
+                </p>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
-    </main>
+    </Container>
   );
 }

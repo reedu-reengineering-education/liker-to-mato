@@ -5,6 +5,9 @@ import {
   UserCircle,
   ArrowLeftSquareIcon,
   ArrowRightSquareIcon,
+  FileText,
+  Shield,
+  CreditCard,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MainNav } from "./navigation";
@@ -28,19 +31,25 @@ import {
 } from "@/components/ui/dropdown-menu";
 import React from "react";
 
-// const links = [Studenten... ];
-
 export function SiteHeader() {
   const { data: session } = useSession();
   const [position, setPosition] = React.useState("top");
 
+  function cn(...classes: string[]): string {
+    return classes.filter(Boolean).join(" ");
+  }
   return (
-    <header className=" bg-gradient-to-r from-[#dafd2b] to-[#f3a5ed] sticky top-0 z-40 w-full border-b">
-      <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
+    <header
+      className={cn(
+        "relative bg-white dark:bg-gray-900",
+        "top-0 z-40 w-full border-b-2 border-indigo-500 dark:border-indigo-400",
+        "shadow-sm",
+      )}
+    >
+      <div className="container flex h-16 w-auto items-center space-x-4 sm:justify-between sm:space-x-0">
         <MainNav
           items={[
             {
-              // TODO: add more items
               title: "Studio",
               href: "/studio",
             },
@@ -56,6 +65,26 @@ export function SiteHeader() {
               title: "Contact",
               href: "/contact",
             },
+            {
+              title: "Dashboard",
+              href: "/dashboard",
+            },
+            {
+              title: "Account",
+              href: "/account",
+            },
+            {
+              title: "Pläne",
+              href: "/account/plans",
+            },
+            {
+              title: "Impressum",
+              href: "/imprint",
+            },
+            {
+              title: "Datenschutz",
+              href: "/privacy",
+            },
           ]}
         />
         <div className="flex flex-1 items-center justify-end space-x-4">
@@ -70,15 +99,12 @@ export function SiteHeader() {
                 <DropdownMenuContent className="w-50">
                   <DropdownMenuLabel>Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuRadioGroup
-                    value="position"
-                    onValueChange={setPosition}
-                    className="gap-4 pl-2"
-                  >
-                    <DropdownMenuRadioItem value="top" onClick={() => signIn()}>
-                      <ArrowRightSquareIcon /> {"Login"}
-                    </DropdownMenuRadioItem>
-                  </DropdownMenuRadioGroup>
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem onClick={() => signIn()}>
+                      <ArrowRightSquareIcon className="mr-2 h-4 w-4" />
+                      Login
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
                 </DropdownMenuContent>
               </DropdownMenu>
             )}
@@ -89,21 +115,27 @@ export function SiteHeader() {
                     <UserCircle>Account</UserCircle>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-54">
-                  <DropdownMenuLabel>Account</DropdownMenuLabel>
+                <DropdownMenuContent className="w-50">
+                  <DropdownMenuLabel>Mein Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuRadioGroup
-                    value="position"
-                    onValueChange={setPosition}
-                  >
-                    <DropdownMenuRadioItem
-                      value="top"
-                      onClick={() => signOut()}
-                      className="gap-4 pl-2"
-                    >
-                      <ArrowLeftSquareIcon /> {"Logout"}
-                    </DropdownMenuRadioItem>
-                  </DropdownMenuRadioGroup>
+                  <DropdownMenuGroup>
+                    <Link href="/account">
+                      <DropdownMenuItem>
+                        <UserCircle className="mr-2 h-4 w-4" />
+                        Profil
+                      </DropdownMenuItem>
+                    </Link>
+                    <Link href="/account/plans">
+                      <DropdownMenuItem>
+                        <CreditCard className="mr-2 h-4 w-4" />
+                        Pläne & Abonnements
+                      </DropdownMenuItem>
+                    </Link>
+                    <DropdownMenuItem onClick={() => signOut()}>
+                      <ArrowLeftSquareIcon className="mr-2 h-4 w-4" />
+                      Logout
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
                 </DropdownMenuContent>
               </DropdownMenu>
             )}

@@ -1,5 +1,6 @@
+// path: src/pages/api/question/index.ts
 import { NextApiRequest, NextApiResponse } from "next";
-import prisma from "@/lib/db";
+import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
@@ -12,7 +13,16 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
     console.log(session);
 
-    const { name, description, min, steps, max, surveyId } = req.body;
+    const {
+      name,
+      description,
+      min,
+      steps,
+      max,
+      surveyId,
+      scaleType,
+      scaleOptions,
+    } = req.body;
     const existingSurvey = await prisma.survey.findUnique({
       where: {
         id: surveyId,
@@ -32,6 +42,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           steps,
           max,
           surveyId,
+          scaleType: scaleType || "default",
+          scaleOptions: scaleOptions || [],
         },
       });
 
@@ -48,7 +60,16 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
 
     const { questionId } = req.query;
-    const { name, description, min, steps, max, surveyId } = req.body;
+    const {
+      name,
+      description,
+      min,
+      steps,
+      max,
+      surveyId,
+      scaleType,
+      scaleOptions,
+    } = req.body;
 
     try {
       const updatedQuestion = await prisma.question.update({
@@ -60,6 +81,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           steps,
           max,
           surveyId,
+          scaleType: scaleType || "default",
+          scaleOptions: scaleOptions || [],
         },
       });
 

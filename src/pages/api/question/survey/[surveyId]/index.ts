@@ -1,5 +1,6 @@
+// path: src/pages/api/question/survey/[surveyId]/index.ts
 import { NextApiRequest, NextApiResponse } from "next";
-import prisma from "@/lib/db";
+import { prisma } from "@/lib/prisma";
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,6 +12,9 @@ export default async function handler(
     try {
       const questions = await prisma.question.findMany({
         where: { surveyId: surveyId as string },
+        orderBy: {
+          createdAt: "asc",
+        },
       });
       res.status(200).json(questions);
     } catch (error) {

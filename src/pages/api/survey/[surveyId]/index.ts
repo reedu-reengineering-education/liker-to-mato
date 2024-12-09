@@ -1,5 +1,6 @@
+// path: src/pages/api/survey/[surveyId]/index.ts
 import { NextApiRequest, NextApiResponse } from "next";
-import prisma from "@/lib/db";
+import { prisma } from "@/lib/prisma";
 import { withMethods } from "@/lib/apiMiddlewares/withMethods";
 import { withSurvey } from "@/lib/apiMiddlewares/withSurvey";
 

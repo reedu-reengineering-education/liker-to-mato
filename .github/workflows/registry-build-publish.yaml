@@ -1,4 +1,9 @@
+# .github/workflows/registry-build-publish.yaml
 name: Build and publish to Github Container Registry
+
+# Workflow for building and publishing Docker images to GitHub Container Registry (GHCR)
+# Required secrets:
+#   GHCR_TOKEN: Personal access token with read/write/delete packages permissions
 
 on:
   push:
@@ -11,6 +16,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  # ${{ secrets.GHCR_TOKEN }} will be available at runtime
 
 jobs:
   build-and-push-images:
@@ -18,21 +24,44 @@ jobs:
     permissions:
       contents: read
       packages: write
+    # This job requires GHCR_TOKEN secret
+    environment:
+      name: github-pages
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Debug Info
+        run: |
+          echo "Repository: ${{ github.repository }}"
+          echo "Actor: ${{ github.actor }}"
+          echo "Registry: ${{ env.REGISTRY }}"
+          echo "Image name: ${{ env.IMAGE_NAME }}"
+
+      - name: Check GHCR_TOKEN
+        id: check_token
+        env:
+          GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+        run: |
+          if [ -n "$GHCR_TOKEN" ]; then
+            echo "Token is set"
+          else
+            echo "::error::GHCR_TOKEN is not set in repository secrets"
+            exit 1
+          fi
+
       - name: Log in to the Container registry
-        uses: docker/login-action@e92390c5fb421da1463c202d546fed0ec5c39f20
+        uses: docker/login-action@v2
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
+          # yamllint disable-line rule:line-length
           password: ${{ secrets.GHCR_TOKEN }}
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@8e5442c4ef9f78752691e2d8f8d19755c6f78e81
+        uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           flavor: |
@@ -41,7 +70,7 @@ jobs:
             suffix=
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@2cdde995de11925a030ce8070c3d77a52ffcf1c0
+        uses: docker/build-push-action@v4
         with:
           context: .
           push: true

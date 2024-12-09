@@ -1,12 +1,14 @@
 import axios from "axios";
 
-async function createQuestion(
+export async function createQuestion(
   name: string,
   description: string,
   min: string,
   steps: number,
   max: string,
   surveyId: string,
+  scaleType?: string,
+  scaleOptions?: string[],
 ) {
   const apiUrl = "/api/question";
   try {
@@ -17,23 +19,21 @@ async function createQuestion(
       steps,
       max,
       surveyId,
+      scaleType,
+      scaleOptions,
     });
-    const createQuestion = response.data;
-    return createQuestion;
+    return response.data;
   } catch (error) {
     console.error("Error when creating the question:", error);
     throw error;
   }
 }
-export default createQuestion;
 
 export async function readQuestion(questionId: string) {
   const apiUrl = `/api/question/${questionId}`;
-
   try {
     const response = await axios.get(apiUrl);
-    const getQuestion = response.data;
-    return getQuestion;
+    return response.data;
   } catch (error) {
     console.error("Error when requesting the question:", error);
     throw error;
@@ -41,16 +41,17 @@ export async function readQuestion(questionId: string) {
 }
 
 export async function updateQuestion(
-  questionId: String,
-  name: String,
-  description: String,
-  min: String,
+  questionId: string,
+  name: string,
+  description: string,
+  min: string,
   steps: number,
-  max: String,
-  surveyId: String,
-): Promise<any> {
+  max: string,
+  surveyId: string,
+  scaleType?: string,
+  scaleOptions?: string[],
+) {
   const apiUrl = `/api/question/${questionId}`;
-
   try {
     const response = await axios.put(apiUrl, {
       name,
@@ -59,24 +60,23 @@ export async function updateQuestion(
       steps,
       max,
       surveyId,
+      scaleType,
+      scaleOptions,
     });
-    const updatedQuestion = response.data;
-    return updatedQuestion;
+    return response.data;
   } catch (error) {
     console.error("Error when updating the question:", error);
     throw error;
   }
 }
 
-export async function deleteQuestion(questionId: String) {
+export async function deleteQuestion(questionId: string) {
   const apiUrl = `/api/question/${questionId}`;
-
   try {
     const response = await axios.delete(apiUrl);
-    const deleteQuestion = response.data;
-    return deleteQuestion;
+    return response.data;
   } catch (error) {
-    console.error("Error when deleting the survey:", error);
+    console.error("Error when deleting the question:", error);
     throw error;
   }
 }
