@@ -1,4 +1,4 @@
-import { Resend } from 'resend';
+import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -15,9 +15,9 @@ export const sendVerificationRequest = async ({
 
   try {
     await resend.emails.send({
-      from: 'Likert-O-Mat <noreply@likert-o-mat.com>',
+      from: "Likert-O-Mat <noreply@likert-o-mat.com>",
       to: identifier,
-      subject: 'Sign in to Likert-O-Mat',
+      subject: "Sign in to Likert-O-Mat",
       html: `
         <!DOCTYPE html>
         <html>
@@ -123,7 +123,7 @@ export const sendVerificationRequest = async ({
       `,
     });
   } catch (error) {
-    throw new Error('Failed to send verification email');
+    throw new Error("Failed to send verification email");
   }
 };
 
@@ -137,12 +137,12 @@ export async function sendEmail({
   html: string;
 }) {
   if (!process.env.RESEND_API_KEY) {
-    throw new Error('Missing RESEND_API_KEY environment variable');
+    throw new Error("Missing RESEND_API_KEY environment variable");
   }
 
   try {
     const data = await resend.emails.send({
-      from: process.env.EMAIL_FROM || 'onboarding@resend.dev',
+      from: process.env.EMAIL_FROM || "onboarding@resend.dev",
       to,
       subject,
       html,
@@ -150,7 +150,7 @@ export async function sendEmail({
 
     return { success: true, data };
   } catch (error) {
-    console.error('Error sending email:', error);
+    console.error("Error sending email:", error);
     return { success: false, error };
   }
 }
