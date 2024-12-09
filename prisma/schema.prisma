@@ -32,6 +32,8 @@ model Question {
   updatedAt     DateTime? @updatedAt
   responseCount Int       @default(0)
   averageValue  Float     @default(0)
+  scaleType     String    @default("default")
+  scaleOptions  String[]  @default([])
   answers       Answer[]
   survey        Survey    @relation(fields: [surveyId], references: [id], onDelete: Cascade)
 }

@@ -18,7 +18,7 @@ import { surveyQuestions } from "@/lib/api/surveyClient";
 import { Question } from "@prisma/client";
 
 interface SurveyAnalyticsProps {
-  surveyId: string;
+  surveyId?: string;
 }
 
 // Beispieldaten
@@ -52,6 +52,8 @@ export function SurveyAnalytics({ surveyId }: SurveyAnalyticsProps) {
   const { toast } = useToast();
 
   useEffect(() => {
+    if (!surveyId) return;
+
     const fetchQuestions = async () => {
       try {
         setIsLoading(true);
@@ -71,6 +73,22 @@ export function SurveyAnalytics({ surveyId }: SurveyAnalyticsProps) {
 
     fetchQuestions();
   }, [surveyId, toast]);
+
+  if (!surveyId) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>Analytics Overview</CardTitle>
+          <CardDescription>
+            Select a survey from your list to view detailed analytics
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p>No survey selected. Please select a survey to view its analytics.</p>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Container>

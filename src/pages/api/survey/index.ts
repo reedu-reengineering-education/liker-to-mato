@@ -1,6 +1,6 @@
 // // path: src/pages/api/survey/index.ts
 // import { NextApiRequest, NextApiResponse } from "next";
-// import prisma from "@/lib/db";
+// import { prisma } from "@/lib/prisma";
 // import { getServerSession } from "next-auth/next";
 // import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
@@ -58,7 +58,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import prisma from "@/lib/db";
+import { prisma } from "@/lib/prisma";
 
 export default async function handler(
   req: NextApiRequest,

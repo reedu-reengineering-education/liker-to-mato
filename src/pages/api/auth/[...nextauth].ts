@@ -1,7 +1,7 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import prisma from "@/lib/db";
+import { prisma } from "@/lib/prisma";
 import { sendVerificationEmail } from "@/lib/send-verification-email";
 import nodemailer from "nodemailer";
 
@@ -97,7 +97,7 @@ export default NextAuth(authOptions);
 // import NextAuth, { NextAuthOptions } from "next-auth";
 // import EmailProvider from "next-auth/providers/email";
 // import { PrismaAdapter } from "@next-auth/prisma-adapter";
-// import prisma from "@/lib/db";
+// import { prisma } from "@/lib/prisma";
 // import nodemailer from "nodemailer";
 
 // export const authOptions: NextAuthOptions = {

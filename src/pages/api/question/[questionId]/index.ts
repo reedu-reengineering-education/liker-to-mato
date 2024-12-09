@@ -1,6 +1,6 @@
 // path: src/pages/api/question/[questionId]/index.ts
 import { NextApiRequest, NextApiResponse } from "next";
-import prisma from "@/lib/db";
+import { prisma } from "@/lib/prisma";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {

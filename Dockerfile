@@ -7,11 +7,9 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Kopiere Prisma Schema zuerst
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.json* ./
 COPY prisma ./prisma/
 
-# Dann die anderen Dateien
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.json* ./
 RUN \
   if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
   elif [ -f package-lock.json ]; then npm ci; \
@@ -22,13 +20,23 @@ RUN \
 #-------------------------> Next.JS Build
 FROM base as builder
 WORKDIR /app
+
+# Build-Zeit Umgebungsvariablen
+ENV DATABASE_URL="postgresql://dummy:dummy@localhost:5432/dummy"
+ENV NEXTAUTH_URL="http://localhost:3000"
+ENV NEXTAUTH_SECRET="dummy-secret"
+ENV NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY="dummy-key"
+ENV STRIPE_SECRET_KEY="dummy-key"
+ENV STRIPE_WEBHOOK_SECRET="dummy-secret"
+
+# Kopiere node_modules und andere Dateien
 COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/prisma ./prisma
 COPY . .
 
 # Generiere Prisma Client
 RUN npx prisma generate
 
+# Build
 RUN yarn build
 
 #-------------------------> Start Next.JS Server
@@ -40,18 +48,27 @@ ENV NODE_ENV production
 RUN addgroup --system --gid 1001 nextjs
 RUN adduser --system --uid 1001 nextjs
 
-COPY --from=builder /app/prisma ./prisma
-COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
+# Kopiere notwendige Build-Ausgaben
+COPY --from=builder --chown=nextjs:nextjs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nextjs /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nextjs /app/public ./public
+COPY --from=builder --chown=nextjs:nextjs /app/prisma ./prisma
+COPY --from=builder --chown=nextjs:nextjs /app/node_modules/.prisma ./node_modules/.prisma
+COPY --from=builder --chown=nextjs:nextjs /app/package.json ./package.json
 
 USER nextjs
-
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
 
 EXPOSE 3000
 
 ENV PORT 3000
-ENV HOSTNAME localhost
+ENV HOSTNAME "0.0.0.0"
+
+# Diese Variablen müssen zur Laufzeit gesetzt werden
+ENV DATABASE_URL=""
+ENV NEXTAUTH_URL=""
+ENV NEXTAUTH_SECRET=""
+ENV NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=""
+ENV STRIPE_SECRET_KEY=""
+ENV STRIPE_WEBHOOK_SECRET=""
 
 CMD ["node", "server.js"]

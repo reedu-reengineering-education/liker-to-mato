@@ -1,6 +1,6 @@
 // path: src/pages/api/question/survey/[surveyId]/index.ts
 import { NextApiRequest, NextApiResponse } from "next";
-import prisma from "@/lib/db";
+import { prisma } from "@/lib/prisma";
 
 export default async function handler(
   req: NextApiRequest,

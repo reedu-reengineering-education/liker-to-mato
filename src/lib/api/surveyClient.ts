@@ -1,6 +1,10 @@
 import axios from "axios";
 
-export async function createSurvey(name: String) {
+export async function createSurvey(
+  name: String,
+  startDate: string | undefined,
+  endDate: string | undefined
+) {
   const apiUrl = `/api/survey`;
 
   try {
