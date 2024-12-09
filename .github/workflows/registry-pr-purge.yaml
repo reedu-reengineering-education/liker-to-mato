@@ -1,3 +1,4 @@
+# .github/workflows/registry-pr-purge.yaml
 name: Purge Pull Request Image
 
 # https://docs.github.com/en/actions/reference/events-that-trigger-workflows#registry_package

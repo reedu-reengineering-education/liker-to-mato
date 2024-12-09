@@ -1,3 +1,4 @@
+# .github/workflows/registry-purge.yaml
 name: Purge untagged images
 
 # https://docs.github.com/en/actions/reference/events-that-trigger-workflows#registry_package
