@@ -1,16 +1,19 @@
 import { cn } from "@/lib/utils";
-import { HTMLAttributes } from "react";
+import { ElementType, HTMLAttributes, ReactNode } from "react";
 
-interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
-  as?: keyof JSX.IntrinsicElements;
+interface ContainerProps<T extends ElementType = "div"> {
+  as?: T;
+  className?: string;
+  children?: ReactNode;
+  props?: HTMLAttributes<HTMLElement>;
 }
 
-export function Container({
+export function Container<T extends ElementType = "div">({
   className,
-  as: Component = "div",
+  as: Component = "div" as T,
   children,
   ...props
-}: ContainerProps) {
+}: ContainerProps<T> & Omit<HTMLAttributes<HTMLElement>, keyof ContainerProps<T>>) {
   return (
     <Component
       className={cn("mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8", className)}
