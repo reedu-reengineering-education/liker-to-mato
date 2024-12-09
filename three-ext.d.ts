@@ -19,7 +19,7 @@ declare module "three/examples/jsm/geometries/TextGeometry" {
         bevelSize?: number;
         bevelOffset?: number;
         bevelSegments?: number;
-      }
+      },
     );
   }
 }

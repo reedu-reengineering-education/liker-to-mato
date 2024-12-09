@@ -6,7 +6,7 @@ interface MiddlewareRequest extends NextRequest {
 }
 
 export async function middleware(
-  req: MiddlewareRequest
+  req: MiddlewareRequest,
 ): Promise<NextResponse> {
   console.log("Middleware executing for:", req.url);
 

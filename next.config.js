@@ -1,11 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
+  output: "standalone",
   experimental: {
     serverActions: true,
   },
   images: {
-    domains: ['images.unsplash.com'],
+    domains: ["images.unsplash.com"],
   },
   reactStrictMode: true,
   webpack: (config) => {

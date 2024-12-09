@@ -55,9 +55,11 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
   }
-  
+
   /* Typografie-Hierarchie */
   h1 {
     @apply text-4xl font-bold tracking-tight;
@@ -74,12 +76,12 @@
   p {
     @apply leading-relaxed;
   }
-  
+
   /* Fokus-Styles */
   :focus-visible {
     @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
   }
-  
+
   /* Smooth Scrolling */
   html {
     scroll-behavior: smooth;
@@ -91,7 +93,7 @@
   .text-balance {
     text-wrap-balance: balance;
   }
-  
+
   .text-pretty {
     text-wrap: pretty;
   }
