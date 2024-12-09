@@ -15,7 +15,10 @@ interface SimpleLineChartProps {
   className?: string;
 }
 
-const SimpleLineChart: React.FC<SimpleLineChartProps> = ({ data, className }) => {
+const SimpleLineChart: React.FC<SimpleLineChartProps> = ({
+  data,
+  className,
+}) => {
   return (
     <div className={className}>
       <ResponsiveContainer width="100%" height="100%">

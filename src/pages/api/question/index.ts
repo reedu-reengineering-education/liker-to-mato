@@ -13,7 +13,16 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
     console.log(session);
 
-    const { name, description, min, steps, max, surveyId, scaleType, scaleOptions } = req.body;
+    const {
+      name,
+      description,
+      min,
+      steps,
+      max,
+      surveyId,
+      scaleType,
+      scaleOptions,
+    } = req.body;
     const existingSurvey = await prisma.survey.findUnique({
       where: {
         id: surveyId,
@@ -51,7 +60,16 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
 
     const { questionId } = req.query;
-    const { name, description, min, steps, max, surveyId, scaleType, scaleOptions } = req.body;
+    const {
+      name,
+      description,
+      min,
+      steps,
+      max,
+      surveyId,
+      scaleType,
+      scaleOptions,
+    } = req.body;
 
     try {
       const updatedQuestion = await prisma.question.update({

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
 // Markiere die Route als dynamisch
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
   try {
@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
     if (!questionId) {
       return NextResponse.json(
         { error: "Question ID is required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
     console.error("Error fetching grouped answers:", error);
     return NextResponse.json(
       { error: "Failed to fetch grouped answers" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

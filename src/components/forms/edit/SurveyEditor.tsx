@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   Card,
   CardContent,
@@ -49,25 +49,25 @@ export function SurveyEditor({
   const [editingQuestion, setEditingQuestion] = useState<Question | null>(null);
   const { toast } = useToast();
 
-  useEffect(() => {
-    const loadQuestions = async () => {
-      try {
-        const response = await fetch(`/api/surveys/${surveyId}/questions`);
-        if (!response.ok) throw new Error("Failed to load questions");
-        const data = await response.json();
-        setQuestions(data);
-      } catch (error) {
-        console.error("Error loading questions:", error);
-        toast({
-          title: "Fehler",
-          description: "Die Fragen konnten nicht geladen werden.",
-          variant: "destructive",
-        });
-      }
-    };
+  const loadQuestions = useCallback(async () => {
+    try {
+      const response = await fetch(`/api/surveys/${surveyId}/questions`);
+      if (!response.ok) throw new Error("Failed to load questions");
+      const data = await response.json();
+      setQuestions(data);
+    } catch (error) {
+      console.error("Error loading questions:", error);
+      toast({
+        title: "Fehler",
+        description: "Die Fragen konnten nicht geladen werden.",
+        variant: "destructive",
+      });
+    }
+  }, [surveyId, toast]);
 
+  useEffect(() => {
     loadQuestions();
-  }, [surveyId]);
+  }, [surveyId, loadQuestions]);
 
   const saveQuestions = async (updatedQuestions: Question[]) => {
     try {
@@ -113,7 +113,7 @@ export function SurveyEditor({
 
   const updateQuestion = (updatedQuestion: Question) => {
     const updatedQuestions = questions.map((q) =>
-      q.id === updatedQuestion.id ? updatedQuestion : q
+      q.id === updatedQuestion.id ? updatedQuestion : q,
     );
     setQuestions(updatedQuestions);
     setEditingQuestion(null);

@@ -26,7 +26,11 @@ interface QuestionStats {
   responseCount: number;
 }
 
-export function StatsDrawer({ surveyId, isOpen, onOpenChange }: StatsDrawerProps) {
+export function StatsDrawer({
+  surveyId,
+  isOpen,
+  onOpenChange,
+}: StatsDrawerProps) {
   const [stats, setStats] = useState<QuestionStats[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
@@ -45,10 +49,10 @@ export function StatsDrawer({ surveyId, isOpen, onOpenChange }: StatsDrawerProps
         console.log("Response data:", response.data);
 
         if (response.data && Array.isArray(response.data)) {
-          const formattedStats = response.data.map(stat => ({
+          const formattedStats = response.data.map((stat) => ({
             ...stat,
             averageValue: Number(stat.averageValue.toFixed(2)),
-            responseCount: Number(stat.responseCount)
+            responseCount: Number(stat.responseCount),
           }));
           console.log("Formatted stats:", formattedStats);
           setStats(formattedStats);

@@ -32,7 +32,7 @@ export async function POST(req: Request) {
     // Get the updated user with the plan relation
     const userWithPlan = await prisma.user.findUnique({
       where: { id: session.user.id },
-      include: { plan: true }
+      include: { plan: true },
     });
 
     return NextResponse.json({
@@ -42,7 +42,7 @@ export async function POST(req: Request) {
         price: 0,
         features: ["Create surveys", "Basic analytics"],
       },
-      planActiveUntil: userWithPlan?.planActiveUntil
+      planActiveUntil: userWithPlan?.planActiveUntil,
     });
   } catch (error) {
     console.error("Error updating subscription:", error);
@@ -89,7 +89,7 @@ export async function GET(req: Request) {
     console.error("Error fetching subscription:", error);
     return NextResponse.json(
       { error: "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

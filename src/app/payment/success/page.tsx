@@ -26,10 +26,7 @@ export default function PaymentSuccessPage() {
           aktualisiert.
         </p>
         <div className="space-y-4">
-          <Button
-            onClick={() => router.push("/dashboard")}
-            className="w-full"
-          >
+          <Button onClick={() => router.push("/dashboard")} className="w-full">
             Zum Dashboard
           </Button>
           <Button

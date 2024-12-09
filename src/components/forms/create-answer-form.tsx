@@ -96,7 +96,9 @@ export function CreateAnswerDialog({
   onAnswerSubmit,
   initialValue,
 }: CreateAnswerDialogProps) {
-  const [value, setValue] = useState<number>(initialValue || Math.floor(steps / 2));
+  const [value, setValue] = useState<number>(
+    initialValue || Math.floor(steps / 2),
+  );
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const { toast } = useToast();
 
@@ -110,7 +112,7 @@ export function CreateAnswerDialog({
     try {
       setIsSubmitting(true);
       const answer = await createAnswer(value, questionId);
-      
+
       if (onAnswerSubmit) {
         onAnswerSubmit(questionId, answer);
       }

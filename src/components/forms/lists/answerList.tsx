@@ -73,8 +73,8 @@ export default function SurveyChartsDrawer({
 
   const renderChartCarousel = () => (
     <div className="relative">
-      <Carousel 
-        opts={{ align: "start" }} 
+      <Carousel
+        opts={{ align: "start" }}
         className="w-full max-w-6xl mx-auto"
         setApi={setApi}
       >
@@ -106,10 +106,17 @@ export default function SurveyChartsDrawer({
       </Carousel>
       <div className="mt-4 px-4">
         <div className="flex items-center justify-between text-sm text-muted-foreground mb-2">
-          <span>Frage {currentSlide + 1} von {questions.length}</span>
-          <span>{Math.round(((currentSlide + 1) / questions.length) * 100)}%</span>
+          <span>
+            Frage {currentSlide + 1} von {questions.length}
+          </span>
+          <span>
+            {Math.round(((currentSlide + 1) / questions.length) * 100)}%
+          </span>
         </div>
-        <Progress value={((currentSlide + 1) / questions.length) * 100} className="h-1" />
+        <Progress
+          value={((currentSlide + 1) / questions.length) * 100}
+          className="h-1"
+        />
       </div>
     </div>
   );
@@ -127,10 +134,11 @@ export default function SurveyChartsDrawer({
           <DrawerHeader>
             <DrawerTitle>Umfrage-Auswertung</DrawerTitle>
             <DrawerDescription>
-              Visualisierung der Umfrageantworten mit verschiedenen Diagrammtypen
+              Visualisierung der Umfrageantworten mit verschiedenen
+              Diagrammtypen
             </DrawerDescription>
           </DrawerHeader>
-          
+
           {isLoading ? (
             <div className="flex flex-col justify-center items-center h-64 gap-4">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
@@ -141,9 +149,7 @@ export default function SurveyChartsDrawer({
               Keine Fragen gefunden
             </div>
           ) : (
-            <div className="px-4">
-              {renderChartCarousel()}
-            </div>
+            <div className="px-4">{renderChartCarousel()}</div>
           )}
         </div>
       </DrawerContent>

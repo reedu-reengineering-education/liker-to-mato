@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface LogoProps {
   className?: string;
@@ -16,22 +16,50 @@ export function Logo({ className = "w-10 h-10" }: LogoProps) {
     >
       {/* Definitionen für Gradienten */}
       <defs>
-        <linearGradient id="gradientPrimary" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" className="text-blue-400" stopColor="currentColor" />
-          <stop offset="100%" className="text-blue-600" stopColor="currentColor" />
+        <linearGradient
+          id="gradientPrimary"
+          x1="0%"
+          y1="0%"
+          x2="100%"
+          y2="100%"
+        >
+          <stop
+            offset="0%"
+            className="text-blue-400"
+            stopColor="currentColor"
+          />
+          <stop
+            offset="100%"
+            className="text-blue-600"
+            stopColor="currentColor"
+          />
         </linearGradient>
-        <linearGradient id="gradientSecondary" x1="100%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" className="text-purple-400" stopColor="currentColor" />
-          <stop offset="100%" className="text-purple-600" stopColor="currentColor" />
+        <linearGradient
+          id="gradientSecondary"
+          x1="100%"
+          y1="0%"
+          x2="0%"
+          y2="100%"
+        >
+          <stop
+            offset="0%"
+            className="text-purple-400"
+            stopColor="currentColor"
+          />
+          <stop
+            offset="100%"
+            className="text-purple-600"
+            stopColor="currentColor"
+          />
         </linearGradient>
       </defs>
 
       {/* Äußerer Ring mit Rotation */}
-      <circle 
-        cx="50" 
-        cy="50" 
-        r="45" 
-        className="stroke-primary" 
+      <circle
+        cx="50"
+        cy="50"
+        r="45"
+        className="stroke-primary"
         strokeWidth="2"
         fill="none"
       >
@@ -44,14 +72,9 @@ export function Logo({ className = "w-10 h-10" }: LogoProps) {
           repeatCount="indefinite"
         />
       </circle>
-      
+
       {/* Innerer Hintergrund mit Pulse */}
-      <circle 
-        cx="50" 
-        cy="50" 
-        r="40" 
-        className="fill-primary/5"
-      >
+      <circle cx="50" cy="50" r="40" className="fill-primary/5">
         <animate
           attributeName="r"
           values="38;40;38"
@@ -59,7 +82,7 @@ export function Logo({ className = "w-10 h-10" }: LogoProps) {
           repeatCount="indefinite"
         />
       </circle>
-      
+
       {/* Likert-Skala Balken mit Gradient und Animation */}
       <g className="stroke-primary" strokeWidth="3" strokeLinecap="round">
         <line x1="25" y1="35" x2="75" y2="35" className="opacity-40">
@@ -90,7 +113,7 @@ export function Logo({ className = "w-10 h-10" }: LogoProps) {
           />
         </line>
       </g>
-      
+
       {/* Interaktive Punkte mit Farbverlauf und Pulse */}
       <g>
         <circle cx="35" cy="35" r="4.5" fill="url(#gradientPrimary)">
@@ -141,7 +164,7 @@ export function Logo({ className = "w-10 h-10" }: LogoProps) {
           />
         </circle>
       </g>
-      
+
       {/* Verbindungslinien mit Gradient und Animation */}
       <path
         d="M35 35 L55 50 L70 65"

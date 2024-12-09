@@ -25,7 +25,7 @@ import { createTransport } from "nodemailer";
 export async function sendVerificationEmail(
   email: string,
   url: string,
-  provider: any
+  provider: any,
 ) {
   const { host, port, auth } = provider.server;
 

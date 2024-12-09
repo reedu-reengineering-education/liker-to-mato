@@ -156,7 +156,7 @@ export function TeamManagement({ surveyId }: TeamManagementProps) {
                   onClick={() => {
                     // Hier würden Sie normalerweise Ihre API aufrufen
                     setTeamMembers(
-                      teamMembers.filter((m) => m.id !== member.id)
+                      teamMembers.filter((m) => m.id !== member.id),
                     );
                   }}
                 >

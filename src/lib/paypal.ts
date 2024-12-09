@@ -7,7 +7,7 @@ function environment() {
 
   if (!clientId || !clientSecret) {
     throw new Error(
-      "PAYPAL_CLIENT_ID and PAYPAL_CLIENT_SECRET must be defined"
+      "PAYPAL_CLIENT_ID and PAYPAL_CLIENT_SECRET must be defined",
     );
   }
 

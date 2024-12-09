@@ -34,14 +34,14 @@ function ErrorContent() {
         <p>Fehlermeldung: {error}</p>
         {error === "Configuration" && (
           <>
-            Es gab ein Problem mit der Authentifizierungskonfiguration.
-            Bitte kontaktieren Sie den Administrator.
+            Es gab ein Problem mit der Authentifizierungskonfiguration. Bitte
+            kontaktieren Sie den Administrator.
           </>
         )}
         {error === "AccessDenied" && (
           <>
-            Der Zugriff wurde verweigert.
-            Sie haben keine Berechtigung, auf diese Ressource zuzugreifen.
+            Der Zugriff wurde verweigert. Sie haben keine Berechtigung, auf
+            diese Ressource zuzugreifen.
           </>
         )}
         {error === "Verification" && (
@@ -50,12 +50,15 @@ function ErrorContent() {
             Bitte fordern Sie einen neuen Link an.
           </>
         )}
-        {error && error !== "Configuration" && error !== "AccessDenied" && error !== "Verification" && (
-          <p>
-            Bitte versuchen Sie es erneut oder kontaktieren Sie den Support, wenn
-            das Problem weiterhin besteht.
-          </p>
-        )}
+        {error &&
+          error !== "Configuration" &&
+          error !== "AccessDenied" &&
+          error !== "Verification" && (
+            <p>
+              Bitte versuchen Sie es erneut oder kontaktieren Sie den Support,
+              wenn das Problem weiterhin besteht.
+            </p>
+          )}
       </CardContent>
     </Card>
   );

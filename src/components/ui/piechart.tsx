@@ -1,6 +1,13 @@
 "use client";
 
-import { Pie, PieChart, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
+import {
+  Pie,
+  PieChart,
+  Cell,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+} from "recharts";
 import { useEffect, useState } from "react";
 import { getGroupedAnswers } from "@/lib/api/answerClient";
 import { useToast } from "@/hooks/use-toast";
@@ -54,7 +61,7 @@ const renderCustomizedLabel = ({
       x={x}
       y={y}
       fill="white"
-      textAnchor={x > cx ? 'start' : 'end'}
+      textAnchor={x > cx ? "start" : "end"}
       dominantBaseline="central"
     >
       {`${(percent * 100).toFixed(0)}%`}
@@ -96,7 +103,12 @@ const CustomPieChart: React.FC<PieChartProps> = ({
   useEffect(() => {
     if (groupedAnswers.length > 0) {
       const data = groupedAnswers.map((answer, index) => ({
-        name: index === 0 ? min : index === groupedAnswers.length - 1 ? max : `${answer.value}`,
+        name:
+          index === 0
+            ? min
+            : index === groupedAnswers.length - 1
+              ? max
+              : `${answer.value}`,
         value: answer._count.value,
       }));
       setChartData(data);
@@ -139,19 +151,19 @@ const CustomPieChart: React.FC<PieChartProps> = ({
                 dataKey="value"
               >
                 {chartData.map((entry, index) => (
-                  <Cell 
-                    key={`cell-${index}`} 
+                  <Cell
+                    key={`cell-${index}`}
                     fill={COLORS[index % COLORS.length]}
                   />
                 ))}
               </Pie>
               <Tooltip
                 contentStyle={{
-                  backgroundColor: 'var(--background)',
-                  border: '1px solid var(--border)',
-                  borderRadius: '6px',
+                  backgroundColor: "var(--background)",
+                  border: "1px solid var(--border)",
+                  borderRadius: "6px",
                 }}
-                labelStyle={{ color: 'var(--foreground)' }}
+                labelStyle={{ color: "var(--foreground)" }}
               />
               <Legend />
             </PieChart>

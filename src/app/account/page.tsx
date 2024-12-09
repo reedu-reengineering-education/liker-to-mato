@@ -9,16 +9,16 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
-import { 
-  User, 
-  Mail, 
-  Lock, 
-  Bell, 
-  Shield, 
+import {
+  User,
+  Mail,
+  Lock,
+  Bell,
+  Shield,
   LogOut,
   CheckCircle,
   AlertCircle,
-  CreditCard
+  CreditCard,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
@@ -46,7 +46,9 @@ export default function AccountPage() {
         const data = await response.json();
         if (data.plan) {
           setCurrentPlan(data.plan);
-          setPlanActiveUntil(data.planActiveUntil ? new Date(data.planActiveUntil) : null);
+          setPlanActiveUntil(
+            data.planActiveUntil ? new Date(data.planActiveUntil) : null,
+          );
         }
       } catch (error) {
         console.error("Error fetching subscription:", error);
@@ -72,14 +74,14 @@ export default function AccountPage() {
       y: 0,
       transition: {
         duration: 0.6,
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const itemAnimation = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
+    visible: { opacity: 1, y: 0 },
   };
 
   const handleSave = async () => {
@@ -131,7 +133,10 @@ export default function AccountPage() {
               <Shield className="w-4 h-4" />
               Sicherheit
             </TabsTrigger>
-            <TabsTrigger value="notifications" className="flex items-center gap-2">
+            <TabsTrigger
+              value="notifications"
+              className="flex items-center gap-2"
+            >
               <Bell className="w-4 h-4" />
               Benachrichtigungen
             </TabsTrigger>
@@ -179,7 +184,11 @@ export default function AccountPage() {
                 {isLoading ? (
                   <motion.div
                     animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                    transition={{
+                      duration: 1,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
                     className="mr-2 h-4 w-4 border-2 border-current border-t-transparent rounded-full"
                   />
                 ) : (
@@ -289,7 +298,9 @@ export default function AccountPage() {
                 <h3 className="text-2xl font-semibold">Ihr aktueller Plan</h3>
                 <div className="flex items-center justify-between p-4 border rounded-lg">
                   <div>
-                    <p className="font-medium capitalize">{currentPlan?.name || "Free"}</p>
+                    <p className="font-medium capitalize">
+                      {currentPlan?.name || "Free"}
+                    </p>
                     <p className="text-sm text-muted-foreground">
                       {currentPlan?.description}
                     </p>
@@ -299,11 +310,13 @@ export default function AccountPage() {
                       </p>
                     )}
                   </div>
-                  <Button 
+                  <Button
                     variant="outline"
                     onClick={() => router.push("/account/plans")}
                   >
-                    {currentPlan?.id === "plan_enterprise" ? "Höchster Plan" : "Plan ändern"}
+                    {currentPlan?.id === "plan_enterprise"
+                      ? "Höchster Plan"
+                      : "Plan ändern"}
                   </Button>
                 </div>
               </div>
@@ -321,8 +334,8 @@ export default function AccountPage() {
               </div>
 
               <div className="pt-4">
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   className="w-full"
                   onClick={() => router.push("/account/plans")}
                 >
@@ -343,8 +356,9 @@ export default function AccountPage() {
             Gefahrenzone
           </h2>
           <p className="text-sm text-muted-foreground">
-            Sobald Sie Ihren Account löschen, werden alle Ihre Daten unwiderruflich gelöscht.
-            Dieser Vorgang kann nicht rückgängig gemacht werden.
+            Sobald Sie Ihren Account löschen, werden alle Ihre Daten
+            unwiderruflich gelöscht. Dieser Vorgang kann nicht rückgängig
+            gemacht werden.
           </p>
           <Button variant="destructive">
             <LogOut className="mr-2 h-4 w-4" />

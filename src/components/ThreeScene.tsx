@@ -13,7 +13,8 @@ const ThreeScene = () => {
   const verticalBarRef = useRef<THREE.Mesh | null>(null); // Ref für senkrechten Balken
 
   useEffect(() => {
-    if (!mountRef.current) return;
+    const currentMount = mountRef.current;
+    if (!currentMount) return;
 
     // Szene und Kamera erstellen
     const scene = new THREE.Scene();
@@ -21,7 +22,7 @@ const ThreeScene = () => {
       75,
       window.innerWidth / window.innerHeight,
       0.1,
-      100
+      100,
     );
     camera.position.set(0, 1, 6);
     // camera.lookAt(0, 0, 0);
@@ -37,7 +38,7 @@ const ThreeScene = () => {
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(0x20232a);
-    mountRef.current.appendChild(renderer.domElement);
+    currentMount.appendChild(renderer.domElement);
 
     // 2D-Koordinatensystem erstellen
     const createCoordinateSystem = () => {
@@ -51,7 +52,7 @@ const ThreeScene = () => {
         gridSize,
         gridDivisions,
         gridColor,
-        gridColor
+        gridColor,
       );
       gridHelper.rotation.x = Math.PI / 2; // Gitter horizontal ausrichten
       scene.add(gridHelper);
@@ -102,7 +103,7 @@ const ThreeScene = () => {
           for (let i = -5; i <= 5; i++) {
             if (i !== 0) createText(i.toString(), 20, i * 50);
           }
-        }
+        },
       );
     };
 
@@ -118,8 +119,8 @@ const ThreeScene = () => {
 
     // Cleanup bei unmount
     return () => {
-      if (mountRef.current) {
-        mountRef.current.removeChild(renderer.domElement);
+      if (currentMount) {
+        currentMount.removeChild(renderer.domElement);
       }
       barsRef.current.forEach((bar) => {
         scene.remove(bar);
@@ -189,7 +190,7 @@ const ThreeScene = () => {
 
     const horizontalBarGeometry = new THREE.ExtrudeGeometry(
       horizontalBarShape,
-      horizontalBarExtrudeSettings
+      horizontalBarExtrudeSettings,
     );
     const horizontalBarMaterial = new THREE.MeshStandardMaterial({
       color: new THREE.Color("rgb(238, 230, 133)"),
@@ -198,7 +199,7 @@ const ThreeScene = () => {
     });
     const horizontalBar = new THREE.Mesh(
       horizontalBarGeometry,
-      horizontalBarMaterial
+      horizontalBarMaterial,
     );
     horizontalBar.position.set(-1, -1.01, -0.2); // X-Position um 50 Pixel nach links verschieben, Y-Position nach unten verschieben
     scene.add(horizontalBar);
@@ -228,7 +229,7 @@ const ThreeScene = () => {
 
     const verticalBarGeometry = new THREE.ExtrudeGeometry(
       verticalBarShape,
-      verticalBarExtrudeSettings
+      verticalBarExtrudeSettings,
     );
 
     const verticalBarMaterial = new THREE.MeshStandardMaterial({
@@ -238,7 +239,7 @@ const ThreeScene = () => {
     });
     const verticalBar = new THREE.Mesh(
       verticalBarGeometry,
-      verticalBarMaterial
+      verticalBarMaterial,
     );
     verticalBar.position.set(-5.65, 1.7, -0.2); // Setze ihn in den Ursprung (0, 0, 0) oder eine andere gewünschte Position
     scene.add(verticalBar);
@@ -254,28 +255,28 @@ const ThreeScene = () => {
         barWidth / 2,
         -height / 2,
         barWidth / 2,
-        -height / 2 + radius
+        -height / 2 + radius,
       );
       shape.lineTo(barWidth / 2, height / 2 - radius);
       shape.quadraticCurveTo(
         barWidth / 2,
         height / 2,
         barWidth / 2 - radius,
-        height / 2
+        height / 2,
       );
       shape.lineTo(-barWidth / 2 + radius, height / 2);
       shape.quadraticCurveTo(
         -barWidth / 2,
         height / 2,
         -barWidth / 2,
-        height / 2 - radius
+        height / 2 - radius,
       );
       shape.lineTo(-barWidth / 2, -height / 2 + radius);
       shape.quadraticCurveTo(
         -barWidth / 2,
         -height / 2,
         -barWidth / 2 + radius,
-        -height / 2
+        -height / 2,
       );
 
       const extrudeSettings = {

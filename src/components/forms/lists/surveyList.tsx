@@ -69,7 +69,7 @@ export function ListSurvey() {
       return survey.status === statusFilter;
     })
     .filter((survey) =>
-      survey.name.toLowerCase().includes(searchQuery.toLowerCase())
+      survey.name.toLowerCase().includes(searchQuery.toLowerCase()),
     );
 
   const getStatusBadge = (status: string) => {

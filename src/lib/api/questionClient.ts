@@ -8,7 +8,7 @@ export async function createQuestion(
   max: string,
   surveyId: string,
   scaleType?: string,
-  scaleOptions?: string[]
+  scaleOptions?: string[],
 ) {
   const apiUrl = "/api/question";
   try {
@@ -49,7 +49,7 @@ export async function updateQuestion(
   max: string,
   surveyId: string,
   scaleType?: string,
-  scaleOptions?: string[]
+  scaleOptions?: string[],
 ) {
   const apiUrl = `/api/question/${questionId}`;
   try {

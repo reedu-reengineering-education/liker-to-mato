@@ -17,13 +17,7 @@ import {
   AreaChartComponent,
   ScatterChartComponent,
 } from "@/components/charts/chart-types";
-import { 
-  BarChart, 
-  LineChart, 
-  PieChart,
-  Activity,
-  Circle,
-} from "lucide-react";
+import { BarChart, LineChart, PieChart, Activity, Circle } from "lucide-react";
 
 interface BarChartProps {
   questionId: string;
@@ -109,7 +103,12 @@ const CustomBarChart: React.FC<BarChartProps> = ({
   useEffect(() => {
     if (groupedAnswers.length > 0) {
       const data = groupedAnswers.map((answer, index) => ({
-        name: index === 0 ? min : index === groupedAnswers.length - 1 ? max : `${answer.value}`,
+        name:
+          index === 0
+            ? min
+            : index === groupedAnswers.length - 1
+              ? max
+              : `${answer.value}`,
         value: answer._count.value,
         fill: COLORS[index % COLORS.length],
       }));
@@ -139,7 +138,10 @@ const CustomBarChart: React.FC<BarChartProps> = ({
   return (
     <div className="space-y-4">
       <div className="flex justify-end">
-        <Select value={chartType} onValueChange={(value) => setChartType(value as ChartType)}>
+        <Select
+          value={chartType}
+          onValueChange={(value) => setChartType(value as ChartType)}
+        >
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Wähle einen Diagrammtyp" />
           </SelectTrigger>

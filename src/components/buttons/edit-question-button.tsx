@@ -216,7 +216,7 @@ export function EditQuestionDialog({
         values.min,
         values.steps,
         values.max,
-        surveyId
+        surveyId,
       );
       setIsDialogOpen(false);
       handleQuestionUpdated();

@@ -18,7 +18,7 @@ import { Icons } from "@/components/ui/icons";
 
 // Stripe Promise initialisieren
 const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
 );
 
 interface PaymentFormProps {

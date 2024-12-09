@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 
 export async function POST(
   request: Request,
-  { params }: { params: { surveyId: string } }
+  { params }: { params: { surveyId: string } },
 ) {
   try {
     const { surveyId } = params;
@@ -12,8 +12,8 @@ export async function POST(
     const answers = await prisma.answer.findMany({
       where: {
         survey: {
-          id: surveyId
-        }
+          id: surveyId,
+        },
       },
       include: {
         question: true,
@@ -30,29 +30,31 @@ export async function POST(
           values: [] as number[],
         };
       }
-      
+
       acc[questionId].totalResponses++;
       acc[questionId].values.push(answer.value);
       acc[questionId].averageValue =
         acc[questionId].values.reduce((a: number, b: number) => a + b, 0) /
         acc[questionId].values.length;
-      
+
       return acc;
     }, {});
 
     // Speichere die Statistiken für jede Frage
     await prisma.$transaction(
-      Object.entries(questionStats).map(([questionId, stats]: [string, any]) => {
-        return prisma.question.update({
-          where: {
-            id: questionId,
-          },
-          data: {
-            responseCount: stats.totalResponses,
-            averageValue: stats.averageValue,
-          },
-        });
-      })
+      Object.entries(questionStats).map(
+        ([questionId, stats]: [string, any]) => {
+          return prisma.question.update({
+            where: {
+              id: questionId,
+            },
+            data: {
+              responseCount: stats.totalResponses,
+              averageValue: stats.averageValue,
+            },
+          });
+        },
+      ),
     );
 
     return NextResponse.json({ success: true });
@@ -60,7 +62,7 @@ export async function POST(
     console.error("Error updating survey stats:", error);
     return NextResponse.json(
       { error: "Failed to update survey statistics" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

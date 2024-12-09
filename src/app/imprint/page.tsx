@@ -93,9 +93,9 @@ export default function ImprintPage() {
               <div>
                 <h3 className="font-semibold mb-2">Haftung für Inhalte</h3>
                 <p className="text-muted-foreground">
-                  Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt.
-                  Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte
-                  können wir jedoch keine Gewähr übernehmen.
+                  Die Inhalte unserer Seiten wurden mit größter Sorgfalt
+                  erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität
+                  der Inhalte können wir jedoch keine Gewähr übernehmen.
                 </p>
               </div>
               <div>
@@ -113,8 +113,9 @@ export default function ImprintPage() {
                   Die durch die Seitenbetreiber erstellten Inhalte und Werke auf
                   diesen Seiten unterliegen dem deutschen Urheberrecht. Die
                   Vervielfältigung, Bearbeitung, Verbreitung und jede Art der
-                  Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der
-                  schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.
+                  Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen
+                  der schriftlichen Zustimmung des jeweiligen Autors bzw.
+                  Erstellers.
                 </p>
               </div>
             </div>

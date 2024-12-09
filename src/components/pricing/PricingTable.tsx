@@ -119,7 +119,9 @@ export function PricingTable({ currentPlan, onUpgrade }: PricingTableProps) {
                   <XCircle className="w-4 h-4 text-muted-foreground" />
                 )}
                 <span
-                  className={!feature.basic ? "text-muted-foreground" : undefined}
+                  className={
+                    !feature.basic ? "text-muted-foreground" : undefined
+                  }
                 >
                   {feature.name}
                 </span>
@@ -138,7 +140,9 @@ export function PricingTable({ currentPlan, onUpgrade }: PricingTableProps) {
           }`}
         >
           <h3 className="text-2xl font-bold">Pro</h3>
-          <p className="text-muted-foreground mt-2">Für professionelle Nutzer</p>
+          <p className="text-muted-foreground mt-2">
+            Für professionelle Nutzer
+          </p>
           <div className="mt-4">
             <span className="text-3xl font-bold">€29</span>
             <span className="text-muted-foreground">/Monat</span>

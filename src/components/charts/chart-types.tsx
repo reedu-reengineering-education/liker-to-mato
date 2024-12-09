@@ -44,29 +44,25 @@ export function BarChartComponent({ data, height = 300 }: ChartProps) {
         margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
       >
         <CartesianGrid strokeDasharray="3 3" vertical={false} />
-        <XAxis 
+        <XAxis
           dataKey="name"
-          tick={{ fill: 'currentColor' }}
-          tickLine={{ stroke: 'currentColor' }}
+          tick={{ fill: "currentColor" }}
+          tickLine={{ stroke: "currentColor" }}
         />
-        <YAxis 
-          tick={{ fill: 'currentColor' }}
-          tickLine={{ stroke: 'currentColor' }}
+        <YAxis
+          tick={{ fill: "currentColor" }}
+          tickLine={{ stroke: "currentColor" }}
         />
         <Tooltip
           contentStyle={{
-            backgroundColor: 'var(--background)',
-            border: '1px solid var(--border)',
-            borderRadius: '6px',
+            backgroundColor: "var(--background)",
+            border: "1px solid var(--border)",
+            borderRadius: "6px",
           }}
-          labelStyle={{ color: 'var(--foreground)' }}
+          labelStyle={{ color: "var(--foreground)" }}
         />
         <Legend />
-        <Bar 
-          dataKey="value" 
-          fill="hsl(var(--primary))"
-          radius={[4, 4, 0, 0]}
-        />
+        <Bar dataKey="value" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
       </BarChart>
     </ResponsiveContainer>
   );
@@ -80,22 +76,22 @@ export function LineChartComponent({ data, height = 300 }: ChartProps) {
         margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis 
+        <XAxis
           dataKey="name"
-          tick={{ fill: 'currentColor' }}
-          tickLine={{ stroke: 'currentColor' }}
+          tick={{ fill: "currentColor" }}
+          tickLine={{ stroke: "currentColor" }}
         />
-        <YAxis 
-          tick={{ fill: 'currentColor' }}
-          tickLine={{ stroke: 'currentColor' }}
+        <YAxis
+          tick={{ fill: "currentColor" }}
+          tickLine={{ stroke: "currentColor" }}
         />
         <Tooltip
           contentStyle={{
-            backgroundColor: 'var(--background)',
-            border: '1px solid var(--border)',
-            borderRadius: '6px',
+            backgroundColor: "var(--background)",
+            border: "1px solid var(--border)",
+            borderRadius: "6px",
           }}
-          labelStyle={{ color: 'var(--foreground)' }}
+          labelStyle={{ color: "var(--foreground)" }}
         />
         <Legend />
         <Line
@@ -129,11 +125,11 @@ export function DonutChartComponent({ data, height = 300 }: ChartProps) {
         </Pie>
         <Tooltip
           contentStyle={{
-            backgroundColor: 'var(--background)',
-            border: '1px solid var(--border)',
-            borderRadius: '6px',
+            backgroundColor: "var(--background)",
+            border: "1px solid var(--border)",
+            borderRadius: "6px",
           }}
-          labelStyle={{ color: 'var(--foreground)' }}
+          labelStyle={{ color: "var(--foreground)" }}
         />
         <Legend />
       </PieChart>
@@ -149,22 +145,22 @@ export function AreaChartComponent({ data, height = 300 }: ChartProps) {
         margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis 
+        <XAxis
           dataKey="name"
-          tick={{ fill: 'currentColor' }}
-          tickLine={{ stroke: 'currentColor' }}
+          tick={{ fill: "currentColor" }}
+          tickLine={{ stroke: "currentColor" }}
         />
-        <YAxis 
-          tick={{ fill: 'currentColor' }}
-          tickLine={{ stroke: 'currentColor' }}
+        <YAxis
+          tick={{ fill: "currentColor" }}
+          tickLine={{ stroke: "currentColor" }}
         />
         <Tooltip
           contentStyle={{
-            backgroundColor: 'var(--background)',
-            border: '1px solid var(--border)',
-            borderRadius: '6px',
+            backgroundColor: "var(--background)",
+            border: "1px solid var(--border)",
+            borderRadius: "6px",
           }}
-          labelStyle={{ color: 'var(--foreground)' }}
+          labelStyle={{ color: "var(--foreground)" }}
         />
         <Legend />
         <Area
@@ -182,39 +178,33 @@ export function AreaChartComponent({ data, height = 300 }: ChartProps) {
 export function ScatterChartComponent({ data, height = 300 }: ChartProps) {
   return (
     <ResponsiveContainer width="100%" height={height}>
-      <ScatterChart
-        margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-      >
+      <ScatterChart margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis 
+        <XAxis
           type="category"
           dataKey="name"
           name="Wert"
-          tick={{ fill: 'currentColor' }}
-          tickLine={{ stroke: 'currentColor' }}
+          tick={{ fill: "currentColor" }}
+          tickLine={{ stroke: "currentColor" }}
         />
-        <YAxis 
+        <YAxis
           type="number"
           dataKey="value"
           name="Anzahl"
-          tick={{ fill: 'currentColor' }}
-          tickLine={{ stroke: 'currentColor' }}
+          tick={{ fill: "currentColor" }}
+          tickLine={{ stroke: "currentColor" }}
         />
         <Tooltip
-          cursor={{ strokeDasharray: '3 3' }}
+          cursor={{ strokeDasharray: "3 3" }}
           contentStyle={{
-            backgroundColor: 'var(--background)',
-            border: '1px solid var(--border)',
-            borderRadius: '6px',
+            backgroundColor: "var(--background)",
+            border: "1px solid var(--border)",
+            borderRadius: "6px",
           }}
-          labelStyle={{ color: 'var(--foreground)' }}
+          labelStyle={{ color: "var(--foreground)" }}
         />
         <Legend />
-        <Scatter 
-          name="Antworten" 
-          data={data} 
-          fill="hsl(var(--primary))"
-        />
+        <Scatter name="Antworten" data={data} fill="hsl(var(--primary))" />
       </ScatterChart>
     </ResponsiveContainer>
   );

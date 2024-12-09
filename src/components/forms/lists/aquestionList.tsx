@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Question } from "@prisma/client";
 import { Input } from "@/components/ui/input";
@@ -31,30 +31,34 @@ export default function SurveyQuestionsDashboard({
   const router = useRouter();
   const { toast } = useToast();
 
-  const loadQuestions = async () => {
+  const loadQuestions = useCallback(async () => {
     try {
-      const fetchedQuestions = await surveyQuestions(surveyId);
-      setQuestions(fetchedQuestions);
-      setFilteredQuestions(fetchedQuestions);
+      const response = await fetch(`/api/question/survey/${surveyId}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch questions");
+      }
+      const data = await response.json();
+      setQuestions(data);
+      setFilteredQuestions(data);
     } catch (error) {
-      console.error("Error fetching questions:", error);
+      console.error("Error loading questions:", error);
       toast({
         title: "Error",
         description: "Failed to load questions. Please try again.",
         variant: "destructive",
       });
     }
-  };
+  }, [surveyId, toast]);
 
   useEffect(() => {
     loadQuestions();
-  }, [surveyId]);
+  }, [surveyId, loadQuestions]);
 
   useEffect(() => {
     const filtered = questions.filter(
       (question) =>
         question.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        question.description.toLowerCase().includes(searchTerm.toLowerCase())
+        question.description.toLowerCase().includes(searchTerm.toLowerCase()),
     );
     setFilteredQuestions(filtered);
   }, [searchTerm, questions]);

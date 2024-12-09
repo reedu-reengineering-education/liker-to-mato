@@ -100,8 +100,8 @@ export default function PrivacyPage() {
                   Automatisch erfasste Daten
                 </h3>
                 <p className="text-muted-foreground">
-                  Beim Besuch unserer Website werden automatisch Daten erfasst, die
-                  Ihr Browser an unseren Server übermittelt. Dies sind:
+                  Beim Besuch unserer Website werden automatisch Daten erfasst,
+                  die Ihr Browser an unseren Server übermittelt. Dies sind:
                 </p>
                 <ul className="list-disc list-inside mt-2 text-muted-foreground">
                   <li>IP-Adresse</li>
@@ -118,11 +118,12 @@ export default function PrivacyPage() {
                   Cookies
                 </h3>
                 <p className="text-muted-foreground">
-                  Unsere Website verwendet Cookies. Diese sind kleine Textdateien,
-                  die Ihr Browser automatisch erstellt und auf Ihrem Endgerät
-                  speichert. Cookies richten auf Ihrem Endgerät keinen Schaden an
-                  und enthalten keine Viren. Sie dienen dazu, unser Angebot
-                  nutzerfreundlicher, effektiver und sicherer zu machen.
+                  Unsere Website verwendet Cookies. Diese sind kleine
+                  Textdateien, die Ihr Browser automatisch erstellt und auf
+                  Ihrem Endgerät speichert. Cookies richten auf Ihrem Endgerät
+                  keinen Schaden an und enthalten keine Viren. Sie dienen dazu,
+                  unser Angebot nutzerfreundlicher, effektiver und sicherer zu
+                  machen.
                 </p>
               </div>
             </div>
@@ -146,7 +147,8 @@ export default function PrivacyPage() {
               <ul className="list-disc list-inside text-muted-foreground">
                 <li>Auskunft über Ihre gespeicherten Daten zu erhalten</li>
                 <li>
-                  Die Berichtigung unrichtiger personenbezogener Daten zu verlangen
+                  Die Berichtigung unrichtiger personenbezogener Daten zu
+                  verlangen
                 </li>
                 <li>Die Löschung Ihrer Daten zu verlangen</li>
                 <li>
@@ -154,8 +156,8 @@ export default function PrivacyPage() {
                 </li>
                 <li>Der Verarbeitung Ihrer Daten zu widersprechen</li>
                 <li>
-                  Die Übertragung Ihrer Daten an einen anderen Verantwortlichen zu
-                  verlangen
+                  Die Übertragung Ihrer Daten an einen anderen Verantwortlichen
+                  zu verlangen
                 </li>
               </ul>
             </div>

@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 
 export async function POST(
   request: Request,
-  { params }: { params: { surveyId: string } }
+  { params }: { params: { surveyId: string } },
 ) {
   try {
     const { answers } = await request.json();
@@ -12,7 +12,7 @@ export async function POST(
     if (!Array.isArray(answers)) {
       return NextResponse.json(
         { error: "Invalid answers format" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -65,7 +65,9 @@ export async function POST(
           },
         });
 
-        const averageValue = questionAnswers.reduce((sum, ans) => sum + ans.value, 0) / questionAnswers.length;
+        const averageValue =
+          questionAnswers.reduce((sum, ans) => sum + ans.value, 0) /
+          questionAnswers.length;
 
         await tx.question.update({
           where: {
@@ -90,7 +92,7 @@ export async function POST(
       select: {
         questionId: true,
       },
-      distinct: ['questionId'],
+      distinct: ["questionId"],
     });
 
     await prisma.survey.update({
@@ -107,7 +109,7 @@ export async function POST(
     console.error("Error submitting survey answers:", error);
     return NextResponse.json(
       { error: "Failed to submit survey answers" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

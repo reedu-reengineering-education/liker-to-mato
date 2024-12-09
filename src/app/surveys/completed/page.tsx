@@ -20,15 +20,18 @@ export default function SurveyCompletedPage() {
               <CheckCircle2 className="h-12 w-12 text-green-600" />
             </div>
           </div>
-          <CardTitle className="text-2xl">Vielen Dank für Ihre Teilnahme!</CardTitle>
+          <CardTitle className="text-2xl">
+            Vielen Dank für Ihre Teilnahme!
+          </CardTitle>
           <CardDescription className="text-lg mt-2">
             Ihre Antworten wurden erfolgreich gespeichert.
           </CardDescription>
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground">
-            Wir schätzen Ihre Beteiligung an dieser Umfrage. Ihre Rückmeldung ist für uns sehr wertvoll 
-            und hilft uns dabei, unsere Dienstleistungen kontinuierlich zu verbessern.
+            Wir schätzen Ihre Beteiligung an dieser Umfrage. Ihre Rückmeldung
+            ist für uns sehr wertvoll und hilft uns dabei, unsere
+            Dienstleistungen kontinuierlich zu verbessern.
           </p>
         </CardContent>
         <CardFooter className="flex flex-col sm:flex-row justify-center gap-4">

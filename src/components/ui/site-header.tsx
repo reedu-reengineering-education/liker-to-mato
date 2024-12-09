@@ -43,7 +43,7 @@ export function SiteHeader() {
       className={cn(
         "relative bg-white dark:bg-gray-900",
         "top-0 z-40 w-full border-b-2 border-indigo-500 dark:border-indigo-400",
-        "shadow-sm"
+        "shadow-sm",
       )}
     >
       <div className="container flex h-16 w-auto items-center space-x-4 sm:justify-between sm:space-x-0">

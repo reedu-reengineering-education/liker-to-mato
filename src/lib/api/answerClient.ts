@@ -31,10 +31,10 @@ export async function getAnswers(questionId: String) {
 }
 
 export const getGroupedAnswers = async (
-  questionId: string
+  questionId: string,
 ): Promise<GroupedAnswer[]> => {
   const response = await axios.get<GroupedAnswer[]>(
-    `/api/groupedAnswers?questionId=${questionId}`
+    `/api/groupedAnswers?questionId=${questionId}`,
   );
   return response.data;
 };

@@ -25,21 +25,9 @@ const gapConfig = {
   xl: "gap-12",
 };
 
-export function Grid({
-  children,
-  className,
-  cols = 1,
-  gap = "md",
-}: GridProps) {
+export function Grid({ children, className, cols = 1, gap = "md" }: GridProps) {
   return (
-    <div
-      className={cn(
-        "grid",
-        colsConfig[cols],
-        gapConfig[gap],
-        className
-      )}
-    >
+    <div className={cn("grid", colsConfig[cols], gapConfig[gap], className)}>
       {children}
     </div>
   );

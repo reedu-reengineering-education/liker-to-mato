@@ -131,11 +131,7 @@ export default function ContactPage() {
                   >
                     Name
                   </label>
-                  <Input
-                    id="name"
-                    placeholder="Max Mustermann"
-                    required
-                  />
+                  <Input id="name" placeholder="Max Mustermann" required />
                 </div>
                 <div className="space-y-2">
                   <label
@@ -182,11 +178,7 @@ export default function ContactPage() {
                 />
               </div>
 
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={isLoading}
-              >
+              <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />

@@ -19,10 +19,7 @@ export default function PaymentCancelledPage() {
           Die Zahlung wurde abgebrochen. Keine Sorge, es wurde nichts berechnet.
         </p>
         <div className="space-y-4">
-          <Button
-            onClick={() => router.push("/pricing")}
-            className="w-full"
-          >
+          <Button onClick={() => router.push("/pricing")} className="w-full">
             Zurück zur Preisübersicht
           </Button>
           <Button

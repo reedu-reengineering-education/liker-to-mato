@@ -43,7 +43,7 @@ const questionSchema = z.object({
         value: z
           .string()
           .min(1, { message: "Jede Option muss ausgefüllt sein." }),
-      })
+      }),
     )
     .min(2, { message: "Es müssen mindestens 2 Optionen vorhanden sein." }),
 });
@@ -93,7 +93,7 @@ export function CreateQuestionDialog({
         values.scaleOptions[values.scaleOptions.length - 1].value,
         surveyId,
         values.scaleType,
-        values.scaleOptions.map((option) => option.value)
+        values.scaleOptions.map((option) => option.value),
       );
       toast({
         title: "Frage erstellt",

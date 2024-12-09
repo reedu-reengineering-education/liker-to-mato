@@ -1,4 +1,4 @@
-import { ThreeElements } from '@react-three/fiber'
+import { ThreeElements } from "@react-three/fiber";
 
 declare global {
   namespace JSX {

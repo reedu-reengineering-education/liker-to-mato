@@ -1,11 +1,26 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { SurveyTemplate } from "@/types/templates";
 import { Search, Tag, Clock, Users } from "lucide-react";
 
@@ -23,17 +38,17 @@ const defaultTemplates: SurveyTemplate[] = [
         type: "likert",
         text: "Wie zufrieden sind Sie mit Ihrer aktuellen Arbeitsumgebung?",
         required: true,
-        scale: 5
+        scale: 5,
       },
       {
         id: "q2",
         type: "text",
         text: "Was könnte verbessert werden?",
-        required: false
-      }
+        required: false,
+      },
     ],
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
   },
   {
     id: "2",
@@ -47,11 +62,11 @@ const defaultTemplates: SurveyTemplate[] = [
         type: "likert",
         text: "Wie wahrscheinlich ist es, dass Sie unser Produkt weiterempfehlen würden?",
         required: true,
-        scale: 10
-      }
+        scale: 10,
+      },
     ],
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
   },
   {
     id: "3",
@@ -65,19 +80,19 @@ const defaultTemplates: SurveyTemplate[] = [
         type: "likert",
         text: "Der Kursinhalt war gut strukturiert",
         required: true,
-        scale: 5
+        scale: 5,
       },
       {
         id: "q2",
         type: "multiple",
         text: "Welche Themen fanden Sie besonders interessant?",
         required: true,
-        options: ["Theorie", "Praxis", "Diskussionen", "Übungen"]
-      }
+        options: ["Theorie", "Praxis", "Diskussionen", "Übungen"],
+      },
     ],
     createdAt: new Date(),
-    updatedAt: new Date()
-  }
+    updatedAt: new Date(),
+  },
 ];
 
 interface TemplatePreviewProps {
@@ -103,7 +118,9 @@ function TemplatePreview({ template, onClose, onUse }: TemplatePreviewProps) {
                   <span className="text-sm font-medium">Frage {index + 1}</span>
                   <Badge variant="secondary">{question.type}</Badge>
                 </div>
-                <p className="mt-2 text-sm text-muted-foreground">{question.text}</p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  {question.text}
+                </p>
               </div>
             ))}
           </div>
@@ -123,9 +140,7 @@ function TemplatePreview({ template, onClose, onUse }: TemplatePreviewProps) {
         <Button variant="outline" onClick={onClose}>
           Abbrechen
         </Button>
-        <Button onClick={() => onUse(template)}>
-          Diese Vorlage verwenden
-        </Button>
+        <Button onClick={() => onUse(template)}>Diese Vorlage verwenden</Button>
       </DialogFooter>
     </DialogContent>
   );
@@ -133,13 +148,14 @@ function TemplatePreview({ template, onClose, onUse }: TemplatePreviewProps) {
 
 export function TemplateList() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedTemplate, setSelectedTemplate] = useState<SurveyTemplate | null>(null);
+  const [selectedTemplate, setSelectedTemplate] =
+    useState<SurveyTemplate | null>(null);
 
   const filteredTemplates = defaultTemplates.filter(
     (template) =>
       template.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       template.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      template.category.toLowerCase().includes(searchQuery.toLowerCase())
+      template.category.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   const handleUseTemplate = (template: SurveyTemplate) => {
@@ -184,8 +200,8 @@ export function TemplateList() {
               </CardContent>
               <CardFooter>
                 <DialogTrigger asChild>
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     className="w-full"
                     onClick={() => setSelectedTemplate(template)}
                   >

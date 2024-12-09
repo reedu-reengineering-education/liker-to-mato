@@ -16,11 +16,11 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { 
-  BarChart, 
-  Activity, 
-  FileText, 
-  Plus, 
+import {
+  BarChart,
+  Activity,
+  FileText,
+  Plus,
   Calendar,
   Users,
   Settings,
@@ -28,7 +28,7 @@ import {
   ChevronRight,
   Clock,
   Star,
-  CheckCircle 
+  CheckCircle,
 } from "lucide-react";
 import { Container } from "@/components/ui/layout/Container";
 import { Grid } from "@/components/ui/layout/Grid";
@@ -102,7 +102,10 @@ function DashboardContent() {
               Hier ist ein Überblick über Ihre Umfragen und Aktivitäten
             </p>
           </div>
-          <Button size="lg" className="flex items-center gap-2 shadow-lg hover:shadow-xl transition-all">
+          <Button
+            size="lg"
+            className="flex items-center gap-2 shadow-lg hover:shadow-xl transition-all"
+          >
             <Plus className="w-5 h-5" />
             Neue Umfrage
           </Button>
@@ -115,7 +118,9 @@ function DashboardContent() {
           >
             <Card className="border-l-4 border-l-primary">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Aktive Umfragen</CardTitle>
+                <CardTitle className="text-sm font-medium">
+                  Aktive Umfragen
+                </CardTitle>
                 <Activity className="h-4 w-4 text-primary" />
               </CardHeader>
               <CardContent>
@@ -126,7 +131,7 @@ function DashboardContent() {
               </CardContent>
             </Card>
           </motion.div>
-          
+
           <motion.div
             whileHover={{ scale: 1.02 }}
             transition={{ type: "spring", stiffness: 300 }}
@@ -233,12 +238,13 @@ function DashboardContent() {
                           className={cn(
                             "text-sm px-3 py-1 rounded-full font-medium",
                             {
-                              "bg-primary/10 text-primary": survey.status === "Aktiv",
+                              "bg-primary/10 text-primary":
+                                survey.status === "Aktiv",
                               "bg-muted text-muted-foreground":
                                 survey.status === "Entwurf",
                               "bg-green-100 text-green-700":
                                 survey.status === "Abgeschlossen",
-                            }
+                            },
                           )}
                         >
                           {survey.status}
@@ -262,7 +268,9 @@ function DashboardContent() {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div>
-                    <CardTitle className="text-xl">Letzte Aktivitäten</CardTitle>
+                    <CardTitle className="text-xl">
+                      Letzte Aktivitäten
+                    </CardTitle>
                     <CardDescription>
                       Ihre neuesten Aktivitäten und Updates
                     </CardDescription>
@@ -286,7 +294,9 @@ function DashboardContent() {
                         <activity.icon className="h-4 w-4" />
                       </div>
                       <div className="flex-1">
-                        <h4 className="text-sm font-medium">{activity.action}</h4>
+                        <h4 className="text-sm font-medium">
+                          {activity.action}
+                        </h4>
                         <p className="text-sm text-muted-foreground">
                           {activity.description}
                         </p>
@@ -328,7 +338,9 @@ function DashboardContent() {
                     </AvatarFallback>
                   </Avatar>
                   <div className="space-y-1">
-                    <h3 className="text-xl font-medium">{session?.user?.name}</h3>
+                    <h3 className="text-xl font-medium">
+                      {session?.user?.name}
+                    </h3>
                     <p className="text-sm text-muted-foreground">
                       {session?.user?.email}
                     </p>
@@ -361,9 +373,7 @@ function DashboardContent() {
             <Card>
               <CardHeader>
                 <CardTitle className="text-xl">Schnellzugriff</CardTitle>
-                <CardDescription>
-                  Häufig verwendete Funktionen
-                </CardDescription>
+                <CardDescription>Häufig verwendete Funktionen</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 gap-4">

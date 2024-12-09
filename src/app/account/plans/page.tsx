@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { PayPalButton } from "@/components/payment/paypal-button"
-import { Button } from "@/components/ui/button"
+import { PayPalButton } from "@/components/payment/paypal-button";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -9,9 +9,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { useToast } from "@/hooks/use-toast"
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { useToast } from "@/hooks/use-toast";
 
 const plans = [
   {
@@ -57,27 +57,27 @@ const plans = [
     ],
     popular: false,
   },
-]
+];
 
 export default function PlansPage() {
-  const { toast } = useToast()
+  const { toast } = useToast();
 
   const handleSuccess = (details: any) => {
-    console.log("Zahlung erfolgreich!", details)
+    console.log("Zahlung erfolgreich!", details);
     toast({
       title: "Plan aktiviert",
       description: "Dein neuer Plan wurde erfolgreich aktiviert.",
-    })
-  }
+    });
+  };
 
   const handleError = (error: any) => {
-    console.error("Fehler bei der Zahlung:", error)
+    console.error("Fehler bei der Zahlung:", error);
     toast({
       title: "Fehler",
       description: "Es gab einen Fehler bei der Aktivierung des Plans.",
       variant: "destructive",
-    })
-  }
+    });
+  };
 
   const handleFreePlan = async () => {
     try {
@@ -90,25 +90,25 @@ export default function PlansPage() {
           planId: "plan_free",
           paymentDetails: { id: "free_plan" },
         }),
-      })
+      });
 
       if (!response.ok) {
-        throw new Error("Failed to activate free plan")
+        throw new Error("Failed to activate free plan");
       }
 
       toast({
         title: "Plan aktiviert",
         description: "Der kostenlose Plan wurde aktiviert.",
-      })
+      });
     } catch (error) {
-      console.error("Error activating free plan:", error)
+      console.error("Error activating free plan:", error);
       toast({
         title: "Fehler",
         description: "Der Plan konnte nicht aktiviert werden.",
         variant: "destructive",
-      })
+      });
     }
-  }
+  };
 
   return (
     <div className="container mx-auto py-8">
@@ -128,10 +128,7 @@ export default function PlansPage() {
             }`}
           >
             {plan.popular && (
-              <Badge
-                className="absolute -top-2 -right-2"
-                variant="default"
-              >
+              <Badge className="absolute -top-2 -right-2" variant="default">
                 Beliebt
               </Badge>
             )}
@@ -195,5 +192,5 @@ export default function PlansPage() {
         ))}
       </div>
     </div>
-  )
+  );
 }

@@ -143,7 +143,7 @@ export function useButtonActions() {
 
   const handleDelete = async (
     surveyId: string,
-    onDeleteSuccess: (deletedSurveyId: string) => void
+    onDeleteSuccess: (deletedSurveyId: string) => void,
   ): Promise<boolean> => {
     try {
       await deleteSurvey(surveyId);
@@ -166,7 +166,7 @@ export function useButtonActions() {
 
   const handleQuestionCreated = async (
     surveyId: string,
-    onQuestionCreated: (createdQuestionId: string) => void
+    onQuestionCreated: (createdQuestionId: string) => void,
   ): Promise<boolean> => {
     try {
       const questions = await surveyQuestions(surveyId);

@@ -13,6 +13,7 @@ import { Check, CreditCard } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const tiers = [
   {
@@ -59,7 +60,9 @@ const tiers = [
 ];
 
 export default function PricingPage() {
-  const [billingInterval, setBillingInterval] = useState<"monthly" | "yearly">("monthly");
+  const [billingInterval, setBillingInterval] = useState<"monthly" | "yearly">(
+    "monthly",
+  );
 
   const handlePayment = async (tier: string) => {
     // Hier kommt später die Zahlungslogik hin
@@ -85,7 +88,7 @@ export default function PricingPage() {
               "relative w-1/2 rounded-md py-2 text-sm font-medium whitespace-nowrap focus:outline-none sm:w-auto sm:px-8",
               billingInterval === "monthly"
                 ? "bg-background text-foreground shadow-sm"
-                : "text-muted-foreground"
+                : "text-muted-foreground",
             )}
           >
             Monatlich
@@ -96,7 +99,7 @@ export default function PricingPage() {
               "relative w-1/2 rounded-md py-2 text-sm font-medium whitespace-nowrap focus:outline-none sm:w-auto sm:px-8",
               billingInterval === "yearly"
                 ? "bg-background text-foreground shadow-sm"
-                : "text-muted-foreground"
+                : "text-muted-foreground",
             )}
           >
             Jährlich <span className="text-primary">(-20%)</span>
@@ -115,7 +118,7 @@ export default function PricingPage() {
             <Card
               className={cn(
                 "flex h-full flex-col",
-                tier.highlighted && "border-primary shadow-lg"
+                tier.highlighted && "border-primary shadow-lg",
               )}
             >
               <CardHeader>
@@ -133,7 +136,9 @@ export default function PricingPage() {
                   {tier.features.map((feature) => (
                     <li key={feature} className="flex items-center">
                       <Check className="h-5 w-5 text-primary flex-shrink-0" />
-                      <span className="ml-3 text-muted-foreground">{feature}</span>
+                      <span className="ml-3 text-muted-foreground">
+                        {feature}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -144,14 +149,18 @@ export default function PricingPage() {
                   className="w-full"
                   variant={tier.highlighted ? "default" : "outline"}
                 >
-                  {tier.name === "Basic" ? "Kostenlos starten" : "Jetzt upgraden"}
+                  {tier.name === "Basic"
+                    ? "Kostenlos starten"
+                    : "Jetzt upgraden"}
                 </Button>
                 {tier.name !== "Basic" && (
                   <div className="flex justify-center gap-2 w-full">
                     <CreditCard className="h-5 w-5 text-muted-foreground" />
-                    <img 
-                      src="/paypal.svg" 
-                      alt="PayPal" 
+                    <Image
+                      src="/paypal.svg"
+                      alt="PayPal"
+                      width={20}
+                      height={20}
                       className="h-5 w-5"
                     />
                   </div>
@@ -164,7 +173,8 @@ export default function PricingPage() {
 
       <div className="mt-12 text-center">
         <p className="text-muted-foreground">
-          Alle Preise zzgl. MwSt. · Jederzeit kündbar · 14 Tage Geld-zurück-Garantie
+          Alle Preise zzgl. MwSt. · Jederzeit kündbar · 14 Tage
+          Geld-zurück-Garantie
         </p>
       </div>
     </div>

@@ -25,11 +25,12 @@ type QrCodeDialogProps = {
 export function QrCodeDialog({ surveyId }: QrCodeDialogProps) {
   const [isOpen, setIsOpen] = useState(false);
   const { toast } = useToast();
-  
+
   // Konstruiere die absolute URL für die Umfrage
-  const baseUrl = typeof window !== 'undefined' 
-    ? window.location.origin 
-    : process.env.NEXT_PUBLIC_BASE_URL || '';
+  const baseUrl =
+    typeof window !== "undefined"
+      ? window.location.origin
+      : process.env.NEXT_PUBLIC_BASE_URL || "";
   const surveyUrl = `${baseUrl}/student/survey/${surveyId}`;
 
   const copyToClipboard = async () => {
@@ -43,7 +44,8 @@ export function QrCodeDialog({ surveyId }: QrCodeDialogProps) {
       console.error("Fehler beim Kopieren in die Zwischenablage:", err);
       toast({
         title: "Fehler",
-        description: "Der Link konnte nicht kopiert werden. Bitte versuchen Sie es erneut.",
+        description:
+          "Der Link konnte nicht kopiert werden. Bitte versuchen Sie es erneut.",
         variant: "destructive",
       });
     }
@@ -61,15 +63,16 @@ export function QrCodeDialog({ surveyId }: QrCodeDialogProps) {
         <DialogHeader>
           <DialogTitle>Umfrage-QR-Code</DialogTitle>
           <DialogDescription>
-            Scannen Sie den QR-Code oder nutzen Sie den Link, um an der Umfrage teilzunehmen.
+            Scannen Sie den QR-Code oder nutzen Sie den Link, um an der Umfrage
+            teilzunehmen.
           </DialogDescription>
         </DialogHeader>
-        
+
         <div className="flex flex-col items-center space-y-4">
           <div className="p-4 bg-white rounded-lg">
             <QRCode value={surveyUrl} size={200} />
           </div>
-          
+
           <div className="flex items-center gap-2 w-full">
             <code className="flex-1 p-2 bg-muted rounded text-sm break-all">
               {surveyUrl}

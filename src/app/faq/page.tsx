@@ -75,14 +75,16 @@ export default function FAQPage() {
   const [searchQuery, setSearchQuery] = useState("");
 
   // Filterfunktion für die Suche
-  const filteredFaqs = faqs.map((category) => ({
-    ...category,
-    items: category.items.filter(
-      (item) =>
-        item.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.answer.toLowerCase().includes(searchQuery.toLowerCase())
-    ),
-  })).filter((category) => category.items.length > 0);
+  const filteredFaqs = faqs
+    .map((category) => ({
+      ...category,
+      items: category.items.filter(
+        (item) =>
+          item.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          item.answer.toLowerCase().includes(searchQuery.toLowerCase()),
+      ),
+    }))
+    .filter((category) => category.items.length > 0);
 
   return (
     <Container as="main" className="py-12">
@@ -97,8 +99,8 @@ export default function FAQPage() {
             Häufig gestellte Fragen
           </h1>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Finden Sie Antworten auf die häufigsten Fragen zu Likert-O-Mat. Falls
-            Sie weitere Fragen haben, kontaktieren Sie uns gerne.
+            Finden Sie Antworten auf die häufigsten Fragen zu Likert-O-Mat.
+            Falls Sie weitere Fragen haben, kontaktieren Sie uns gerne.
           </p>
         </div>
 
@@ -120,7 +122,9 @@ export default function FAQPage() {
         <div className="max-w-3xl mx-auto">
           {filteredFaqs.map((category, index) => (
             <div key={index} className="mb-8">
-              <h2 className="text-xl font-semibold mb-4">{category.category}</h2>
+              <h2 className="text-xl font-semibold mb-4">
+                {category.category}
+              </h2>
               <Accordion type="single" collapsible className="space-y-4">
                 {category.items.map((item, itemIndex) => (
                   <AccordionItem

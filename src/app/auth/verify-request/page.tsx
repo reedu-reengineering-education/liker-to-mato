@@ -30,22 +30,31 @@ export default function VerifyRequest() {
         <CardHeader>
           <CardTitle>Überprüfen Sie Ihre E-Mails</CardTitle>
           <CardDescription>
-            Ein Anmeldelink wurde an Ihre E-Mail-Adresse gesendet. Klicken Sie auf den Link in der E-Mail, um sich anzumelden.
+            Ein Anmeldelink wurde an Ihre E-Mail-Adresse gesendet. Klicken Sie
+            auf den Link in der E-Mail, um sich anzumelden.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="bg-muted/50 rounded-lg p-4">
             <h3 className="font-medium mb-2">Tipps:</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>• Der Link ist aus Sicherheitsgründen nur 10 Minuten gültig</li>
+              <li>
+                • Der Link ist aus Sicherheitsgründen nur 10 Minuten gültig
+              </li>
               <li>• Überprüfen Sie auch Ihren Spam-Ordner</li>
-              <li>• Stellen Sie sicher, dass Sie die richtige E-Mail-Adresse angegeben haben</li>
+              <li>
+                • Stellen Sie sicher, dass Sie die richtige E-Mail-Adresse
+                angegeben haben
+              </li>
             </ul>
           </div>
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
           <Link href="/auth/signin" className="w-full">
-            <Button variant="outline" className="w-full flex items-center gap-2">
+            <Button
+              variant="outline"
+              className="w-full flex items-center gap-2"
+            >
               <ArrowLeft className="h-4 w-4" />
               Zurück zur Anmeldung
             </Button>

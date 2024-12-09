@@ -186,7 +186,7 @@ export function CreateSurveyDialog() {
       const surveyData = await createSurvey(
         values.name,
         values.startDate,
-        values.endDate
+        values.endDate,
       );
       toast({
         title: "Umfrage erstellt",

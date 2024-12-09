@@ -28,9 +28,10 @@ export function StudentSurveyView({ surveyId }: { surveyId: string }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
-  const progress = questions.length > 0
-    ? (Object.keys(answers).length / questions.length) * 100
-    : 0;
+  const progress =
+    questions.length > 0
+      ? (Object.keys(answers).length / questions.length) * 100
+      : 0;
 
   useEffect(() => {
     const fetchSurveyData = async () => {
@@ -46,21 +47,29 @@ export function StudentSurveyView({ surveyId }: { surveyId: string }) {
         setSurvey(surveyResponse.data);
 
         // Fetch questions
-        const questionsResponse = await axios.get(`/api/question/survey/${surveyId}`);
+        const questionsResponse = await axios.get(
+          `/api/question/survey/${surveyId}`,
+        );
         setQuestions(questionsResponse.data || []);
 
         // Fetch existing answers
-        const answersResponse = await axios.get(`/api/answer/question/${surveyId}`);
-        const answersMap = (answersResponse.data || []).reduce((acc: Record<string, Answer>, answer: Answer) => {
-          acc[answer.questionId] = answer;
-          return acc;
-        }, {});
+        const answersResponse = await axios.get(
+          `/api/answer/question/${surveyId}`,
+        );
+        const answersMap = (answersResponse.data || []).reduce(
+          (acc: Record<string, Answer>, answer: Answer) => {
+            acc[answer.questionId] = answer;
+            return acc;
+          },
+          {},
+        );
         setAnswers(answersMap);
       } catch (error) {
         console.error("Error fetching survey data:", error);
         toast({
           title: "Fehler",
-          description: "Die Umfragedaten konnten nicht geladen werden. Bitte versuchen Sie es später erneut.",
+          description:
+            "Die Umfragedaten konnten nicht geladen werden. Bitte versuchen Sie es später erneut.",
           variant: "destructive",
         });
       } finally {
@@ -75,12 +84,12 @@ export function StudentSurveyView({ surveyId }: { surveyId: string }) {
     try {
       const response = await axios.post(`/api/answer`, {
         questionId,
-        value: answer.value
+        value: answer.value,
       });
-      
-      setAnswers(prev => ({
+
+      setAnswers((prev) => ({
         ...prev,
-        [questionId]: response.data
+        [questionId]: response.data,
       }));
 
       toast({
@@ -101,7 +110,8 @@ export function StudentSurveyView({ surveyId }: { surveyId: string }) {
     if (questions.length !== Object.keys(answers).length) {
       toast({
         title: "Achtung",
-        description: "Bitte beantworten Sie alle Fragen, bevor Sie die Umfrage abschließen.",
+        description:
+          "Bitte beantworten Sie alle Fragen, bevor Sie die Umfrage abschließen.",
         variant: "destructive",
       });
       return;
@@ -127,16 +137,17 @@ export function StudentSurveyView({ surveyId }: { surveyId: string }) {
 
       toast({
         title: "Erfolg",
-        description: "Vielen Dank! Ihre Antworten wurden erfolgreich gespeichert.",
+        description:
+          "Vielen Dank! Ihre Antworten wurden erfolgreich gespeichert.",
       });
 
       // Warte kurz, bevor zur Bestätigungsseite weitergeleitet wird
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
       // Weiterleitung zur Bestätigungsseite mit sanftem Übergang
       document.body.style.opacity = "0";
       document.body.style.transition = "opacity 0.5s ease";
-      
+
       setTimeout(() => {
         window.location.href = "/surveys/completed";
       }, 500);
@@ -144,7 +155,8 @@ export function StudentSurveyView({ surveyId }: { surveyId: string }) {
       console.error("Error submitting survey:", error);
       toast({
         title: "Fehler",
-        description: "Beim Speichern Ihrer Antworten ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+        description:
+          "Beim Speichern Ihrer Antworten ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
         variant: "destructive",
       });
       document.body.style.opacity = "1";
@@ -214,7 +226,10 @@ export function StudentSurveyView({ surveyId }: { surveyId: string }) {
 
       {questions.length > 0 ? (
         questions.map((question) => (
-          <Card key={question.id} className={answers[question.id] ? "border-green-200" : ""}>
+          <Card
+            key={question.id}
+            className={answers[question.id] ? "border-green-200" : ""}
+          >
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle>{question.name}</CardTitle>
@@ -249,11 +264,14 @@ export function StudentSurveyView({ surveyId }: { surveyId: string }) {
 
       <div className="flex justify-between items-center">
         <div className="text-sm text-gray-600">
-          {Object.keys(answers).length} von {questions.length} Fragen beantwortet
+          {Object.keys(answers).length} von {questions.length} Fragen
+          beantwortet
         </div>
-        <Button 
-          onClick={handleSurveySubmit} 
-          disabled={isSubmitting || questions.length !== Object.keys(answers).length}
+        <Button
+          onClick={handleSurveySubmit}
+          disabled={
+            isSubmitting || questions.length !== Object.keys(answers).length
+          }
         >
           {isSubmitting ? "Wird gespeichert..." : "Umfrage abschließen"}
         </Button>

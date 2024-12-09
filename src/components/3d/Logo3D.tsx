@@ -1,7 +1,12 @@
 "use client";
 
 import { Canvas, useFrame, extend } from "@react-three/fiber";
-import { Center, Float, OrbitControls, shaderMaterial } from "@react-three/drei";
+import {
+  Center,
+  Float,
+  OrbitControls,
+  shaderMaterial,
+} from "@react-three/drei";
 import { useRef } from "react";
 import { Mesh, Group, ShaderMaterial } from "three";
 
@@ -42,7 +47,7 @@ const GradientMaterial = shaderMaterial(
       
       gl_FragColor = finalColor;
     }
-  `
+  `,
 );
 
 extend({ GradientMaterial });
@@ -63,12 +68,12 @@ function Bar({ position, height, delay = 0, isPrimary = true }: BarProps) {
       const time = Math.max(0, state.clock.elapsedTime - delay);
       const currentHeight = Math.min(height, time * 2);
       barRef.current.scale.y = currentHeight;
-      
+
       const pulse = 1 + Math.sin(state.clock.elapsedTime * 2) * 0.03;
       barRef.current.scale.x = pulse;
       barRef.current.scale.z = pulse;
     }
-    
+
     if (materialRef.current) {
       materialRef.current.uniforms.time.value = state.clock.elapsedTime;
     }
@@ -78,7 +83,11 @@ function Bar({ position, height, delay = 0, isPrimary = true }: BarProps) {
     <mesh ref={barRef} position={position}>
       <boxGeometry args={[0.8, 1, 0.8]} />
       {/* @ts-ignore */}
-      <gradientMaterial ref={materialRef} transparent isPrimary={isPrimary ? 1.0 : 0.0} />
+      <gradientMaterial
+        ref={materialRef}
+        transparent
+        isPrimary={isPrimary ? 1.0 : 0.0}
+      />
     </mesh>
   );
 }
@@ -89,7 +98,8 @@ function BarChart() {
 
   useFrame((state) => {
     if (groupRef.current) {
-      groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.2;
+      groupRef.current.rotation.y =
+        Math.sin(state.clock.elapsedTime * 0.5) * 0.2;
     }
   });
 
@@ -99,7 +109,7 @@ function BarChart() {
         const position: [number, number, number] = [
           index * 1.2 - (heights.length - 1) * 0.6,
           height / 2,
-          0
+          0,
         ];
         return (
           <Bar
@@ -111,7 +121,7 @@ function BarChart() {
           />
         );
       })}
-      
+
       {/* Basis-Linie */}
       <mesh position={[0, 0, 0]} rotation={[0, 0, 0]}>
         <boxGeometry args={[heights.length * 1.2 + 0.8, 0.1, 0.8]} />

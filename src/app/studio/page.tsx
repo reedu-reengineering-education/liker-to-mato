@@ -4,7 +4,13 @@ import { Container } from "@/components/ui/layout/Container";
 import { Grid } from "@/components/ui/layout/Grid";
 import { CreateSurveyDialog } from "@/components/forms/create-survey-form";
 import { ListSurvey } from "@/components/forms/lists/surveyList";
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardDescription,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Plus, BarChart2, FileText, Settings } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -38,7 +44,8 @@ export default function Studio() {
                 <CardHeader>
                   <CardTitle>Aktive Umfragen</CardTitle>
                   <CardDescription>
-                    Verwalte deine laufenden Umfragen und siehe dir die Ergebnisse an
+                    Verwalte deine laufenden Umfragen und siehe dir die
+                    Ergebnisse an
                   </CardDescription>
                 </CardHeader>
                 <CardContent>

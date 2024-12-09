@@ -105,7 +105,7 @@ export function GDPRSettings({ surveyId }: GDPRSettingsProps) {
     } catch (error) {
       console.error(
         "Fehler beim Aktualisieren der DSGVO-Einstellungen:",
-        error
+        error,
       );
       toast({
         title: "Fehler",

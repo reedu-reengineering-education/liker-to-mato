@@ -5,12 +5,7 @@ import React from "react";
 import { SurveyEditor } from "@/components/forms/edit/SurveyEditor";
 import { SurveyAnalytics } from "@/components/analytics/SurveyAnalytics";
 import { EditSurveyName } from "@/components/buttons/edit-survey-option";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Container } from "@/components/ui/layout/Container";
 

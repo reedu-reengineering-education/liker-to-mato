@@ -1,6 +1,12 @@
 "use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Grid } from "@/components/ui/layout/Grid";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SimpleLineChart from "@/components/ui/charts/SimpleLineChart";
@@ -8,7 +14,13 @@ import SimpleBarChart from "@/components/ui/charts/SimpleBarChart";
 import SimplePieChart from "@/components/ui/charts/SimplePieChart";
 import CustomBarChart from "@/components/ui/barchart";
 import CustomPieChart from "@/components/ui/piechart";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Download, Calendar, BarChart, PieChart } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -63,7 +75,8 @@ export function SurveyAnalytics({ surveyId }: SurveyAnalyticsProps) {
         console.error("Fehler beim Laden der Fragen:", error);
         toast({
           title: "Fehler",
-          description: "Die Fragen konnten nicht geladen werden. Bitte versuchen Sie es erneut.",
+          description:
+            "Die Fragen konnten nicht geladen werden. Bitte versuchen Sie es erneut.",
           variant: "destructive",
         });
       } finally {
@@ -84,7 +97,9 @@ export function SurveyAnalytics({ surveyId }: SurveyAnalyticsProps) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <p>No survey selected. Please select a survey to view its analytics.</p>
+          <p>
+            No survey selected. Please select a survey to view its analytics.
+          </p>
         </CardContent>
       </Card>
     );
@@ -124,7 +139,11 @@ export function SurveyAnalytics({ surveyId }: SurveyAnalyticsProps) {
           </CardHeader>
         </Card>
 
-        <Tabs value={activeView} onValueChange={setActiveView} className="space-y-4">
+        <Tabs
+          value={activeView}
+          onValueChange={setActiveView}
+          className="space-y-4"
+        >
           <TabsList className="grid w-full grid-cols-3 lg:w-[400px]">
             <TabsTrigger value="overview">Übersicht</TabsTrigger>
             <TabsTrigger value="responses">Antworten</TabsTrigger>
@@ -246,7 +265,9 @@ export function SurveyAnalytics({ surveyId }: SurveyAnalyticsProps) {
               {questions.map((question, index) => (
                 <Card key={question.id} className="md:col-span-6 lg:col-span-4">
                   <CardHeader>
-                    <CardTitle className="text-base">Frage {index + 1}</CardTitle>
+                    <CardTitle className="text-base">
+                      Frage {index + 1}
+                    </CardTitle>
                     <CardDescription className="line-clamp-2">
                       {question.name}
                     </CardDescription>

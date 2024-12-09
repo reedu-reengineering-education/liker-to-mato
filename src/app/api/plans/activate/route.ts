@@ -1,26 +1,23 @@
-import { NextResponse } from "next/server"
-import { getServerSession } from "next-auth"
-import { prisma } from "@/lib/prisma"
-import { authOptions } from "@/lib/auth"
+import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { prisma } from "@/lib/prisma";
+import { authOptions } from "@/lib/auth";
 
 export async function POST(req: Request) {
   try {
-    const session = await getServerSession(authOptions)
+    const session = await getServerSession(authOptions);
     if (!session?.user?.email) {
-      return NextResponse.json(
-        { error: "Unauthorized" },
-        { status: 401 }
-      )
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { planId, paymentDetails } = await req.json()
+    const { planId, paymentDetails } = await req.json();
 
     // Validiere die Zahlung (hier später PayPal Webhook Integration)
     if (!paymentDetails?.id) {
       return NextResponse.json(
         { error: "Invalid payment details" },
-        { status: 400 }
-      )
+        { status: 400 },
+      );
     }
 
     // Plan aktivieren
@@ -33,17 +30,17 @@ export async function POST(req: Request) {
       include: {
         plan: true,
       },
-    })
+    });
 
     return NextResponse.json({
       success: true,
       user: updatedUser,
-    })
+    });
   } catch (error) {
-    console.error("Error activating plan:", error)
+    console.error("Error activating plan:", error);
     return NextResponse.json(
       { error: "Failed to activate plan" },
-      { status: 500 }
-    )
+      { status: 500 },
+    );
   }
 }

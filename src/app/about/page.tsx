@@ -5,13 +5,22 @@ import { Container } from "@/components/ui/layout/Container";
 import { Button } from "@/components/ui/button";
 import { Grid } from "@/components/ui/layout/Grid";
 import Link from "next/link";
-import { ArrowRight, Lightbulb, Shield, Sparkles, Target, Users2, Zap } from "lucide-react";
+import {
+  ArrowRight,
+  Lightbulb,
+  Shield,
+  Sparkles,
+  Target,
+  Users2,
+  Zap,
+} from "lucide-react";
 
 export default function AboutPage() {
   const features = [
     {
       title: "Einfache Bedienung",
-      description: "Intuitive Benutzeroberfläche für schnelles und effizientes Arbeiten",
+      description:
+        "Intuitive Benutzeroberfläche für schnelles und effizientes Arbeiten",
       icon: Sparkles,
       color: "from-pink-500 to-rose-600",
     },
@@ -85,9 +94,10 @@ export default function AboutPage() {
           variants={itemAnimation}
           className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed"
         >
-          Likert-O-Mat ist eine moderne Plattform für wissenschaftliche Umfragen, 
-          entwickelt von Forschern für Forscher. Unser Ziel ist es, den Prozess der 
-          Datenerhebung und -analyse so effizient und präzise wie möglich zu gestalten.
+          Likert-O-Mat ist eine moderne Plattform für wissenschaftliche
+          Umfragen, entwickelt von Forschern für Forscher. Unser Ziel ist es,
+          den Prozess der Datenerhebung und -analyse so effizient und präzise
+          wie möglich zu gestalten.
         </motion.p>
       </motion.div>
 
@@ -109,10 +119,10 @@ export default function AboutPage() {
           variants={itemAnimation}
           className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed"
         >
-          Wir glauben daran, dass qualitativ hochwertige Forschung zugänglich und 
-          effizient sein sollte. Mit Likert-O-Mat bieten wir eine Plattform, die 
-          modernste Technologie mit benutzerfreundlichem Design verbindet, um 
-          Wissenschaftlern die bestmöglichen Werkzeuge für ihre Forschung zur 
+          Wir glauben daran, dass qualitativ hochwertige Forschung zugänglich
+          und effizient sein sollte. Mit Likert-O-Mat bieten wir eine Plattform,
+          die modernste Technologie mit benutzerfreundlichem Design verbindet,
+          um Wissenschaftlern die bestmöglichen Werkzeuge für ihre Forschung zur
           Verfügung zu stellen.
         </motion.p>
       </motion.div>
@@ -138,7 +148,9 @@ export default function AboutPage() {
               variants={itemAnimation}
               className="p-8 rounded-xl bg-card hover:bg-accent transition-colors group"
             >
-              <div className={`w-12 h-12 rounded-lg mb-4 flex items-center justify-center bg-gradient-to-br ${feature.color}`}>
+              <div
+                className={`w-12 h-12 rounded-lg mb-4 flex items-center justify-center bg-gradient-to-br ${feature.color}`}
+              >
                 <feature.icon className="w-6 h-6 text-white" />
               </div>
               <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
@@ -160,19 +172,17 @@ export default function AboutPage() {
         variants={containerAnimation}
         className="mb-20 text-center"
       >
-        <motion.h2
-          variants={itemAnimation}
-          className="text-3xl font-bold mb-6"
-        >
+        <motion.h2 variants={itemAnimation} className="text-3xl font-bold mb-6">
           Entwickelt an der Universität Münster
         </motion.h2>
         <motion.p
           variants={itemAnimation}
           className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed"
         >
-          Likert-O-Mat wurde von einem engagierten Team an der Universität Münster 
-          entwickelt. Wir kombinieren akademische Expertise mit technischer Innovation, 
-          um die bestmögliche Lösung für wissenschaftliche Umfragen zu schaffen.
+          Likert-O-Mat wurde von einem engagierten Team an der Universität
+          Münster entwickelt. Wir kombinieren akademische Expertise mit
+          technischer Innovation, um die bestmögliche Lösung für
+          wissenschaftliche Umfragen zu schaffen.
         </motion.p>
       </motion.div>
 
@@ -184,17 +194,14 @@ export default function AboutPage() {
         variants={containerAnimation}
         className="text-center bg-card rounded-xl p-12 shadow-sm"
       >
-        <motion.h2
-          variants={itemAnimation}
-          className="text-3xl font-bold mb-6"
-        >
+        <motion.h2 variants={itemAnimation} className="text-3xl font-bold mb-6">
           Starten Sie Ihre Forschung mit uns
         </motion.h2>
         <motion.p
           variants={itemAnimation}
           className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed"
         >
-          Erleben Sie selbst, wie Likert-O-Mat Ihre Forschungsarbeit 
+          Erleben Sie selbst, wie Likert-O-Mat Ihre Forschungsarbeit
           vereinfachen und verbessern kann.
         </motion.p>
         <motion.div variants={itemAnimation}>

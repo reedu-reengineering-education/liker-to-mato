@@ -10,7 +10,7 @@ import dynamic from "next/dynamic";
 
 const Logo3D = dynamic(() => import("@/components/3d/Logo3D"), {
   ssr: false,
-  loading: () => null
+  loading: () => null,
 });
 
 const inter = Inter({ subsets: ["latin"] });
@@ -30,7 +30,7 @@ export default function RootLayout({
       <body
         className={cn(
           "min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-indigo-900 font-sans antialiased",
-          inter.className
+          inter.className,
         )}
       >
         <Providers>
