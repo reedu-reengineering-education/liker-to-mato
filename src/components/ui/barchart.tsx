@@ -1,29 +1,29 @@
-import { TrendingUp } from "lucide-react";
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  LabelList,
-  XAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+"use client";
+
 import { useEffect, useState } from "react";
 import { getGroupedAnswers } from "@/lib/api/answerClient";
-
+import { useToast } from "@/hooks/use-toast";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltipContent,
-} from "@/components/ui/chart"; // Importe für ChartContainer und ChartTooltipContent
+  BarChartComponent,
+  LineChartComponent,
+  DonutChartComponent,
+  AreaChartComponent,
+  ScatterChartComponent,
+} from "@/components/charts/chart-types";
+import { 
+  BarChart, 
+  LineChart, 
+  PieChart,
+  Activity,
+  Circle,
+} from "lucide-react";
 
 interface BarChartProps {
   questionId: string;
@@ -39,24 +39,39 @@ interface GroupedAnswer {
   };
 }
 
-interface DynamicChartConfig extends ChartConfig {
-  [key: string]: {
-    label: string;
-    color: string;
-  };
-}
+const COLORS = [
+  "#2563eb", // blue-600
+  "#3b82f6", // blue-500
+  "#60a5fa", // blue-400
+  "#93c5fd", // blue-300
+  "#bfdbfe", // blue-200
+];
 
-function generateColors(numColors: number): DynamicChartConfig {
-  const colors: DynamicChartConfig = {};
-  for (let i = 0; i < numColors; i++) {
-    const hue = (i * 360) / numColors;
-    colors[`color${i + 1}`] = {
-      label: `Color ${i + 1}`,
-      color: `hsla(${hue}, 70%, 50%, 0.5)`,
-    };
-  }
-  return colors;
-}
+type ChartType = "bar" | "line" | "donut" | "area" | "scatter";
+
+const chartComponents = {
+  bar: BarChartComponent,
+  line: LineChartComponent,
+  donut: DonutChartComponent,
+  area: AreaChartComponent,
+  scatter: ScatterChartComponent,
+};
+
+const chartIcons = {
+  bar: <BarChart className="h-4 w-4" />,
+  line: <LineChart className="h-4 w-4" />,
+  donut: <PieChart className="h-4 w-4" />,
+  area: <Activity className="h-4 w-4" />,
+  scatter: <Circle className="h-4 w-4" />,
+};
+
+const chartLabels = {
+  bar: "Balkendiagramm",
+  line: "Liniendiagramm",
+  donut: "Donutdiagramm",
+  area: "Flächendiagramm",
+  scatter: "Streudiagramm",
+};
 
 const CustomBarChart: React.FC<BarChartProps> = ({
   questionId,
@@ -66,78 +81,84 @@ const CustomBarChart: React.FC<BarChartProps> = ({
 }) => {
   const [groupedAnswers, setGroupedAnswers] = useState<GroupedAnswer[]>([]);
   const [chartData, setChartData] = useState<any[]>([]);
-  const [chartConfig, setChartConfig] = useState<DynamicChartConfig>({});
+  const [isLoading, setIsLoading] = useState(true);
+  const [chartType, setChartType] = useState<ChartType>("bar");
+  const { toast } = useToast();
 
   useEffect(() => {
     async function fetchGroupedAnswers() {
       try {
+        setIsLoading(true);
         const data = await getGroupedAnswers(questionId);
+        console.log("Fetched grouped answers:", data);
         setGroupedAnswers(data);
       } catch (error) {
         console.error("Error fetching grouped answers:", error);
+        toast({
+          title: "Fehler",
+          description: "Die Antworten konnten nicht geladen werden.",
+          variant: "destructive",
+        });
+      } finally {
+        setIsLoading(false);
       }
     }
     fetchGroupedAnswers();
-  }, [questionId]);
+  }, [questionId, toast]);
 
   useEffect(() => {
     if (groupedAnswers.length > 0) {
-      const colorsConfig = generateColors(groupedAnswers.length);
-      setChartConfig(colorsConfig);
-
-      const data = [];
-      for (let i = 0; i < groupedAnswers.length; i++) {
-        const answer = groupedAnswers[i];
-        const value = answer ? answer._count.value : 0;
-        const name =
-          i === 0 ? min : i === groupedAnswers.length - 1 ? max : "●";
-        data.push({
-          name,
-          value,
-          fill: colorsConfig[`color${i + 1}`].color,
-        });
-      }
+      const data = groupedAnswers.map((answer, index) => ({
+        name: index === 0 ? min : index === groupedAnswers.length - 1 ? max : `${answer.value}`,
+        value: answer._count.value,
+        fill: COLORS[index % COLORS.length],
+      }));
+      console.log("Transformed chart data:", data);
       setChartData(data);
     }
   }, [groupedAnswers, min, max]);
 
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-[300px]">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  if (chartData.length === 0) {
+    return (
+      <div className="flex items-center justify-center h-[300px] text-muted-foreground">
+        Keine Daten verfügbar
+      </div>
+    );
+  }
+
+  const ChartComponent = chartComponents[chartType];
+
   return (
-    <Card>
-      <CardHeader className="items-center pb-0">
-        <CardTitle>{questionName}</CardTitle>
-        <CardDescription>Data visualization</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig} className="w-full h-[53vh]">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart
-              data={chartData}
-              margin={{
-                top: 20,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid vertical={false} />
-              <XAxis dataKey="name" />
-              {/* <Tooltip content={<ChartTooltipContent />} /> */}
-              <Bar dataKey="value" radius={8}>
-                <LabelList dataKey="value" position="top" />
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        {/* <div className="flex gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
-        </div> */}
-      </CardFooter>
-    </Card>
+    <div className="space-y-4">
+      <div className="flex justify-end">
+        <Select value={chartType} onValueChange={(value) => setChartType(value as ChartType)}>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Wähle einen Diagrammtyp" />
+          </SelectTrigger>
+          <SelectContent>
+            {(Object.keys(chartComponents) as ChartType[]).map((type) => (
+              <SelectItem key={type} value={type}>
+                <div className="flex items-center gap-2">
+                  {chartIcons[type]}
+                  {chartLabels[type]}
+                </div>
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="h-[300px]">
+        <ChartComponent data={chartData} />
+      </div>
+    </div>
   );
 };
 

@@ -1,3 +1,4 @@
+// path: src/lib/apiMiddlewares/withSurvey.ts
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth/next";
 import prisma from "@/lib/db";

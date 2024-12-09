@@ -1,23 +1,17 @@
 "use client";
 
-import { Pie, PieChart, Cell, Tooltip, ResponsiveContainer } from "recharts";
+import { Pie, PieChart, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import { useEffect, useState } from "react";
 import { getGroupedAnswers } from "@/lib/api/answerClient";
+import { useToast } from "@/hooks/use-toast";
 
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
 
 interface PieChartProps {
   questionId: string;
@@ -33,24 +27,40 @@ interface GroupedAnswer {
   };
 }
 
-interface DynamicChartConfig extends ChartConfig {
-  [key: string]: {
-    label: string;
-    color: string;
-  };
-}
+const COLORS = [
+  "#2563eb", // blue-600
+  "#3b82f6", // blue-500
+  "#60a5fa", // blue-400
+  "#93c5fd", // blue-300
+  "#bfdbfe", // blue-200
+];
 
-function generateColors(numColors: number): DynamicChartConfig {
-  const colors: DynamicChartConfig = {};
-  for (let i = 0; i < numColors; i++) {
-    const hue = (i * 360) / numColors;
-    colors[`color${i + 1}`] = {
-      label: `Color ${i + 1}`,
-      color: `hsla(${hue}, 70%, 50%, 0.5)`,
-    };
-  }
-  return colors;
-}
+const RADIAN = Math.PI / 180;
+const renderCustomizedLabel = ({
+  cx,
+  cy,
+  midAngle,
+  innerRadius,
+  outerRadius,
+  percent,
+  index,
+}: any) => {
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+  return (
+    <text
+      x={x}
+      y={y}
+      fill="white"
+      textAnchor={x > cx ? 'start' : 'end'}
+      dominantBaseline="central"
+    >
+      {`${(percent * 100).toFixed(0)}%`}
+    </text>
+  );
+};
 
 const CustomPieChart: React.FC<PieChartProps> = ({
   questionId,
@@ -60,65 +70,94 @@ const CustomPieChart: React.FC<PieChartProps> = ({
 }) => {
   const [groupedAnswers, setGroupedAnswers] = useState<GroupedAnswer[]>([]);
   const [chartData, setChartData] = useState<any[]>([]);
-  const [chartConfig, setChartConfig] = useState<DynamicChartConfig>({});
+  const [isLoading, setIsLoading] = useState(true);
+  const { toast } = useToast();
 
   useEffect(() => {
     async function fetchGroupedAnswers() {
       try {
+        setIsLoading(true);
         const data = await getGroupedAnswers(questionId);
         setGroupedAnswers(data);
       } catch (error) {
         console.error("Error fetching grouped answers:", error);
+        toast({
+          title: "Fehler",
+          description: "Die Antworten konnten nicht geladen werden.",
+          variant: "destructive",
+        });
+      } finally {
+        setIsLoading(false);
       }
     }
     fetchGroupedAnswers();
-  }, [questionId]);
+  }, [questionId, toast]);
 
   useEffect(() => {
     if (groupedAnswers.length > 0) {
-      const colorsConfig = generateColors(groupedAnswers.length);
-      setChartConfig(colorsConfig);
-
       const data = groupedAnswers.map((answer, index) => ({
-        name: answer.value.toString(),
+        name: index === 0 ? min : index === groupedAnswers.length - 1 ? max : `${answer.value}`,
         value: answer._count.value,
-        fill: colorsConfig[`color${index + 1}`].color,
       }));
       setChartData(data);
     }
-  }, [groupedAnswers]);
+  }, [groupedAnswers, min, max]);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center w-full h-full">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  if (chartData.length === 0) {
+    return (
+      <div className="flex items-center justify-center w-full h-full text-muted-foreground">
+        Keine Daten verfügbar
+      </div>
+    );
+  }
 
   return (
     <Card className="w-full">
       <CardHeader className="items-center pb-0">
         <CardTitle>{questionName}</CardTitle>
-        <CardDescription>Data visualization</CardDescription>
+        <CardDescription>Verteilung der Antworten</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer
-          config={chartConfig}
-          className=" w-full h-[53vh] mx-auto aspect-square pb-0 [&_.recharts-pie-label-text]:fill-foreground"
-        >
-          <ResponsiveContainer width="100%" height={250}>
+        <div className="w-full h-[53vh] mx-auto aspect-square pb-0">
+          <ResponsiveContainer width="100%" height="100%">
             <PieChart>
-              {/* <Tooltip content={<ChartTooltipContent hideLabel />} /> */}
-              <Pie data={chartData} dataKey="value" nameKey="name" label>
+              <Pie
+                data={chartData}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                label={renderCustomizedLabel}
+                outerRadius="80%"
+                dataKey="value"
+              >
                 {chartData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.fill} />
+                  <Cell 
+                    key={`cell-${index}`} 
+                    fill={COLORS[index % COLORS.length]}
+                  />
                 ))}
               </Pie>
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: 'var(--background)',
+                  border: '1px solid var(--border)',
+                  borderRadius: '6px',
+                }}
+                labelStyle={{ color: 'var(--foreground)' }}
+              />
+              <Legend />
             </PieChart>
           </ResponsiveContainer>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter className="flex-col gap-2 text-sm">
-        {/* <div className="flex items-center gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
         </div>
-        <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
-        </div> */}
-      </CardFooter>
+      </CardContent>
     </Card>
   );
 };

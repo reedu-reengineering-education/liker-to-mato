@@ -1,3 +1,4 @@
+// path: src/pages/api/question/index.ts
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/db";
 import { getServerSession } from "next-auth/next";

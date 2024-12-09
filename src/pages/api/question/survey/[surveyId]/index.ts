@@ -1,3 +1,4 @@
+// path: src/pages/api/question/survey/[surveyId]/index.ts
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/db";
 
