@@ -1,11 +1,11 @@
-declare module "three/examples/jsm/loaders/FontLoader" {
+declare module 'three/examples/jsm/loaders/FontLoader' {
   export class FontLoader {
     load(url: string, onLoad?: (font: any) => void): void;
   }
 }
 
-declare module "three/examples/jsm/geometries/TextGeometry" {
-  import { ExtrudeGeometry } from "three";
+declare module 'three/examples/jsm/geometries/TextGeometry' {
+  import { ExtrudeGeometry } from 'three';
   export class TextGeometry extends ExtrudeGeometry {
     constructor(
       text: string,
@@ -19,7 +19,7 @@ declare module "three/examples/jsm/geometries/TextGeometry" {
         bevelSize?: number;
         bevelOffset?: number;
         bevelSegments?: number;
-      },
+      }
     );
   }
 }
