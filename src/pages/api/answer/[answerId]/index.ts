@@ -1,8 +1,8 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "@/lib/prisma";
+import { NextApiRequest, NextApiResponse } from 'next';
+import { prisma } from '@/lib/prisma';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === "GET") {
+  if (req.method === 'GET') {
     const { answerId } = req.query;
     try {
       const answer = await prisma.answer.findFirst({
@@ -10,16 +10,16 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       });
 
       if (!answer) {
-        res.status(404).json({ error: "Answer not found" });
+        res.status(404).json({ error: 'Answer not found' });
         return;
       }
 
       res.status(200).json(answer);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: "Server error" });
+      res.status(500).json({ error: 'Server error' });
     }
-  } else if (req.method === "PUT") {
+  } else if (req.method === 'PUT') {
     const { answerId } = req.query;
     const { value } = req.body;
 
@@ -31,9 +31,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       res.status(200).json(updateAnswer);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: "Server error" });
+      res.status(500).json({ error: 'Server error' });
     }
-  } else if (req.method === "DELETE") {
+  } else if (req.method === 'DELETE') {
     const { answerId } = req.query;
 
     try {
@@ -44,7 +44,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       res.status(204).end();
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: "Server error" });
+      res.status(500).json({ error: 'Server error' });
     }
   } else {
     res.status(405).end();

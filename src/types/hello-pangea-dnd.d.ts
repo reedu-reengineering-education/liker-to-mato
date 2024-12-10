@@ -1,5 +1,5 @@
-declare module "@hello-pangea/dnd" {
-  import * as React from "react";
+declare module '@hello-pangea/dnd' {
+  import * as React from 'react';
 
   export type DraggableId = string;
   export type DroppableId = string;
@@ -40,16 +40,13 @@ declare module "@hello-pangea/dnd" {
   export type DraggableProps = {
     draggableId: string;
     index: number;
-    children: (
-      provided: DraggableProvided,
-      snapshot: DraggableStateSnapshot,
-    ) => React.ReactNode;
+    children: (provided: DraggableProvided, snapshot: DraggableStateSnapshot) => React.ReactNode;
   };
 
   export type DroppableProvided = {
     innerRef: (element: HTMLElement | null) => void;
     droppableProps: {
-      "data-rbd-droppable-id": string;
+      'data-rbd-droppable-id': string;
     };
     placeholder?: React.ReactNode;
   };
@@ -57,12 +54,12 @@ declare module "@hello-pangea/dnd" {
   export type DraggableProvided = {
     innerRef: (element: HTMLElement | null) => void;
     draggableProps: {
-      "data-rbd-draggable-id": string;
+      'data-rbd-draggable-id': string;
       style?: React.CSSProperties;
     };
     dragHandleProps?: {
-      "data-rbd-drag-handle-draggable-id": string;
-      "data-rbd-drag-handle-context-id": string;
+      'data-rbd-drag-handle-draggable-id': string;
+      'data-rbd-drag-handle-context-id': string;
       role: string;
       tabIndex: number;
       draggable: boolean;

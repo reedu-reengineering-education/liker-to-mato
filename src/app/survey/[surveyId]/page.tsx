@@ -1,7 +1,7 @@
-"use client";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+'use client';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 
-import { StudentSurveyView } from "@/components/forms/student-survey-view";
+import { StudentSurveyView } from '@/components/forms/student-survey-view';
 
 export default function Student({ params }: { params: { surveyId: string } }) {
   return (

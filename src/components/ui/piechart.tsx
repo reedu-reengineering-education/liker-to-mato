@@ -1,24 +1,11 @@
-"use client";
+'use client';
 
-import {
-  Pie,
-  PieChart,
-  Cell,
-  Tooltip,
-  ResponsiveContainer,
-  Legend,
-} from "recharts";
-import { useEffect, useState } from "react";
-import { getGroupedAnswers } from "@/lib/api/answerClient";
-import { useToast } from "@/hooks/use-toast";
+import { Pie, PieChart, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { useEffect, useState } from 'react';
+import { getGroupedAnswers } from '@/lib/api/answerClient';
+import { useToast } from '@/hooks/use-toast';
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface PieChartProps {
   questionId: string;
@@ -35,11 +22,11 @@ interface GroupedAnswer {
 }
 
 const COLORS = [
-  "#2563eb", // blue-600
-  "#3b82f6", // blue-500
-  "#60a5fa", // blue-400
-  "#93c5fd", // blue-300
-  "#bfdbfe", // blue-200
+  '#2563eb', // blue-600
+  '#3b82f6', // blue-500
+  '#60a5fa', // blue-400
+  '#93c5fd', // blue-300
+  '#bfdbfe', // blue-200
 ];
 
 const RADIAN = Math.PI / 180;
@@ -57,24 +44,13 @@ const renderCustomizedLabel = ({
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
   return (
-    <text
-      x={x}
-      y={y}
-      fill="white"
-      textAnchor={x > cx ? "start" : "end"}
-      dominantBaseline="central"
-    >
+    <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
       {`${(percent * 100).toFixed(0)}%`}
     </text>
   );
 };
 
-const CustomPieChart: React.FC<PieChartProps> = ({
-  questionId,
-  questionName,
-  min,
-  max,
-}) => {
+const CustomPieChart: React.FC<PieChartProps> = ({ questionId, questionName, min, max }) => {
   const [groupedAnswers, setGroupedAnswers] = useState<GroupedAnswer[]>([]);
   const [chartData, setChartData] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -87,11 +63,11 @@ const CustomPieChart: React.FC<PieChartProps> = ({
         const data = await getGroupedAnswers(questionId);
         setGroupedAnswers(data);
       } catch (error) {
-        console.error("Error fetching grouped answers:", error);
+        console.error('Error fetching grouped answers:', error);
         toast({
-          title: "Fehler",
-          description: "Die Antworten konnten nicht geladen werden.",
-          variant: "destructive",
+          title: 'Fehler',
+          description: 'Die Antworten konnten nicht geladen werden.',
+          variant: 'destructive',
         });
       } finally {
         setIsLoading(false);
@@ -103,12 +79,7 @@ const CustomPieChart: React.FC<PieChartProps> = ({
   useEffect(() => {
     if (groupedAnswers.length > 0) {
       const data = groupedAnswers.map((answer, index) => ({
-        name:
-          index === 0
-            ? min
-            : index === groupedAnswers.length - 1
-              ? max
-              : `${answer.value}`,
+        name: index === 0 ? min : index === groupedAnswers.length - 1 ? max : `${answer.value}`,
         value: answer._count.value,
       }));
       setChartData(data);
@@ -151,19 +122,16 @@ const CustomPieChart: React.FC<PieChartProps> = ({
                 dataKey="value"
               >
                 {chartData.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={COLORS[index % COLORS.length]}
-                  />
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
               <Tooltip
                 contentStyle={{
-                  backgroundColor: "var(--background)",
-                  border: "1px solid var(--border)",
-                  borderRadius: "6px",
+                  backgroundColor: 'var(--background)',
+                  border: '1px solid var(--border)',
+                  borderRadius: '6px',
                 }}
-                labelStyle={{ color: "var(--foreground)" }}
+                labelStyle={{ color: 'var(--foreground)' }}
               />
               <Legend />
             </PieChart>

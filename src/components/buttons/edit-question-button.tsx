@@ -134,14 +134,14 @@
 // }
 
 // export default EditQuestionDialog;
-"use client";
+'use client';
 
-import React from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { updateQuestion } from "@/lib/api/questionClient";
-import { Question as QuestionData } from "@prisma/client";
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { updateQuestion } from '@/lib/api/questionClient';
+import { Question as QuestionData } from '@prisma/client';
 import {
   Dialog,
   DialogTrigger,
@@ -150,12 +150,12 @@ import {
   DialogDescription,
   DialogHeader,
   DialogFooter,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Edit } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Edit } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 import {
   Form,
   FormControl,
@@ -163,21 +163,16 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from '@/components/ui/form';
 
 const questionSchema = z.object({
-  name: z
-    .string()
-    .min(3, { message: "Die Frage muss mindestens 3 Zeichen lang sein." }),
+  name: z.string().min(3, { message: 'Die Frage muss mindestens 3 Zeichen lang sein.' }),
   description: z.string().min(10, {
-    message: "Die Beschreibung muss mindestens 10 Zeichen lang sein.",
+    message: 'Die Beschreibung muss mindestens 10 Zeichen lang sein.',
   }),
-  min: z.string().min(1, { message: "Bitte geben Sie einen Minimalwert ein." }),
-  steps: z
-    .number()
-    .int()
-    .min(2, { message: "Es müssen mindestens 2 Schritte vorhanden sein." }),
-  max: z.string().min(1, { message: "Bitte geben Sie einen Maximalwert ein." }),
+  min: z.string().min(1, { message: 'Bitte geben Sie einen Minimalwert ein.' }),
+  steps: z.number().int().min(2, { message: 'Es müssen mindestens 2 Schritte vorhanden sein.' }),
+  max: z.string().min(1, { message: 'Bitte geben Sie einen Maximalwert ein.' }),
 });
 
 type QuestionFormValues = z.infer<typeof questionSchema>;
@@ -216,21 +211,20 @@ export function EditQuestionDialog({
         values.min,
         values.steps,
         values.max,
-        surveyId,
+        surveyId
       );
       setIsDialogOpen(false);
       handleQuestionUpdated();
       toast({
-        title: "Frage aktualisiert",
-        description: "Die Frage wurde erfolgreich aktualisiert.",
+        title: 'Frage aktualisiert',
+        description: 'Die Frage wurde erfolgreich aktualisiert.',
       });
     } catch (error) {
-      console.error("Fehler beim Aktualisieren der Frage:", error);
+      console.error('Fehler beim Aktualisieren der Frage:', error);
       toast({
-        title: "Fehler",
-        description:
-          "Die Frage konnte nicht aktualisiert werden. Bitte versuchen Sie es erneut.",
-        variant: "destructive",
+        title: 'Fehler',
+        description: 'Die Frage konnte nicht aktualisiert werden. Bitte versuchen Sie es erneut.',
+        variant: 'destructive',
       });
     }
   };
@@ -301,9 +295,7 @@ export function EditQuestionDialog({
                       <Input
                         type="number"
                         {...field}
-                        onChange={(e) =>
-                          field.onChange(parseInt(e.target.value))
-                        }
+                        onChange={(e) => field.onChange(parseInt(e.target.value))}
                       />
                     </FormControl>
                     <FormMessage />
@@ -325,11 +317,7 @@ export function EditQuestionDialog({
               />
             </div>
             <DialogFooter>
-              <Button
-                type="button"
-                variant="secondary"
-                onClick={() => setIsDialogOpen(false)}
-              >
+              <Button type="button" variant="secondary" onClick={() => setIsDialogOpen(false)}>
                 Abbrechen
               </Button>
               <Button type="submit">Speichern</Button>

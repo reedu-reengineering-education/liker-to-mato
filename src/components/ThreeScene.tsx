@@ -1,10 +1,10 @@
-"use client";
-import React, { useEffect, useRef } from "react";
-import * as THREE from "three";
-import { gsap } from "gsap";
-import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
-import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
-import { useFrame } from "@react-three/fiber";
+'use client';
+import React, { useEffect, useRef } from 'react';
+import * as THREE from 'three';
+import { gsap } from 'gsap';
+import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
+import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
+import { useFrame } from '@react-three/fiber';
 
 const ThreeScene = () => {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -22,7 +22,7 @@ const ThreeScene = () => {
       75,
       window.innerWidth / window.innerHeight,
       0.1,
-      100,
+      100
     );
     camera.position.set(0, 1, 6);
     // camera.lookAt(0, 0, 0);
@@ -48,12 +48,7 @@ const ThreeScene = () => {
       const axisColor = 0xff0000;
 
       // Gitter erstellen
-      const gridHelper = new THREE.GridHelper(
-        gridSize,
-        gridDivisions,
-        gridColor,
-        gridColor,
-      );
+      const gridHelper = new THREE.GridHelper(gridSize, gridDivisions, gridColor, gridColor);
       gridHelper.rotation.x = Math.PI / 2; // Gitter horizontal ausrichten
       scene.add(gridHelper);
 
@@ -78,7 +73,7 @@ const ThreeScene = () => {
       // Zahlen zu den Schnittpunkten
       const loader = new FontLoader();
       loader.load(
-        "https://threejs.org/examples/fonts/helvetiker_regular.typeface.json",
+        'https://threejs.org/examples/fonts/helvetiker_regular.typeface.json',
         function (font: any) {
           const createText = (text: string, x: number, y: number) => {
             const textGeometry = new TextGeometry(text, {
@@ -103,7 +98,7 @@ const ThreeScene = () => {
           for (let i = -5; i <= 5; i++) {
             if (i !== 0) createText(i.toString(), 20, i * 50);
           }
-        },
+        }
       );
     };
 
@@ -158,11 +153,11 @@ const ThreeScene = () => {
     const barSpacing = 1.8; // Abstand zwischen den Balken
     const barHeights = [2, 3, 1.5, 2.5, 2]; // Höhen der 5 Balken
     const barColors = [
-      new THREE.Color("rgb(38,38,217)"),
-      new THREE.Color("rgb(226,55,112)"),
-      new THREE.Color("rgb(232,141,48)"),
-      new THREE.Color("rgb(176,87,219)"),
-      new THREE.Color("rgb(46,184,138)"),
+      new THREE.Color('rgb(38,38,217)'),
+      new THREE.Color('rgb(226,55,112)'),
+      new THREE.Color('rgb(232,141,48)'),
+      new THREE.Color('rgb(176,87,219)'),
+      new THREE.Color('rgb(46,184,138)'),
     ];
 
     // Erstellen und Positionieren des horizontalen Balkens
@@ -190,17 +185,14 @@ const ThreeScene = () => {
 
     const horizontalBarGeometry = new THREE.ExtrudeGeometry(
       horizontalBarShape,
-      horizontalBarExtrudeSettings,
+      horizontalBarExtrudeSettings
     );
     const horizontalBarMaterial = new THREE.MeshStandardMaterial({
-      color: new THREE.Color("rgb(238, 230, 133)"),
+      color: new THREE.Color('rgb(238, 230, 133)'),
       roughness: 0.5,
       metalness: 0.1,
     });
-    const horizontalBar = new THREE.Mesh(
-      horizontalBarGeometry,
-      horizontalBarMaterial,
-    );
+    const horizontalBar = new THREE.Mesh(horizontalBarGeometry, horizontalBarMaterial);
     horizontalBar.position.set(-1, -1.01, -0.2); // X-Position um 50 Pixel nach links verschieben, Y-Position nach unten verschieben
     scene.add(horizontalBar);
     horizontalBarRef.current = horizontalBar;
@@ -229,18 +221,15 @@ const ThreeScene = () => {
 
     const verticalBarGeometry = new THREE.ExtrudeGeometry(
       verticalBarShape,
-      verticalBarExtrudeSettings,
+      verticalBarExtrudeSettings
     );
 
     const verticalBarMaterial = new THREE.MeshStandardMaterial({
-      color: new THREE.Color("rgb(238, 230, 133)"), // Farbe für den senkrechten Balken
+      color: new THREE.Color('rgb(238, 230, 133)'), // Farbe für den senkrechten Balken
       roughness: 0.5,
       metalness: 0.1,
     });
-    const verticalBar = new THREE.Mesh(
-      verticalBarGeometry,
-      verticalBarMaterial,
-    );
+    const verticalBar = new THREE.Mesh(verticalBarGeometry, verticalBarMaterial);
     verticalBar.position.set(-5.65, 1.7, -0.2); // Setze ihn in den Ursprung (0, 0, 0) oder eine andere gewünschte Position
     scene.add(verticalBar);
     verticalBarRef.current = verticalBar;
@@ -251,33 +240,13 @@ const ThreeScene = () => {
       const radius = 0.1;
       shape.moveTo(-barWidth / 2 + radius, -height / 2);
       shape.lineTo(barWidth / 2 - radius, -height / 2);
-      shape.quadraticCurveTo(
-        barWidth / 2,
-        -height / 2,
-        barWidth / 2,
-        -height / 2 + radius,
-      );
+      shape.quadraticCurveTo(barWidth / 2, -height / 2, barWidth / 2, -height / 2 + radius);
       shape.lineTo(barWidth / 2, height / 2 - radius);
-      shape.quadraticCurveTo(
-        barWidth / 2,
-        height / 2,
-        barWidth / 2 - radius,
-        height / 2,
-      );
+      shape.quadraticCurveTo(barWidth / 2, height / 2, barWidth / 2 - radius, height / 2);
       shape.lineTo(-barWidth / 2 + radius, height / 2);
-      shape.quadraticCurveTo(
-        -barWidth / 2,
-        height / 2,
-        -barWidth / 2,
-        height / 2 - radius,
-      );
+      shape.quadraticCurveTo(-barWidth / 2, height / 2, -barWidth / 2, height / 2 - radius);
       shape.lineTo(-barWidth / 2, -height / 2 + radius);
-      shape.quadraticCurveTo(
-        -barWidth / 2,
-        -height / 2,
-        -barWidth / 2 + radius,
-        -height / 2,
-      );
+      shape.quadraticCurveTo(-barWidth / 2, -height / 2, -barWidth / 2 + radius, -height / 2);
 
       const extrudeSettings = {
         depth: barWidth * 0.2,
@@ -294,8 +263,7 @@ const ThreeScene = () => {
         metalness: 0.1,
       });
       const bar = new THREE.Mesh(barGeometry, barMaterial);
-      bar.position.x =
-        index * barSpacing - (barHeights.length * barSpacing) / 2;
+      bar.position.x = index * barSpacing - (barHeights.length * barSpacing) / 2;
       bar.position.y = height / 2;
       scene.add(bar);
       barsRef.current.push(bar);
@@ -308,7 +276,7 @@ const ThreeScene = () => {
         x: 0.1,
         y: 0.1,
 
-        ease: "bounce.out",
+        ease: 'bounce.out',
         onUpdate: render,
       });
     });
@@ -318,14 +286,14 @@ const ThreeScene = () => {
       duration: 1,
       x: 0.1,
       y: 0.1,
-      ease: "bounce.out",
+      ease: 'bounce.out',
       onUpdate: render,
     });
     gsap.from(verticalBar.position, {
       duration: 1,
       y: -1,
       z: 0,
-      ease: "power1.inOut",
+      ease: 'power1.inOut',
       onUpdate: render,
     });
 
@@ -334,14 +302,14 @@ const ThreeScene = () => {
       duration: 1,
       y: 0.1,
       x: 0.1,
-      ease: "bounce.out",
+      ease: 'bounce.out',
       onUpdate: render,
     });
     gsap.from(horizontalBar.position, {
       duration: 1,
       y: -1,
       z: 0,
-      ease: "power1.inOut",
+      ease: 'power1.inOut',
       onUpdate: render,
     });
 

@@ -1,9 +1,9 @@
-import axios from "axios";
+import axios from 'axios';
 
 export async function createSurvey(
   name: String,
   startDate: string | undefined,
-  endDate: string | undefined,
+  endDate: string | undefined
 ) {
   const apiUrl = `/api/survey`;
 
@@ -12,7 +12,7 @@ export async function createSurvey(
     const crateSurvey = response.data;
     return crateSurvey;
   } catch (error) {
-    console.error("Error when creating the survey:", error);
+    console.error('Error when creating the survey:', error);
     throw error;
   }
 }
@@ -27,7 +27,7 @@ export async function readSurvey(surveyId: String) {
     const getSurvey = response.data;
     return getSurvey;
   } catch (error) {
-    console.error("Error when requesting the survey:", error);
+    console.error('Error when requesting the survey:', error);
     throw error;
   }
 }
@@ -40,7 +40,7 @@ export async function updateSurvey(surveyId: String, name: String) {
     const updateSurvey = response.data;
     return updateSurvey;
   } catch (error) {
-    console.error("Error when updating the survey:", error);
+    console.error('Error when updating the survey:', error);
     throw error;
   }
 }
@@ -54,7 +54,7 @@ export async function deleteSurvey(surveyId: String) {
     const deleteSurvey = response.data;
     return deleteSurvey;
   } catch (error) {
-    console.error("Error when deleting the survey:", error);
+    console.error('Error when deleting the survey:', error);
     throw error;
   }
 }
@@ -67,7 +67,7 @@ export async function userSurveys() {
     const surveyList = response.data;
     return surveyList;
   } catch (error) {
-    console.error("Error when requesting the survey:", error);
+    console.error('Error when requesting the survey:', error);
     throw error;
   }
 }
@@ -80,7 +80,7 @@ export async function surveyQuestions(surveyId: String) {
     const questionList = response.data;
     return questionList;
   } catch (error) {
-    console.error("Error when requesting the questions:", error);
+    console.error('Error when requesting the questions:', error);
     throw error;
   }
 }

@@ -1,4 +1,4 @@
-export type QuestionType = "likert" | "text" | "multiple" | "single";
+export type QuestionType = 'likert' | 'text' | 'multiple' | 'single';
 
 export interface Question {
   id: string;

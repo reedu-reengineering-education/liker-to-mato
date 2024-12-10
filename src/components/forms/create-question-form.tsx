@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React from "react";
-import { useForm, useFieldArray } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
+import React from 'react';
+import { useForm, useFieldArray } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
 import {
   Dialog,
   DialogContent,
@@ -12,10 +12,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Form,
   FormControl,
@@ -24,28 +24,24 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { PlusIcon, Trash2 } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
-import { createQuestion } from "@/lib/api/questionClient";
+} from '@/components/ui/form';
+import { PlusIcon, Trash2 } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import { createQuestion } from '@/lib/api/questionClient';
 
 const questionSchema = z.object({
-  name: z
-    .string()
-    .min(3, { message: "Die Frage muss mindestens 3 Zeichen lang sein." }),
+  name: z.string().min(3, { message: 'Die Frage muss mindestens 3 Zeichen lang sein.' }),
   description: z.string().min(10, {
-    message: "Die Beschreibung muss mindestens 10 Zeichen lang sein.",
+    message: 'Die Beschreibung muss mindestens 10 Zeichen lang sein.',
   }),
-  scaleType: z.enum(["numeric", "text"]),
+  scaleType: z.enum(['numeric', 'text']),
   scaleOptions: z
     .array(
       z.object({
-        value: z
-          .string()
-          .min(1, { message: "Jede Option muss ausgefüllt sein." }),
-      }),
+        value: z.string().min(1, { message: 'Jede Option muss ausgefüllt sein.' }),
+      })
     )
-    .min(2, { message: "Es müssen mindestens 2 Optionen vorhanden sein." }),
+    .min(2, { message: 'Es müssen mindestens 2 Optionen vorhanden sein.' }),
 });
 
 type QuestionFormValues = z.infer<typeof questionSchema>;
@@ -55,32 +51,29 @@ type CreateQuestionProps = {
   handleQuestionCreated: () => void;
 };
 
-export function CreateQuestionDialog({
-  surveyId,
-  handleQuestionCreated,
-}: CreateQuestionProps) {
+export function CreateQuestionDialog({ surveyId, handleQuestionCreated }: CreateQuestionProps) {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const { toast } = useToast();
 
   const form = useForm<QuestionFormValues>({
     resolver: zodResolver(questionSchema),
     defaultValues: {
-      name: "",
-      description: "",
-      scaleType: "numeric",
+      name: '',
+      description: '',
+      scaleType: 'numeric',
       scaleOptions: [
-        { value: "1" },
-        { value: "2" },
-        { value: "3" },
-        { value: "4" },
-        { value: "5" },
+        { value: '1' },
+        { value: '2' },
+        { value: '3' },
+        { value: '4' },
+        { value: '5' },
       ],
     },
   });
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
-    name: "scaleOptions",
+    name: 'scaleOptions',
   });
 
   const onSubmit = async (values: QuestionFormValues) => {
@@ -93,22 +86,21 @@ export function CreateQuestionDialog({
         values.scaleOptions[values.scaleOptions.length - 1].value,
         surveyId,
         values.scaleType,
-        values.scaleOptions.map((option) => option.value),
+        values.scaleOptions.map((option) => option.value)
       );
       toast({
-        title: "Frage erstellt",
-        description: "Die Frage wurde erfolgreich hinzugefügt.",
+        title: 'Frage erstellt',
+        description: 'Die Frage wurde erfolgreich hinzugefügt.',
       });
       setIsDialogOpen(false);
       handleQuestionCreated();
       form.reset();
     } catch (error) {
-      console.error("Fehler beim Erstellen der Frage:", error);
+      console.error('Fehler beim Erstellen der Frage:', error);
       toast({
-        title: "Fehler",
-        description:
-          "Die Frage konnte nicht erstellt werden. Bitte versuchen Sie es erneut.",
-        variant: "destructive",
+        title: 'Fehler',
+        description: 'Die Frage konnte nicht erstellt werden. Bitte versuchen Sie es erneut.',
+        variant: 'destructive',
       });
     }
   };
@@ -210,17 +202,13 @@ export function CreateQuestionDialog({
                 variant="outline"
                 size="sm"
                 className="mt-2"
-                onClick={() => append({ value: "" })}
+                onClick={() => append({ value: '' })}
               >
                 Option hinzufügen
               </Button>
             </div>
             <DialogFooter>
-              <Button
-                type="button"
-                variant="secondary"
-                onClick={() => setIsDialogOpen(false)}
-              >
+              <Button type="button" variant="secondary" onClick={() => setIsDialogOpen(false)}>
                 Abbrechen
               </Button>
               <Button type="submit">Speichern</Button>

@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { Suspense } from "react";
-import { useEffect } from "react";
-import { useSession } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { signIn } from "next-auth/react";
-import Link from "next/link";
+import { Suspense } from 'react';
+import { useEffect } from 'react';
+import { useSession } from 'next-auth/react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { signIn } from 'next-auth/react';
+import Link from 'next/link';
 import {
   Card,
   CardContent,
@@ -13,9 +13,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   BarChart,
   Activity,
@@ -29,11 +29,11 @@ import {
   Clock,
   Star,
   CheckCircle,
-} from "lucide-react";
-import { Container } from "@/components/ui/layout/Container";
-import { Grid } from "@/components/ui/layout/Grid";
-import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+} from 'lucide-react';
+import { Container } from '@/components/ui/layout/Container';
+import { Grid } from '@/components/ui/layout/Grid';
+import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
 
 export default function DashboardPage() {
   return (
@@ -49,39 +49,39 @@ function DashboardContent() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const token = searchParams?.get("token");
+    const token = searchParams?.get('token');
 
-    if (status === "unauthenticated" && token) {
-      signIn("email", { token, redirect: false });
+    if (status === 'unauthenticated' && token) {
+      signIn('email', { token, redirect: false });
     }
   }, [status, searchParams]);
 
-  if (status === "loading") {
+  if (status === 'loading') {
     return <DashboardSkeleton />;
   }
 
-  if (status === "unauthenticated") {
-    router.push("/auth/signin");
+  if (status === 'unauthenticated') {
+    router.push('/auth/signin');
     return null;
   }
 
   const recentActivity = [
     {
-      action: "Neue Antworten",
+      action: 'Neue Antworten',
       description: "5 neue Antworten für 'Nutzerzufriedenheit Q4'",
-      time: "Vor 2 Stunden",
+      time: 'Vor 2 Stunden',
       icon: Users,
     },
     {
-      action: "Umfrage erstellt",
-      description: "Mitarbeiterfeedback 2024 wurde erstellt",
-      time: "Vor 1 Tag",
+      action: 'Umfrage erstellt',
+      description: 'Mitarbeiterfeedback 2024 wurde erstellt',
+      time: 'Vor 1 Tag',
       icon: Plus,
     },
     {
-      action: "Bericht generiert",
-      description: "Produktevaluation Bericht wurde erstellt",
-      time: "Vor 2 Tagen",
+      action: 'Bericht generiert',
+      description: 'Produktevaluation Bericht wurde erstellt',
+      time: 'Vor 2 Tagen',
       icon: FileText,
     },
   ];
@@ -96,7 +96,7 @@ function DashboardContent() {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-4xl font-bold tracking-tight mb-2 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-              Willkommen zurück, {session?.user?.name?.split(" ")[0]}
+              Willkommen zurück, {session?.user?.name?.split(' ')[0]}
             </h1>
             <p className="text-muted-foreground text-lg">
               Hier ist ein Überblick über Ihre Umfragen und Aktivitäten
@@ -112,62 +112,41 @@ function DashboardContent() {
         </div>
 
         <Grid cols={3} gap="md" className="mb-8">
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
+          <motion.div whileHover={{ scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }}>
             <Card className="border-l-4 border-l-primary">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Aktive Umfragen
-                </CardTitle>
+                <CardTitle className="text-sm font-medium">Aktive Umfragen</CardTitle>
                 <Activity className="h-4 w-4 text-primary" />
               </CardHeader>
               <CardContent>
                 <div className="text-3xl font-bold text-primary">12</div>
-                <p className="text-sm text-muted-foreground">
-                  +2 seit letztem Monat
-                </p>
+                <p className="text-sm text-muted-foreground">+2 seit letztem Monat</p>
               </CardContent>
             </Card>
           </motion.div>
 
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
+          <motion.div whileHover={{ scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }}>
             <Card className="border-l-4 border-l-blue-500">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Gesammelte Antworten
-                </CardTitle>
+                <CardTitle className="text-sm font-medium">Gesammelte Antworten</CardTitle>
                 <BarChart className="h-4 w-4 text-blue-500" />
               </CardHeader>
               <CardContent>
                 <div className="text-3xl font-bold text-blue-500">2,345</div>
-                <p className="text-sm text-muted-foreground">
-                  +180 in den letzten 7 Tagen
-                </p>
+                <p className="text-sm text-muted-foreground">+180 in den letzten 7 Tagen</p>
               </CardContent>
             </Card>
           </motion.div>
 
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
+          <motion.div whileHover={{ scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }}>
             <Card className="border-l-4 border-l-green-500">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Fertige Berichte
-                </CardTitle>
+                <CardTitle className="text-sm font-medium">Fertige Berichte</CardTitle>
                 <FileText className="h-4 w-4 text-green-500" />
               </CardHeader>
               <CardContent>
                 <div className="text-3xl font-bold text-green-500">8</div>
-                <p className="text-sm text-muted-foreground">
-                  +3 seit letztem Monat
-                </p>
+                <p className="text-sm text-muted-foreground">+3 seit letztem Monat</p>
               </CardContent>
             </Card>
           </motion.div>
@@ -193,21 +172,21 @@ function DashboardContent() {
                 <div className="space-y-4">
                   {[
                     {
-                      title: "Nutzerzufriedenheit Q4",
+                      title: 'Nutzerzufriedenheit Q4',
                       responses: 234,
-                      status: "Aktiv",
+                      status: 'Aktiv',
                       progress: 75,
                     },
                     {
-                      title: "Mitarbeiterfeedback 2024",
+                      title: 'Mitarbeiterfeedback 2024',
                       responses: 89,
-                      status: "Entwurf",
+                      status: 'Entwurf',
                       progress: 30,
                     },
                     {
-                      title: "Produktevaluation",
+                      title: 'Produktevaluation',
                       responses: 567,
-                      status: "Abgeschlossen",
+                      status: 'Abgeschlossen',
                       progress: 100,
                     },
                   ].map((survey, index) => (
@@ -219,7 +198,7 @@ function DashboardContent() {
                       <div className="space-y-1">
                         <h3 className="font-medium flex items-center gap-2">
                           {survey.title}
-                          {survey.status === "Aktiv" && (
+                          {survey.status === 'Aktiv' && (
                             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                           )}
                         </h3>
@@ -235,17 +214,11 @@ function DashboardContent() {
                       </div>
                       <div className="flex items-center gap-4">
                         <span
-                          className={cn(
-                            "text-sm px-3 py-1 rounded-full font-medium",
-                            {
-                              "bg-primary/10 text-primary":
-                                survey.status === "Aktiv",
-                              "bg-muted text-muted-foreground":
-                                survey.status === "Entwurf",
-                              "bg-green-100 text-green-700":
-                                survey.status === "Abgeschlossen",
-                            },
-                          )}
+                          className={cn('text-sm px-3 py-1 rounded-full font-medium', {
+                            'bg-primary/10 text-primary': survey.status === 'Aktiv',
+                            'bg-muted text-muted-foreground': survey.status === 'Entwurf',
+                            'bg-green-100 text-green-700': survey.status === 'Abgeschlossen',
+                          })}
                         >
                           {survey.status}
                         </span>
@@ -268,12 +241,8 @@ function DashboardContent() {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div>
-                    <CardTitle className="text-xl">
-                      Letzte Aktivitäten
-                    </CardTitle>
-                    <CardDescription>
-                      Ihre neuesten Aktivitäten und Updates
-                    </CardDescription>
+                    <CardTitle className="text-xl">Letzte Aktivitäten</CardTitle>
+                    <CardDescription>Ihre neuesten Aktivitäten und Updates</CardDescription>
                   </div>
                   <Button variant="ghost" size="icon">
                     <Clock className="h-5 w-5" />
@@ -294,15 +263,9 @@ function DashboardContent() {
                         <activity.icon className="h-4 w-4" />
                       </div>
                       <div className="flex-1">
-                        <h4 className="text-sm font-medium">
-                          {activity.action}
-                        </h4>
-                        <p className="text-sm text-muted-foreground">
-                          {activity.description}
-                        </p>
-                        <p className="text-xs text-muted-foreground mt-1">
-                          {activity.time}
-                        </p>
+                        <h4 className="text-sm font-medium">{activity.action}</h4>
+                        <p className="text-sm text-muted-foreground">{activity.description}</p>
+                        <p className="text-xs text-muted-foreground mt-1">{activity.time}</p>
                       </div>
                     </motion.div>
                   ))}
@@ -317,9 +280,7 @@ function DashboardContent() {
                 <div className="flex items-center justify-between">
                   <div>
                     <CardTitle className="text-xl">Ihr Profil</CardTitle>
-                    <CardDescription>
-                      Verwalten Sie Ihre persönlichen Einstellungen
-                    </CardDescription>
+                    <CardDescription>Verwalten Sie Ihre persönlichen Einstellungen</CardDescription>
                   </div>
                   <Button variant="ghost" size="icon">
                     <Settings className="h-5 w-5" />
@@ -329,21 +290,14 @@ function DashboardContent() {
               <CardContent>
                 <div className="flex items-center space-x-4">
                   <Avatar className="h-20 w-20 ring-2 ring-primary ring-offset-2">
-                    <AvatarImage
-                      src={session?.user?.image || ""}
-                      alt={session?.user?.name || ""}
-                    />
+                    <AvatarImage src={session?.user?.image || ''} alt={session?.user?.name || ''} />
                     <AvatarFallback className="text-lg">
-                      {session?.user?.name?.[0] || "U"}
+                      {session?.user?.name?.[0] || 'U'}
                     </AvatarFallback>
                   </Avatar>
                   <div className="space-y-1">
-                    <h3 className="text-xl font-medium">
-                      {session?.user?.name}
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                      {session?.user?.email}
-                    </p>
+                    <h3 className="text-xl font-medium">{session?.user?.name}</h3>
+                    <p className="text-sm text-muted-foreground">{session?.user?.email}</p>
                     <div className="flex gap-2 mt-2">
                       <div className="flex items-center gap-1 text-sm text-muted-foreground">
                         <Star className="h-4 w-4" />
@@ -379,24 +333,24 @@ function DashboardContent() {
                 <div className="grid grid-cols-2 gap-4">
                   {[
                     {
-                      title: "Neue Umfrage",
+                      title: 'Neue Umfrage',
                       icon: Plus,
-                      color: "text-primary",
+                      color: 'text-primary',
                     },
                     {
-                      title: "Berichte",
+                      title: 'Berichte',
                       icon: FileText,
-                      color: "text-green-500",
+                      color: 'text-green-500',
                     },
                     {
-                      title: "Statistiken",
+                      title: 'Statistiken',
                       icon: BarChart,
-                      color: "text-blue-500",
+                      color: 'text-blue-500',
                     },
                     {
-                      title: "Teilnehmer",
+                      title: 'Teilnehmer',
                       icon: Users,
-                      color: "text-orange-500",
+                      color: 'text-orange-500',
                     },
                   ].map((item, index) => (
                     <motion.div
@@ -404,7 +358,7 @@ function DashboardContent() {
                       whileHover={{ scale: 1.02 }}
                       className="p-4 rounded-lg bg-muted/50 hover:bg-muted/70 transition-all cursor-pointer"
                     >
-                      <item.icon className={cn("h-6 w-6 mb-2", item.color)} />
+                      <item.icon className={cn('h-6 w-6 mb-2', item.color)} />
                       <h4 className="font-medium">{item.title}</h4>
                     </motion.div>
                   ))}

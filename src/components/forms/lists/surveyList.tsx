@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { Survey } from "@prisma/client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { useEffect, useState } from 'react';
+import { Survey } from '@prisma/client';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
 import {
   Table,
   TableBody,
@@ -17,7 +17,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table';
 import {
   PencilIcon,
   ShareIcon,
@@ -25,21 +25,21 @@ import {
   ChartBarIcon,
   QrCodeIcon,
   FunnelIcon,
-} from "@heroicons/react/20/solid";
-import ButtonActions from "@/components/buttons/buttonsActions";
-import { userSurveys } from "@/lib/api/surveyClient";
-import { useRouter } from "next/navigation";
-import { QrCodeDialog } from "../qrCode";
-import DrawerDemo from "@/components/forms/lists/answerList";
-import { Badge } from "@/components/ui/badge";
-import { StatsDrawer } from "@/components/survey/stats-drawer";
+} from '@heroicons/react/20/solid';
+import ButtonActions from '@/components/buttons/buttonsActions';
+import { userSurveys } from '@/lib/api/surveyClient';
+import { useRouter } from 'next/navigation';
+import { QrCodeDialog } from '../qrCode';
+import DrawerDemo from '@/components/forms/lists/answerList';
+import { Badge } from '@/components/ui/badge';
+import { StatsDrawer } from '@/components/survey/stats-drawer';
 
-type SurveyStatus = "all" | "active" | "draft" | "completed";
+type SurveyStatus = 'all' | 'active' | 'draft' | 'completed';
 
 export function ListSurvey() {
   const [surveys, setSurveys] = useState<Survey[]>([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [statusFilter, setStatusFilter] = useState<SurveyStatus>("all");
+  const [searchQuery, setSearchQuery] = useState('');
+  const [statusFilter, setStatusFilter] = useState<SurveyStatus>('all');
   const [isLoading, setIsLoading] = useState(true);
   const { handleDelete } = ButtonActions();
   const router = useRouter();
@@ -65,24 +65,18 @@ export function ListSurvey() {
 
   const filteredSurveys = surveys
     .filter((survey) => {
-      if (statusFilter === "all") return true;
+      if (statusFilter === 'all') return true;
       return survey.status === statusFilter;
     })
-    .filter((survey) =>
-      survey.name.toLowerCase().includes(searchQuery.toLowerCase()),
-    );
+    .filter((survey) => survey.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
   const getStatusBadge = (status: string) => {
     const statusStyles = {
-      active: "bg-green-100 text-green-800",
-      draft: "bg-gray-100 text-gray-800",
-      completed: "bg-blue-100 text-blue-800",
+      active: 'bg-green-100 text-green-800',
+      draft: 'bg-gray-100 text-gray-800',
+      completed: 'bg-blue-100 text-blue-800',
     };
-    return (
-      <Badge className={statusStyles[status as keyof typeof statusStyles]}>
-        {status}
-      </Badge>
-    );
+    return <Badge className={statusStyles[status as keyof typeof statusStyles]}>{status}</Badge>;
   };
 
   if (isLoading) {
@@ -90,7 +84,7 @@ export function ListSurvey() {
   }
 
   function handleEdit(id: string): void {
-    throw new Error("Function not implemented.");
+    throw new Error('Function not implemented.');
   }
 
   return (
@@ -110,16 +104,10 @@ export function ListSurvey() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem onClick={() => setStatusFilter("all")}>
-                Alle
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setStatusFilter("active")}>
-                Aktiv
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setStatusFilter("draft")}>
-                Entwurf
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setStatusFilter("completed")}>
+              <DropdownMenuItem onClick={() => setStatusFilter('all')}>Alle</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setStatusFilter('active')}>Aktiv</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setStatusFilter('draft')}>Entwurf</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setStatusFilter('completed')}>
                 Abgeschlossen
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -146,19 +134,13 @@ export function ListSurvey() {
               <TableRow key={survey.id}>
                 <TableCell className="font-medium">{survey.name}</TableCell>
                 <TableCell>{getStatusBadge(survey.status)}</TableCell>
-                <TableCell>
-                  {new Date(survey.createdAt).toLocaleDateString()}
-                </TableCell>
+                <TableCell>{new Date(survey.createdAt).toLocaleDateString()}</TableCell>
                 <TableCell>
                   <DrawerDemo surveyId={survey.id} />
                 </TableCell>
                 <TableCell className="text-right">
                   <div className="flex justify-end space-x-2">
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={() => handleEdit(survey.id)}
-                    >
+                    <Button variant="outline" size="icon" onClick={() => handleEdit(survey.id)}>
                       <PencilIcon className="h-4 w-4" />
                     </Button>
                     <QrCodeDialog surveyId={survey.id}>
@@ -189,7 +171,7 @@ export function ListSurvey() {
       </div>
 
       <StatsDrawer
-        surveyId={selectedSurveyId || ""}
+        surveyId={selectedSurveyId || ''}
         isOpen={isStatsDrawerOpen}
         onOpenChange={setIsStatsDrawerOpen}
       />

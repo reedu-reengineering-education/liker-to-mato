@@ -1,11 +1,5 @@
 // src/components/ui/icons.tsx
-import {
-  Loader2,
-  LucideProps,
-  CreditCard,
-  Lock,
-  LucideIcon,
-} from "lucide-react";
+import { Loader2, LucideProps, CreditCard, Lock, LucideIcon } from 'lucide-react';
 
 export type Icon = LucideIcon;
 

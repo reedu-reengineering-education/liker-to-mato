@@ -1,8 +1,8 @@
 // path: src/lib/apiMiddlewares/withSurvey.ts
-import type { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import { getServerSession } from "next-auth/next";
-import { prisma } from "@/lib/prisma";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
+import { getServerSession } from 'next-auth/next';
+import { prisma } from '@/lib/prisma';
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
 export function withSurvey(handler: NextApiHandler) {
   return async function (req: NextApiRequest, res: NextApiResponse) {

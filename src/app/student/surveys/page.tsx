@@ -1,33 +1,27 @@
-import { Metadata } from "next";
-import { prisma } from "@/lib/prisma";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { Metadata } from 'next';
+import { prisma } from '@/lib/prisma';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: "Verfügbare Umfragen",
-  description: "Übersicht aller verfügbaren Umfragen für Studenten",
+  title: 'Verfügbare Umfragen',
+  description: 'Übersicht aller verfügbaren Umfragen für Studenten',
 };
 
 async function getAvailableSurveys() {
   try {
     return await prisma.survey.findMany({
       where: {
-        status: "active",
+        status: 'active',
       },
       orderBy: {
-        createdAt: "desc",
+        createdAt: 'desc',
       },
     });
   } catch (error) {
-    console.error("Error fetching surveys:", error);
+    console.error('Error fetching surveys:', error);
     return [];
   }
 }
@@ -39,12 +33,10 @@ export default async function StudentSurveysPage() {
     <div className="container py-10">
       <div className="flex flex-col gap-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">
-            Verfügbare Umfragen
-          </h1>
+          <h1 className="text-3xl font-bold tracking-tight">Verfügbare Umfragen</h1>
           <p className="text-muted-foreground mt-2">
-            Hier finden Sie alle aktuell verfügbaren Umfragen. Wählen Sie eine
-            Umfrage aus, um teilzunehmen.
+            Hier finden Sie alle aktuell verfügbaren Umfragen. Wählen Sie eine Umfrage aus, um
+            teilzunehmen.
           </p>
         </div>
 
@@ -55,8 +47,7 @@ export default async function StudentSurveysPage() {
                 <CardHeader>
                   <CardTitle>{survey.name}</CardTitle>
                   <CardDescription>
-                    Erstellt am{" "}
-                    {new Date(survey.createdAt).toLocaleDateString()}
+                    Erstellt am {new Date(survey.createdAt).toLocaleDateString()}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="flex-1" />
@@ -76,8 +67,7 @@ export default async function StudentSurveysPage() {
             <CardHeader>
               <CardTitle>Keine Umfragen verfügbar</CardTitle>
               <CardDescription>
-                Zurzeit sind keine aktiven Umfragen verfügbar. Bitte versuchen
-                Sie es später erneut.
+                Zurzeit sind keine aktiven Umfragen verfügbar. Bitte versuchen Sie es später erneut.
               </CardDescription>
             </CardHeader>
           </Card>

@@ -1,10 +1,7 @@
-import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
 
-export async function GET(
-  request: Request,
-  { params }: { params: { surveyId: string } },
-) {
+export async function GET(request: Request, { params }: { params: { surveyId: string } }) {
   try {
     const { surveyId } = params;
 
@@ -22,10 +19,7 @@ export async function GET(
 
     return NextResponse.json(questions);
   } catch (error) {
-    console.error("Error fetching survey stats:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch survey statistics" },
-      { status: 500 },
-    );
+    console.error('Error fetching survey stats:', error);
+    return NextResponse.json({ error: 'Failed to fetch survey statistics' }, { status: 500 });
   }
 }

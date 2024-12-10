@@ -34,7 +34,7 @@
 //   };
 // }
 export function generateEmailContent(host: string, url: string) {
-  const token = new URL(url).searchParams.get("token");
+  const token = new URL(url).searchParams.get('token');
 
   const dashboardUrl = `${host}/dashboard?token=${token}`;
 

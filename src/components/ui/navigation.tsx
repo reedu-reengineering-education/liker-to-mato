@@ -1,7 +1,7 @@
-import * as React from "react";
-import Link from "next/link";
-import { cn } from "@/lib/utils";
-import { LogoFull } from "./logo";
+import * as React from 'react';
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
+import { LogoFull } from './logo';
 
 interface MainNavProps {
   items?: {
@@ -27,13 +27,13 @@ export function MainNav({ items }: MainNavProps) {
                   key={index}
                   href={item.href}
                   className={cn(
-                    "flex items-center text-sm font-medium text-muted-foreground",
-                    item.disabled && "cursor-not-allowed opacity-80",
+                    'flex items-center text-sm font-medium text-muted-foreground',
+                    item.disabled && 'cursor-not-allowed opacity-80'
                   )}
                 >
                   {item.title}
                 </Link>
-              ),
+              )
           )}
         </nav>
       ) : null}

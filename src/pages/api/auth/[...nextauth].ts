@@ -1,18 +1,18 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
-import EmailProvider from "next-auth/providers/email";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { prisma } from "@/lib/prisma";
-import { sendVerificationEmail } from "@/lib/send-verification-email";
-import { sendVerificationRequest } from "@/lib/email";
-import nodemailer from "nodemailer";
+import NextAuth, { NextAuthOptions } from 'next-auth';
+import EmailProvider from 'next-auth/providers/email';
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import { prisma } from '@/lib/prisma';
+import { sendVerificationEmail } from '@/lib/send-verification-email';
+import { sendVerificationRequest } from '@/lib/email';
+import nodemailer from 'nodemailer';
 
-console.log("NEXTAUTH_URL:", process.env.NEXTAUTH_URL);
-console.log("NEXTAUTH_SECRET is set:", !!process.env.NEXTAUTH_SECRET);
+console.log('NEXTAUTH_URL:', process.env.NEXTAUTH_URL);
+console.log('NEXTAUTH_SECRET is set:', !!process.env.NEXTAUTH_SECRET);
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   session: {
-    strategy: "jwt",
+    strategy: 'jwt',
   },
   providers: [
     EmailProvider({
@@ -30,9 +30,9 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   pages: {
-    signIn: "/auth/signin",
-    verifyRequest: "/auth/verify-request",
-    error: "/auth/error",
+    signIn: '/auth/signin',
+    verifyRequest: '/auth/verify-request',
+    error: '/auth/error',
   },
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
@@ -64,7 +64,7 @@ export const authOptions: NextAuthOptions = {
       }
     },
   },
-  debug: process.env.NODE_ENV === "development",
+  debug: process.env.NODE_ENV === 'development',
 };
 
 export default NextAuth(authOptions);

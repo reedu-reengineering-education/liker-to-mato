@@ -1,33 +1,27 @@
-"use client";
+'use client';
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Grid } from "@/components/ui/layout/Grid";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import SimpleLineChart from "@/components/ui/charts/SimpleLineChart";
-import SimpleBarChart from "@/components/ui/charts/SimpleBarChart";
-import SimplePieChart from "@/components/ui/charts/SimplePieChart";
-import CustomBarChart from "@/components/ui/barchart";
-import CustomPieChart from "@/components/ui/piechart";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Grid } from '@/components/ui/layout/Grid';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import SimpleLineChart from '@/components/ui/charts/SimpleLineChart';
+import SimpleBarChart from '@/components/ui/charts/SimpleBarChart';
+import SimplePieChart from '@/components/ui/charts/SimplePieChart';
+import CustomBarChart from '@/components/ui/barchart';
+import CustomPieChart from '@/components/ui/piechart';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
-import { Download, Calendar, BarChart, PieChart } from "lucide-react";
-import { useState, useEffect } from "react";
-import { Container } from "@/components/ui/layout/Container";
-import { useToast } from "@/hooks/use-toast";
-import { surveyQuestions } from "@/lib/api/surveyClient";
-import { Question } from "@prisma/client";
+} from '@/components/ui/select';
+import { Button } from '@/components/ui/button';
+import { Download, Calendar, BarChart, PieChart } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Container } from '@/components/ui/layout/Container';
+import { useToast } from '@/hooks/use-toast';
+import { surveyQuestions } from '@/lib/api/surveyClient';
+import { Question } from '@prisma/client';
 
 interface SurveyAnalyticsProps {
   surveyId?: string;
@@ -36,29 +30,29 @@ interface SurveyAnalyticsProps {
 // Beispieldaten
 const responseData = {
   daily: [
-    { date: "2023-12-01", responses: 45 },
-    { date: "2023-12-02", responses: 52 },
-    { date: "2023-12-03", responses: 38 },
-    { date: "2023-12-04", responses: 65 },
-    { date: "2023-12-05", responses: 41 },
-    { date: "2023-12-06", responses: 58 },
-    { date: "2023-12-07", responses: 43 },
+    { date: '2023-12-01', responses: 45 },
+    { date: '2023-12-02', responses: 52 },
+    { date: '2023-12-03', responses: 38 },
+    { date: '2023-12-04', responses: 65 },
+    { date: '2023-12-05', responses: 41 },
+    { date: '2023-12-06', responses: 58 },
+    { date: '2023-12-07', responses: 43 },
   ],
   questionTypes: [
-    { type: "Likert", count: 45 },
-    { type: "Multiple Choice", count: 30 },
-    { type: "Text", count: 15 },
-    { type: "Single Choice", count: 10 },
+    { type: 'Likert', count: 45 },
+    { type: 'Multiple Choice', count: 30 },
+    { type: 'Text', count: 15 },
+    { type: 'Single Choice', count: 10 },
   ],
   completionRates: [
-    { status: "Vollständig", count: 85 },
-    { status: "Unvollständig", count: 15 },
+    { status: 'Vollständig', count: 85 },
+    { status: 'Unvollständig', count: 15 },
   ],
 };
 
 export function SurveyAnalytics({ surveyId }: SurveyAnalyticsProps) {
-  const [timeRange, setTimeRange] = useState("7d");
-  const [activeView, setActiveView] = useState("overview");
+  const [timeRange, setTimeRange] = useState('7d');
+  const [activeView, setActiveView] = useState('overview');
   const [questions, setQuestions] = useState<Question[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
@@ -72,12 +66,11 @@ export function SurveyAnalytics({ surveyId }: SurveyAnalyticsProps) {
         const fetchedQuestions = await surveyQuestions(surveyId);
         setQuestions(fetchedQuestions);
       } catch (error) {
-        console.error("Fehler beim Laden der Fragen:", error);
+        console.error('Fehler beim Laden der Fragen:', error);
         toast({
-          title: "Fehler",
-          description:
-            "Die Fragen konnten nicht geladen werden. Bitte versuchen Sie es erneut.",
-          variant: "destructive",
+          title: 'Fehler',
+          description: 'Die Fragen konnten nicht geladen werden. Bitte versuchen Sie es erneut.',
+          variant: 'destructive',
         });
       } finally {
         setIsLoading(false);
@@ -97,9 +90,7 @@ export function SurveyAnalytics({ surveyId }: SurveyAnalyticsProps) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <p>
-            No survey selected. Please select a survey to view its analytics.
-          </p>
+          <p>No survey selected. Please select a survey to view its analytics.</p>
         </CardContent>
       </Card>
     );
@@ -113,9 +104,7 @@ export function SurveyAnalytics({ surveyId }: SurveyAnalyticsProps) {
             <div className="flex justify-between items-center">
               <div>
                 <CardTitle className="text-2xl">Analytics Dashboard</CardTitle>
-                <CardDescription>
-                  Detaillierte Einblicke in Ihre Umfrageergebnisse
-                </CardDescription>
+                <CardDescription>Detaillierte Einblicke in Ihre Umfrageergebnisse</CardDescription>
               </div>
               <div className="flex items-center space-x-4">
                 <Select defaultValue={timeRange} onValueChange={setTimeRange}>
@@ -139,11 +128,7 @@ export function SurveyAnalytics({ surveyId }: SurveyAnalyticsProps) {
           </CardHeader>
         </Card>
 
-        <Tabs
-          value={activeView}
-          onValueChange={setActiveView}
-          className="space-y-4"
-        >
+        <Tabs value={activeView} onValueChange={setActiveView} className="space-y-4">
           <TabsList className="grid w-full grid-cols-3 lg:w-[400px]">
             <TabsTrigger value="overview">Übersicht</TabsTrigger>
             <TabsTrigger value="responses">Antworten</TabsTrigger>
@@ -154,54 +139,38 @@ export function SurveyAnalytics({ surveyId }: SurveyAnalyticsProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <Card>
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Gesamtantworten
-                  </CardTitle>
+                  <CardTitle className="text-sm font-medium">Gesamtantworten</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">2,853</div>
-                  <p className="text-xs text-muted-foreground">
-                    +12.3% gegenüber letztem Monat
-                  </p>
+                  <p className="text-xs text-muted-foreground">+12.3% gegenüber letztem Monat</p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Durchschnittliche Zeit
-                  </CardTitle>
+                  <CardTitle className="text-sm font-medium">Durchschnittliche Zeit</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">4.2 Min</div>
-                  <p className="text-xs text-muted-foreground">
-                    -0.3 Min gegenüber letztem Monat
-                  </p>
+                  <p className="text-xs text-muted-foreground">-0.3 Min gegenüber letztem Monat</p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Abschlussrate
-                  </CardTitle>
+                  <CardTitle className="text-sm font-medium">Abschlussrate</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">89.4%</div>
-                  <p className="text-xs text-muted-foreground">
-                    +2.1% gegenüber letztem Monat
-                  </p>
+                  <p className="text-xs text-muted-foreground">+2.1% gegenüber letztem Monat</p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Aktive Fragen
-                  </CardTitle>
+                  <CardTitle className="text-sm font-medium">Aktive Fragen</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">12</div>
-                  <p className="text-xs text-muted-foreground">
-                    Keine Änderung
-                  </p>
+                  <p className="text-xs text-muted-foreground">Keine Änderung</p>
                 </CardContent>
               </Card>
             </div>
@@ -210,16 +179,11 @@ export function SurveyAnalytics({ surveyId }: SurveyAnalyticsProps) {
               <Card className="md:col-span-8">
                 <CardHeader>
                   <CardTitle>Antworten über Zeit</CardTitle>
-                  <CardDescription>
-                    Tägliche Anzahl der Umfrageantworten
-                  </CardDescription>
+                  <CardDescription>Tägliche Anzahl der Umfrageantworten</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="h-[350px]">
-                    <SimpleLineChart
-                      data={responseData.daily}
-                      className="h-full w-full"
-                    />
+                    <SimpleLineChart data={responseData.daily} className="h-full w-full" />
                   </div>
                 </CardContent>
               </Card>
@@ -233,10 +197,7 @@ export function SurveyAnalytics({ surveyId }: SurveyAnalyticsProps) {
                 </CardHeader>
                 <CardContent>
                   <div className="h-[350px]">
-                    <SimplePieChart
-                      data={responseData.completionRates}
-                      className="h-full w-full"
-                    />
+                    <SimplePieChart data={responseData.completionRates} className="h-full w-full" />
                   </div>
                 </CardContent>
               </Card>
@@ -250,10 +211,7 @@ export function SurveyAnalytics({ surveyId }: SurveyAnalyticsProps) {
                 </CardHeader>
                 <CardContent>
                   <div className="h-[300px]">
-                    <SimpleBarChart
-                      data={responseData.questionTypes}
-                      className="h-full w-full"
-                    />
+                    <SimpleBarChart data={responseData.questionTypes} className="h-full w-full" />
                   </div>
                 </CardContent>
               </Card>
@@ -265,12 +223,8 @@ export function SurveyAnalytics({ surveyId }: SurveyAnalyticsProps) {
               {questions.map((question, index) => (
                 <Card key={question.id} className="md:col-span-6 lg:col-span-4">
                   <CardHeader>
-                    <CardTitle className="text-base">
-                      Frage {index + 1}
-                    </CardTitle>
-                    <CardDescription className="line-clamp-2">
-                      {question.name}
-                    </CardDescription>
+                    <CardTitle className="text-base">Frage {index + 1}</CardTitle>
+                    <CardDescription className="line-clamp-2">{question.name}</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <Tabs defaultValue="bar" className="w-full">
@@ -315,9 +269,7 @@ export function SurveyAnalytics({ surveyId }: SurveyAnalyticsProps) {
             <Card>
               <CardHeader>
                 <CardTitle>Demographische Daten</CardTitle>
-                <CardDescription>
-                  Analyse der Teilnehmerdemographie
-                </CardDescription>
+                <CardDescription>Analyse der Teilnehmerdemographie</CardDescription>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">

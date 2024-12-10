@@ -57,7 +57,7 @@ model User {
   image         String?
   createdAt     DateTime  @default(now())
   lastLogin     DateTime?
-  role          String    @default("user")
+  role          String    @default("RESEARCHER")
   updatedAt     DateTime? @updatedAt
   accounts      Account[]
   sessions      Session[]

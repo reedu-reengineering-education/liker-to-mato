@@ -84,8 +84,8 @@ import {
   updateSurvey,
   userSurveys,
   surveyQuestions,
-} from "@/lib/api/surveyClient";
-import { toast } from "@/hooks/use-toast";
+} from '@/lib/api/surveyClient';
+import { toast } from '@/hooks/use-toast';
 
 interface Survey {
   id: string;
@@ -110,16 +110,16 @@ export function useButtonActions() {
     try {
       await updateSurvey(updatedSurvey.id, updatedSurvey.name);
       toast({
-        title: "Umfrage aktualisiert",
-        description: "Die Umfrage wurde erfolgreich aktualisiert.",
+        title: 'Umfrage aktualisiert',
+        description: 'Die Umfrage wurde erfolgreich aktualisiert.',
       });
       return true;
     } catch (error) {
-      console.error("Fehler beim Aktualisieren der Umfrage:", error);
+      console.error('Fehler beim Aktualisieren der Umfrage:', error);
       toast({
-        title: "Fehler",
-        description: "Die Umfrage konnte nicht aktualisiert werden.",
-        variant: "destructive",
+        title: 'Fehler',
+        description: 'Die Umfrage konnte nicht aktualisiert werden.',
+        variant: 'destructive',
       });
       return false;
     }
@@ -131,11 +131,11 @@ export function useButtonActions() {
       // You might want to do something with the surveys data here
       return true;
     } catch (error) {
-      console.error("Fehler beim Lesen der Umfragen:", error);
+      console.error('Fehler beim Lesen der Umfragen:', error);
       toast({
-        title: "Fehler",
-        description: "Die Umfragen konnten nicht geladen werden.",
-        variant: "destructive",
+        title: 'Fehler',
+        description: 'Die Umfragen konnten nicht geladen werden.',
+        variant: 'destructive',
       });
       return false;
     }
@@ -143,22 +143,22 @@ export function useButtonActions() {
 
   const handleDelete = async (
     surveyId: string,
-    onDeleteSuccess: (deletedSurveyId: string) => void,
+    onDeleteSuccess: (deletedSurveyId: string) => void
   ): Promise<boolean> => {
     try {
       await deleteSurvey(surveyId);
       onDeleteSuccess(surveyId);
       toast({
-        title: "Umfrage gelöscht",
-        description: "Die Umfrage wurde erfolgreich gelöscht.",
+        title: 'Umfrage gelöscht',
+        description: 'Die Umfrage wurde erfolgreich gelöscht.',
       });
       return true;
     } catch (error) {
-      console.error("Fehler beim Löschen der Umfrage:", error);
+      console.error('Fehler beim Löschen der Umfrage:', error);
       toast({
-        title: "Fehler",
-        description: "Die Umfrage konnte nicht gelöscht werden.",
-        variant: "destructive",
+        title: 'Fehler',
+        description: 'Die Umfrage konnte nicht gelöscht werden.',
+        variant: 'destructive',
       });
       return false;
     }
@@ -166,7 +166,7 @@ export function useButtonActions() {
 
   const handleQuestionCreated = async (
     surveyId: string,
-    onQuestionCreated: (createdQuestionId: string) => void,
+    onQuestionCreated: (createdQuestionId: string) => void
   ): Promise<boolean> => {
     try {
       const questions = await surveyQuestions(surveyId);
@@ -174,16 +174,16 @@ export function useButtonActions() {
       const createdQuestion = questions[questions.length - 1];
       onQuestionCreated(createdQuestion.id);
       toast({
-        title: "Frage erstellt",
-        description: "Die Frage wurde erfolgreich erstellt.",
+        title: 'Frage erstellt',
+        description: 'Die Frage wurde erfolgreich erstellt.',
       });
       return true;
     } catch (error) {
-      console.error("Fehler beim Erstellen der Frage:", error);
+      console.error('Fehler beim Erstellen der Frage:', error);
       toast({
-        title: "Fehler",
-        description: "Die Frage konnte nicht erstellt werden.",
-        variant: "destructive",
+        title: 'Fehler',
+        description: 'Die Frage konnte nicht erstellt werden.',
+        variant: 'destructive',
       });
       return false;
     }

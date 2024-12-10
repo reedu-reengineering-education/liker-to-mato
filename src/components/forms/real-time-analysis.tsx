@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
-import { Bar } from "react-chartjs-2";
+import React, { useEffect, useState } from 'react';
+import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,18 +10,11 @@ import {
   Title,
   Tooltip,
   Legend,
-} from "chart.js";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useToast } from "@/hooks/use-toast";
+} from 'chart.js';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useToast } from '@/hooks/use-toast';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 type AnalysisData = {
   labels: string[];
@@ -49,11 +42,11 @@ export function RealTimeAnalysis({ surveyId }: RealTimeAnalysisProps) {
         const result = await response.json();
         setData(result);
       } catch (error) {
-        console.error("Fehler beim Laden der Analysedaten:", error);
+        console.error('Fehler beim Laden der Analysedaten:', error);
         toast({
-          title: "Fehler",
-          description: "Die Analysedaten konnten nicht geladen werden.",
-          variant: "destructive",
+          title: 'Fehler',
+          description: 'Die Analysedaten konnten nicht geladen werden.',
+          variant: 'destructive',
         });
       }
     };
@@ -72,11 +65,11 @@ export function RealTimeAnalysis({ surveyId }: RealTimeAnalysisProps) {
     responsive: true,
     plugins: {
       legend: {
-        position: "top" as const,
+        position: 'top' as const,
       },
       title: {
         display: true,
-        text: "Echtzeit-Umfrageergebnisse",
+        text: 'Echtzeit-Umfrageergebnisse',
       },
     },
   };

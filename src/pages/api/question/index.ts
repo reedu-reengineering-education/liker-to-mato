@@ -1,28 +1,19 @@
 // path: src/pages/api/question/index.ts
-import { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "@/lib/prisma";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { NextApiRequest, NextApiResponse } from 'next';
+import { prisma } from '@/lib/prisma';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === "POST") {
+  if (req.method === 'POST') {
     const session = await getServerSession(req, res, authOptions);
 
     if (!session) {
-      return res.status(401).json({ error: "Unauthorized" });
+      return res.status(401).json({ error: 'Unauthorized' });
     }
     console.log(session);
 
-    const {
-      name,
-      description,
-      min,
-      steps,
-      max,
-      surveyId,
-      scaleType,
-      scaleOptions,
-    } = req.body;
+    const { name, description, min, steps, max, surveyId, scaleType, scaleOptions } = req.body;
     const existingSurvey = await prisma.survey.findUnique({
       where: {
         id: surveyId,
@@ -30,7 +21,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     });
 
     if (!existingSurvey) {
-      return res.status(400).json({ error: "Invalid surveyId" });
+      return res.status(400).json({ error: 'Invalid surveyId' });
     }
 
     try {
@@ -42,7 +33,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           steps,
           max,
           surveyId,
-          scaleType: scaleType || "default",
+          scaleType: scaleType || 'default',
           scaleOptions: scaleOptions || [],
         },
       });
@@ -50,26 +41,17 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       res.status(200).json(question);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: "Server error" });
+      res.status(500).json({ error: 'Server error' });
     }
-  } else if (req.method === "PUT") {
+  } else if (req.method === 'PUT') {
     const session = await getServerSession(req, res, authOptions);
 
     if (!session) {
-      return res.status(401).json({ error: "Unauthorized" });
+      return res.status(401).json({ error: 'Unauthorized' });
     }
 
     const { questionId } = req.query;
-    const {
-      name,
-      description,
-      min,
-      steps,
-      max,
-      surveyId,
-      scaleType,
-      scaleOptions,
-    } = req.body;
+    const { name, description, min, steps, max, surveyId, scaleType, scaleOptions } = req.body;
 
     try {
       const updatedQuestion = await prisma.question.update({
@@ -81,7 +63,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           steps,
           max,
           surveyId,
-          scaleType: scaleType || "default",
+          scaleType: scaleType || 'default',
           scaleOptions: scaleOptions || [],
         },
       });
@@ -89,13 +71,13 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       res.status(200).json(updatedQuestion);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: "Server error" });
+      res.status(500).json({ error: 'Server error' });
     }
-  } else if (req.method === "GET") {
+  } else if (req.method === 'GET') {
     const session = await getServerSession(req, res, authOptions);
 
     if (!session) {
-      return res.status(401).json({ error: "Unauthorized" });
+      return res.status(401).json({ error: 'Unauthorized' });
     }
 
     try {
@@ -108,7 +90,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       res.status(200).json(questions);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: "Server error" });
+      res.status(500).json({ error: 'Server error' });
     }
   }
 }

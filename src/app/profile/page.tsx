@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { useState } from 'react';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -12,26 +12,26 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useToast } from "@/hooks/use-toast";
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useToast } from '@/hooks/use-toast';
 
 export default function ProfilePage() {
   const { data: session, status, update } = useSession();
   const router = useRouter();
   const { toast } = useToast();
   const [isEditing, setIsEditing] = useState(false);
-  const [name, setName] = useState(session?.user?.name || "");
-  const [image, setImage] = useState(session?.user?.image || "");
+  const [name, setName] = useState(session?.user?.name || '');
+  const [image, setImage] = useState(session?.user?.image || '');
 
-  if (status === "loading") {
+  if (status === 'loading') {
     return <ProfileSkeleton />;
   }
 
-  if (status === "unauthenticated") {
-    router.push("/auth/signin");
+  if (status === 'unauthenticated') {
+    router.push('/auth/signin');
     return null;
   }
 
@@ -40,15 +40,14 @@ export default function ProfilePage() {
       await update({ name, image });
       setIsEditing(false);
       toast({
-        title: "Profil aktualisiert",
-        description: "Ihre Änderungen wurden erfolgreich gespeichert.",
+        title: 'Profil aktualisiert',
+        description: 'Ihre Änderungen wurden erfolgreich gespeichert.',
       });
     } catch (error) {
       toast({
-        title: "Fehler",
-        description:
-          "Beim Speichern Ihrer Änderungen ist ein Fehler aufgetreten.",
-        variant: "destructive",
+        title: 'Fehler',
+        description: 'Beim Speichern Ihrer Änderungen ist ein Fehler aufgetreten.',
+        variant: 'destructive',
       });
     }
   };
@@ -59,18 +58,11 @@ export default function ProfilePage() {
         <CardHeader>
           <div className="flex items-center space-x-4">
             <Avatar className="w-20 h-20">
-              <AvatarImage
-                src={session?.user?.image || ""}
-                alt={session?.user.name || ""}
-              />
-              <AvatarFallback>
-                {session?.user.name?.[0] || session?.user.email?.[0]}
-              </AvatarFallback>
+              <AvatarImage src={session?.user?.image || ''} alt={session?.user.name || ''} />
+              <AvatarFallback>{session?.user.name?.[0] || session?.user.email?.[0]}</AvatarFallback>
             </Avatar>
             <div>
-              <CardTitle>
-                {isEditing ? "Profil bearbeiten" : "Profil"}
-              </CardTitle>
+              <CardTitle>{isEditing ? 'Profil bearbeiten' : 'Profil'}</CardTitle>
               <CardDescription>{session?.user.email}</CardDescription>
             </div>
           </div>

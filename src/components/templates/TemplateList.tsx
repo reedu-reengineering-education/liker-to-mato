@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 import {
   Card,
   CardContent,
@@ -8,10 +8,10 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
 import {
   Dialog,
   DialogContent,
@@ -20,30 +20,30 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { SurveyTemplate } from "@/types/templates";
-import { Search, Tag, Clock, Users } from "lucide-react";
+} from '@/components/ui/dialog';
+import { SurveyTemplate } from '@/types/templates';
+import { Search, Tag, Clock, Users } from 'lucide-react';
 
 // Beispiel-Vorlagen
 const defaultTemplates: SurveyTemplate[] = [
   {
-    id: "1",
-    name: "Mitarbeiter-Feedback",
-    description: "Standardvorlage für regelmäßiges Mitarbeiter-Feedback",
-    category: "Feedback",
-    icon: "users",
+    id: '1',
+    name: 'Mitarbeiter-Feedback',
+    description: 'Standardvorlage für regelmäßiges Mitarbeiter-Feedback',
+    category: 'Feedback',
+    icon: 'users',
     questions: [
       {
-        id: "q1",
-        type: "likert",
-        text: "Wie zufrieden sind Sie mit Ihrer aktuellen Arbeitsumgebung?",
+        id: 'q1',
+        type: 'likert',
+        text: 'Wie zufrieden sind Sie mit Ihrer aktuellen Arbeitsumgebung?',
         required: true,
         scale: 5,
       },
       {
-        id: "q2",
-        type: "text",
-        text: "Was könnte verbessert werden?",
+        id: 'q2',
+        type: 'text',
+        text: 'Was könnte verbessert werden?',
         required: false,
       },
     ],
@@ -51,16 +51,16 @@ const defaultTemplates: SurveyTemplate[] = [
     updatedAt: new Date(),
   },
   {
-    id: "2",
-    name: "Kundenzufriedenheit",
-    description: "Umfrage zur Messung der Kundenzufriedenheit",
-    category: "Zufriedenheit",
-    icon: "smile",
+    id: '2',
+    name: 'Kundenzufriedenheit',
+    description: 'Umfrage zur Messung der Kundenzufriedenheit',
+    category: 'Zufriedenheit',
+    icon: 'smile',
     questions: [
       {
-        id: "q1",
-        type: "likert",
-        text: "Wie wahrscheinlich ist es, dass Sie unser Produkt weiterempfehlen würden?",
+        id: 'q1',
+        type: 'likert',
+        text: 'Wie wahrscheinlich ist es, dass Sie unser Produkt weiterempfehlen würden?',
         required: true,
         scale: 10,
       },
@@ -69,25 +69,25 @@ const defaultTemplates: SurveyTemplate[] = [
     updatedAt: new Date(),
   },
   {
-    id: "3",
-    name: "Kurs-Evaluation",
-    description: "Vorlage für die Evaluation von Kursen und Workshops",
-    category: "Evaluation",
-    icon: "book",
+    id: '3',
+    name: 'Kurs-Evaluation',
+    description: 'Vorlage für die Evaluation von Kursen und Workshops',
+    category: 'Evaluation',
+    icon: 'book',
     questions: [
       {
-        id: "q1",
-        type: "likert",
-        text: "Der Kursinhalt war gut strukturiert",
+        id: 'q1',
+        type: 'likert',
+        text: 'Der Kursinhalt war gut strukturiert',
         required: true,
         scale: 5,
       },
       {
-        id: "q2",
-        type: "multiple",
-        text: "Welche Themen fanden Sie besonders interessant?",
+        id: 'q2',
+        type: 'multiple',
+        text: 'Welche Themen fanden Sie besonders interessant?',
         required: true,
-        options: ["Theorie", "Praxis", "Diskussionen", "Übungen"],
+        options: ['Theorie', 'Praxis', 'Diskussionen', 'Übungen'],
       },
     ],
     createdAt: new Date(),
@@ -118,9 +118,7 @@ function TemplatePreview({ template, onClose, onUse }: TemplatePreviewProps) {
                   <span className="text-sm font-medium">Frage {index + 1}</span>
                   <Badge variant="secondary">{question.type}</Badge>
                 </div>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  {question.text}
-                </p>
+                <p className="mt-2 text-sm text-muted-foreground">{question.text}</p>
               </div>
             ))}
           </div>
@@ -147,20 +145,19 @@ function TemplatePreview({ template, onClose, onUse }: TemplatePreviewProps) {
 }
 
 export function TemplateList() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedTemplate, setSelectedTemplate] =
-    useState<SurveyTemplate | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedTemplate, setSelectedTemplate] = useState<SurveyTemplate | null>(null);
 
   const filteredTemplates = defaultTemplates.filter(
     (template) =>
       template.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       template.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      template.category.toLowerCase().includes(searchQuery.toLowerCase()),
+      template.category.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const handleUseTemplate = (template: SurveyTemplate) => {
     // Hier implementieren wir später die Logik zum Erstellen einer neuen Umfrage aus der Vorlage
-    console.log("Using template:", template);
+    console.log('Using template:', template);
     setSelectedTemplate(null);
   };
 

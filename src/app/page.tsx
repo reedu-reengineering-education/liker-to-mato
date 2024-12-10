@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   ChevronLeft,
   ChevronRight,
@@ -9,14 +9,14 @@ import {
   CheckCircle2,
   BarChart2,
   Users,
-} from "lucide-react";
-import Link from "next/link";
-import { useSession } from "next-auth/react";
-import { Container } from "@/components/ui/layout/Container";
-import { Grid } from "@/components/ui/layout/Grid";
-import { cn } from "@/lib/utils";
-import { LogoFull } from "@/components/ui/logo";
-import { Button } from "@/components/ui/button";
+} from 'lucide-react';
+import Link from 'next/link';
+import { useSession } from 'next-auth/react';
+import { Container } from '@/components/ui/layout/Container';
+import { Grid } from '@/components/ui/layout/Grid';
+import { cn } from '@/lib/utils';
+import { LogoFull } from '@/components/ui/logo';
+import { Button } from '@/components/ui/button';
 
 export default function Home() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -24,194 +24,95 @@ export default function Home() {
 
   const features = [
     {
-      title: "Intuitive Erstellung",
+      title: 'Intuitive Erstellung',
       description:
-        "Erstellen Sie professionelle Umfragen in wenigen Minuten mit unserem benutzerfreundlichen Editor",
+        'Erstellen Sie professionelle Umfragen in wenigen Minuten mit unserem benutzerfreundlichen Editor',
       icon: CheckCircle2,
-      color: "from-green-500 to-emerald-700",
+      color: 'from-green-500 to-emerald-700',
     },
     {
-      title: "Echtzeit-Analyse",
+      title: 'Detaillierte Auswertung',
       description:
-        "Verfolgen Sie Ergebnisse in Echtzeit mit detaillierten Statistiken und interaktiven Diagrammen",
+        'Analysieren Sie Ihre Ergebnisse mit aussagekräftigen Statistiken und Visualisierungen',
       icon: BarChart2,
-      color: "from-blue-500 to-indigo-700",
+      color: 'from-blue-500 to-indigo-700',
     },
     {
-      title: "Zusammenarbeit",
-      description:
-        "Teilen Sie Umfragen und arbeiten Sie nahtlos im Team zusammen",
+      title: 'Einfache Teilnahme',
+      description: 'Teilen Sie Ihre Umfragen mit einem Klick und erreichen Sie Ihre Zielgruppe',
       icon: Users,
-      color: "from-purple-500 to-pink-700",
+      color: 'from-purple-500 to-pink-700',
     },
   ];
-
-  const testimonials = [
-    {
-      quote:
-        "Ein großartiges Tool für schnelles Feedback. Die Benutzeroberfläche ist intuitiv und die Ergebnisse sind präzise und leicht zu interpretieren.",
-      author: "Prof. Dr. Bartolomeus Tomaschiski",
-      institution: "Universität Münster",
-      avatar: "BT",
-    },
-    {
-      quote:
-        "Sehr benutzerfreundlich und effizient. Likert-to-Mat hat unsere Forschungsarbeit erheblich beschleunigt und die Qualität unserer Datenerhebung verbessert.",
-      author: "Dr. Jan Wahnwirth",
-      institution: "Universität Münster",
-      avatar: "JW",
-    },
-    {
-      quote:
-        "Eine ausgezeichnete Plattform für akademische Umfragen. Die anpassbaren Skalen und die Multimedia-Integration sind besonders nützlich für unsere Studien.",
-      author: "Prof. Dr. Anke Müller",
-      institution: "Technische Universität Berlin",
-      avatar: "AM",
-    },
-  ];
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [testimonials.length]);
 
   return (
-    <Container as="main" className="py-10">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="text-center mb-20"
-      >
-        <div className="flex justify-center mb-6">
-          <LogoFull className="w-64" />
-        </div>
-        <h1 className="text-4xl lg:text-6xl font-bold tracking-tight mb-6">
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-            Wissenschaftliche Umfragen
-          </span>
-          <br />
-          <span className="text-foreground">neu gedacht</span>
-        </h1>
-        <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
-          Erstellen Sie professionelle Umfragen, sammeln Sie Feedback und
-          analysieren Sie Ergebnisse - alles in einer modernen und intuitiven
-          Plattform.
-        </p>
-        <div className="flex gap-4 justify-center">
-          <Button size="lg" asChild className="group">
-            <Link href={session ? "/dashboard" : "/auth/signin"}>
-              {session ? "Zum Dashboard" : "Jetzt kostenlos starten"}
-              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </Button>
-          <Button size="lg" variant="outline" asChild>
-            <Link href="/about">Mehr erfahren</Link>
-          </Button>
-        </div>
-      </motion.div>
+      <Container className="pt-20 pb-16 text-center lg:pt-32">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-foreground sm:text-7xl">
+            Erstellen Sie{' '}
+            <span className="relative whitespace-nowrap text-primary">
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 418 42"
+                className="absolute left-0 top-2/3 h-[0.58em] w-full fill-primary/30"
+                preserveAspectRatio="none"
+              >
+                <path d="M203.371.916c-26.013-2.078-76.686 1.963-124.73 9.946L67.3 12.749C35.421 18.062 18.2 21.766 6.004 25.934 1.244 27.561.828 27.778.874 28.61c.07 1.214.828 1.121 9.595-1.176 9.072-2.377 17.15-3.92 39.246-7.496C123.565 7.986 157.869 4.492 195.942 5.046c7.461.108 19.25 1.696 19.17 2.582-.107 1.183-7.874 4.31-25.75 10.366-21.992 7.45-35.43 12.534-36.701 13.884-2.173 2.308-.202 4.407 4.442 4.734 2.654.187 3.263.157 15.593-.78 35.401-2.686 57.944-3.488 88.365-3.143 46.327.526 75.721 2.23 130.788 7.584 19.787 1.924 20.814 1.98 24.557 1.332l.066-.011c1.201-.203 1.53-1.825.399-2.335-2.911-1.31-4.893-1.604-22.048-3.261-57.509-5.556-87.871-7.36-132.059-7.842-23.239-.254-33.617-.116-50.627.674-11.629.54-42.371 2.494-46.696 2.967-2.359.259 8.133-3.625 26.504-9.81 23.239-7.825 27.934-10.149 28.304-14.005.417-4.348-3.529-6-16.878-7.066Z" />
+              </svg>
+              <span className="relative">professionelle</span>
+            </span>{' '}
+            Umfragen
+          </h1>
+          <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-muted-foreground">
+            Likert-O-Mat ist die moderne Plattform für die Erstellung und Auswertung von
+            Likert-Skala basierten Umfragen.
+          </p>
+          <div className="mt-10 flex justify-center gap-x-6">
+            <Button asChild size="lg">
+              <Link href="/auth/signin">
+                Jetzt starten
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+            <Button variant="outline" size="lg" asChild>
+              <Link href="/about">Mehr erfahren</Link>
+            </Button>
+          </div>
+        </motion.div>
+      </Container>
 
-      {/* Features Grid */}
-      <Grid cols={3} gap="lg" className="mb-20">
-        {features.map((feature, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="p-8 rounded-xl bg-card hover:bg-accent transition-colors group"
-          >
-            <div
-              className={cn(
-                "w-12 h-12 rounded-lg mb-4 flex items-center justify-center",
-                "bg-gradient-to-br",
-                feature.color,
-              )}
+      {/* Features Section */}
+      <Container className="pt-20 pb-16">
+        <Grid className="gap-y-16">
+          {features.map((feature, index) => (
+            <motion.div
+              key={feature.title}
+              className="relative"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <feature.icon className="w-6 h-6 text-white" />
-            </div>
-            <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
-              {feature.title}
-            </h3>
-            <p className="text-muted-foreground leading-relaxed">
-              {feature.description}
-            </p>
-          </motion.div>
-        ))}
-      </Grid>
-
-      {/* Testimonials */}
-      <div className="relative mb-20 bg-card rounded-xl p-12 shadow-sm">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentTestimonial}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            className="text-center max-w-3xl mx-auto"
-          >
-            <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center text-lg font-semibold mx-auto mb-6">
-              {testimonials[currentTestimonial].avatar}
-            </div>
-            <p className="text-2xl mb-6 text-pretty leading-relaxed">
-              "{testimonials[currentTestimonial].quote}"
-            </p>
-            <p className="font-semibold text-lg">
-              {testimonials[currentTestimonial].author}
-            </p>
-            <p className="text-muted-foreground">
-              {testimonials[currentTestimonial].institution}
-            </p>
-          </motion.div>
-        </AnimatePresence>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() =>
-            setCurrentTestimonial(
-              (prev) => (prev - 1 + testimonials.length) % testimonials.length,
-            )
-          }
-          className="absolute left-4 top-1/2 -translate-y-1/2"
-        >
-          <ChevronLeft className="w-6 h-6" />
-        </Button>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() =>
-            setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)
-          }
-          className="absolute right-4 top-1/2 -translate-y-1/2"
-        >
-          <ChevronRight className="w-6 h-6" />
-        </Button>
-      </div>
-
-      {/* CTA Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="text-center bg-gradient-to-b from-muted/50 to-background rounded-xl p-12"
-      >
-        <h2 className="text-3xl font-bold mb-6">
-          Bereit für bessere Umfragen?
-        </h2>
-        <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
-          Starten Sie noch heute und erleben Sie, wie Likert-O-Mat Ihre
-          Forschung auf das nächste Level hebt.
-        </p>
-        <Button size="lg" asChild className="group">
-          <Link href={session ? "/dashboard" : "/auth/signin"}>
-            {session ? "Zum Dashboard" : "Kostenlos testen"}
-            <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </Button>
-      </motion.div>
-    </Container>
+              <div
+                className={cn(
+                  'absolute inset-0 rounded-2xl bg-gradient-to-r opacity-10',
+                  feature.color
+                )}
+              />
+              <div className="relative flex h-full flex-col p-6">
+                <feature.icon className="h-8 w-8" />
+                <h3 className="mt-4 text-xl font-semibold">{feature.title}</h3>
+                <p className="mt-2 text-muted-foreground">{feature.description}</p>
+              </div>
+            </motion.div>
+          ))}
+        </Grid>
+      </Container>
+    </div>
   );
 }

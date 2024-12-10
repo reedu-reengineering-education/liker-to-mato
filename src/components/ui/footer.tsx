@@ -1,5 +1,5 @@
-import Link from "next/link";
-import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+import Link from 'next/link';
+import { Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
 
 export function Footer() {
   return (
@@ -82,8 +82,7 @@ export function Footer() {
           </div> */}
       {/* </div> */}
       <div className="container">
-        &copy; {new Date().getFullYear()} Reedu GmbH & Co. KG. Alle Rechte
-        vorbehalten.
+        &copy; {new Date().getFullYear()} Reedu GmbH & Co. KG. Alle Rechte vorbehalten.
       </div>
       {/* </div> */}
     </footer>

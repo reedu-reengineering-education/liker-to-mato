@@ -1,6 +1,6 @@
-import { Resend } from "resend";
+import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 export const sendVerificationRequest = async ({
   identifier,
@@ -13,17 +13,22 @@ export const sendVerificationRequest = async ({
 }) => {
   const { host } = new URL(url);
 
-  console.log("Attempting to send verification email:", {
+  if (!resend) {
+    console.error('Resend API key is not configured');
+    throw new Error('Email service is not configured');
+  }
+
+  console.log('Attempting to send verification email:', {
     to: identifier,
     host,
-    resendKey: process.env.RESEND_API_KEY ? "Present" : "Missing",
+    resendKey: process.env.RESEND_API_KEY ? 'Present' : 'Missing',
   });
 
   try {
     const result = await resend.emails.send({
       from: process.env.EMAIL_FROM!,
       to: identifier,
-      subject: "Sign in to Likert-O-Mat",
+      subject: 'Sign in to Likert-O-Mat',
       html: `
         <!DOCTYPE html>
         <html>
@@ -48,9 +53,9 @@ export const sendVerificationRequest = async ({
       `,
     });
 
-    console.log("Email sent successfully:", result);
+    console.log('Email sent successfully:', result);
   } catch (error) {
-    console.error("Failed to send verification email:", error);
+    console.error('Failed to send verification email:', error);
     throw error;
   }
 };
@@ -65,7 +70,11 @@ export async function sendEmail({
   html: string;
 }) {
   if (!process.env.RESEND_API_KEY) {
-    throw new Error("Missing RESEND_API_KEY environment variable");
+    throw new Error('Missing RESEND_API_KEY environment variable');
+  }
+
+  if (!resend) {
+    throw new Error('Resend client is not properly initialized');
   }
 
   try {
@@ -78,7 +87,7 @@ export async function sendEmail({
 
     return { success: true, data };
   } catch (error) {
-    console.error("Error sending email:", error);
+    console.error('Error sending email:', error);
     return { success: false, error };
   }
 }

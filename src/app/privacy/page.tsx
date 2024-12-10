@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { Container } from "@/components/ui/layout/Container";
-import { motion } from "framer-motion";
-import { Shield, Lock, Database, Eye, Cookie } from "lucide-react";
+import { Container } from '@/components/ui/layout/Container';
+import { motion } from 'framer-motion';
+import { Shield, Lock, Database, Eye, Cookie } from 'lucide-react';
 
 export default function PrivacyPage() {
   return (
@@ -14,9 +14,7 @@ export default function PrivacyPage() {
       >
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold tracking-tight mb-4">
-            Datenschutzerklärung
-          </h1>
+          <h1 className="text-4xl font-bold tracking-tight mb-4">Datenschutzerklärung</h1>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Informationen zum Schutz Ihrer persönlichen Daten
           </p>
@@ -36,10 +34,9 @@ export default function PrivacyPage() {
             </h2>
             <div className="bg-card rounded-lg p-6 space-y-4">
               <p className="text-muted-foreground">
-                Der Schutz Ihrer persönlichen Daten ist uns ein besonderes
-                Anliegen. Wir verarbeiten Ihre Daten daher ausschließlich auf
-                Grundlage der gesetzlichen Bestimmungen (DSGVO, TMG). In dieser
-                Datenschutzerklärung informieren wir Sie über die wichtigsten
+                Der Schutz Ihrer persönlichen Daten ist uns ein besonderes Anliegen. Wir verarbeiten
+                Ihre Daten daher ausschließlich auf Grundlage der gesetzlichen Bestimmungen (DSGVO,
+                TMG). In dieser Datenschutzerklärung informieren wir Sie über die wichtigsten
                 Aspekte der Datenverarbeitung im Rahmen unserer Website.
               </p>
             </div>
@@ -71,7 +68,7 @@ export default function PrivacyPage() {
                 <br />
                 Nina Mustermann
                 <br />
-                E-Mail:{" "}
+                E-Mail:{' '}
                 <a
                   href="mailto:datenschutz@uni-muenster.de"
                   className="text-primary hover:underline"
@@ -100,8 +97,8 @@ export default function PrivacyPage() {
                   Automatisch erfasste Daten
                 </h3>
                 <p className="text-muted-foreground">
-                  Beim Besuch unserer Website werden automatisch Daten erfasst,
-                  die Ihr Browser an unseren Server übermittelt. Dies sind:
+                  Beim Besuch unserer Website werden automatisch Daten erfasst, die Ihr Browser an
+                  unseren Server übermittelt. Dies sind:
                 </p>
                 <ul className="list-disc list-inside mt-2 text-muted-foreground">
                   <li>IP-Adresse</li>
@@ -118,12 +115,10 @@ export default function PrivacyPage() {
                   Cookies
                 </h3>
                 <p className="text-muted-foreground">
-                  Unsere Website verwendet Cookies. Diese sind kleine
-                  Textdateien, die Ihr Browser automatisch erstellt und auf
-                  Ihrem Endgerät speichert. Cookies richten auf Ihrem Endgerät
-                  keinen Schaden an und enthalten keine Viren. Sie dienen dazu,
-                  unser Angebot nutzerfreundlicher, effektiver und sicherer zu
-                  machen.
+                  Unsere Website verwendet Cookies. Diese sind kleine Textdateien, die Ihr Browser
+                  automatisch erstellt und auf Ihrem Endgerät speichert. Cookies richten auf Ihrem
+                  Endgerät keinen Schaden an und enthalten keine Viren. Sie dienen dazu, unser
+                  Angebot nutzerfreundlicher, effektiver und sicherer zu machen.
                 </p>
               </div>
             </div>
@@ -141,24 +136,14 @@ export default function PrivacyPage() {
               Ihre Rechte
             </h2>
             <div className="bg-card rounded-lg p-6 space-y-4">
-              <p className="text-muted-foreground">
-                Sie haben jederzeit das Recht:
-              </p>
+              <p className="text-muted-foreground">Sie haben jederzeit das Recht:</p>
               <ul className="list-disc list-inside text-muted-foreground">
                 <li>Auskunft über Ihre gespeicherten Daten zu erhalten</li>
-                <li>
-                  Die Berichtigung unrichtiger personenbezogener Daten zu
-                  verlangen
-                </li>
+                <li>Die Berichtigung unrichtiger personenbezogener Daten zu verlangen</li>
                 <li>Die Löschung Ihrer Daten zu verlangen</li>
-                <li>
-                  Die Einschränkung der Verarbeitung Ihrer Daten zu verlangen
-                </li>
+                <li>Die Einschränkung der Verarbeitung Ihrer Daten zu verlangen</li>
                 <li>Der Verarbeitung Ihrer Daten zu widersprechen</li>
-                <li>
-                  Die Übertragung Ihrer Daten an einen anderen Verantwortlichen
-                  zu verlangen
-                </li>
+                <li>Die Übertragung Ihrer Daten an einen anderen Verantwortlichen zu verlangen</li>
               </ul>
             </div>
           </motion.section>

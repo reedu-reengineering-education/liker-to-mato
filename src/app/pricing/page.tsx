@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -8,61 +8,59 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Check, CreditCard } from "lucide-react";
-import { motion } from "framer-motion";
-import { useState } from "react";
-import { cn } from "@/lib/utils";
-import Image from "next/image";
+} from '@/components/ui/card';
+import { Check, CreditCard } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { cn } from '@/lib/utils';
+import Image from 'next/image';
 
 const tiers = [
   {
-    name: "Basic",
-    price: "0",
-    description: "Perfekt für den Einstieg",
+    name: 'Basic',
+    price: '0',
+    description: 'Perfekt für den Einstieg',
     features: [
-      "5 Umfragen pro Monat",
-      "100 Antworten pro Umfrage",
-      "Grundlegende Auswertungen",
-      "Email Support",
+      '5 Umfragen pro Monat',
+      '100 Antworten pro Umfrage',
+      'Grundlegende Auswertungen',
+      'Email Support',
     ],
     highlighted: false,
   },
   {
-    name: "Pro",
-    price: "29",
-    description: "Für professionelle Anwender",
+    name: 'Pro',
+    price: '29',
+    description: 'Für professionelle Anwender',
     features: [
-      "Unbegrenzte Umfragen",
-      "Unbegrenzte Antworten",
-      "Erweiterte Analysen",
-      "Prioritäts-Support",
-      "Eigenes Branding",
-      "Export-Funktionen",
-      "Team-Verwaltung",
+      'Unbegrenzte Umfragen',
+      'Unbegrenzte Antworten',
+      'Erweiterte Analysen',
+      'Prioritäts-Support',
+      'Eigenes Branding',
+      'Export-Funktionen',
+      'Team-Verwaltung',
     ],
     highlighted: true,
   },
   {
-    name: "Enterprise",
-    price: "99",
-    description: "Für große Organisationen",
+    name: 'Enterprise',
+    price: '99',
+    description: 'Für große Organisationen',
     features: [
-      "Alles aus Pro",
-      "Dedizierter Account Manager",
-      "SLA-Garantie",
-      "On-Premise Option",
-      "Individuelle Anpassungen",
-      "API-Zugang",
+      'Alles aus Pro',
+      'Dedizierter Account Manager',
+      'SLA-Garantie',
+      'On-Premise Option',
+      'Individuelle Anpassungen',
+      'API-Zugang',
     ],
     highlighted: false,
   },
 ];
 
 export default function PricingPage() {
-  const [billingInterval, setBillingInterval] = useState<"monthly" | "yearly">(
-    "monthly",
-  );
+  const [billingInterval, setBillingInterval] = useState<'monthly' | 'yearly'>('monthly');
 
   const handlePayment = async (tier: string) => {
     // Hier kommt später die Zahlungslogik hin
@@ -83,23 +81,23 @@ export default function PricingPage() {
       <div className="mt-8 flex justify-center">
         <div className="relative self-center rounded-lg bg-muted p-0.5 flex sm:mt-8">
           <button
-            onClick={() => setBillingInterval("monthly")}
+            onClick={() => setBillingInterval('monthly')}
             className={cn(
-              "relative w-1/2 rounded-md py-2 text-sm font-medium whitespace-nowrap focus:outline-none sm:w-auto sm:px-8",
-              billingInterval === "monthly"
-                ? "bg-background text-foreground shadow-sm"
-                : "text-muted-foreground",
+              'relative w-1/2 rounded-md py-2 text-sm font-medium whitespace-nowrap focus:outline-none sm:w-auto sm:px-8',
+              billingInterval === 'monthly'
+                ? 'bg-background text-foreground shadow-sm'
+                : 'text-muted-foreground'
             )}
           >
             Monatlich
           </button>
           <button
-            onClick={() => setBillingInterval("yearly")}
+            onClick={() => setBillingInterval('yearly')}
             className={cn(
-              "relative w-1/2 rounded-md py-2 text-sm font-medium whitespace-nowrap focus:outline-none sm:w-auto sm:px-8",
-              billingInterval === "yearly"
-                ? "bg-background text-foreground shadow-sm"
-                : "text-muted-foreground",
+              'relative w-1/2 rounded-md py-2 text-sm font-medium whitespace-nowrap focus:outline-none sm:w-auto sm:px-8',
+              billingInterval === 'yearly'
+                ? 'bg-background text-foreground shadow-sm'
+                : 'text-muted-foreground'
             )}
           >
             Jährlich <span className="text-primary">(-20%)</span>
@@ -116,10 +114,7 @@ export default function PricingPage() {
             transition={{ delay: index * 0.1 }}
           >
             <Card
-              className={cn(
-                "flex h-full flex-col",
-                tier.highlighted && "border-primary shadow-lg",
-              )}
+              className={cn('flex h-full flex-col', tier.highlighted && 'border-primary shadow-lg')}
             >
               <CardHeader>
                 <CardTitle className="text-2xl">{tier.name}</CardTitle>
@@ -129,16 +124,14 @@ export default function PricingPage() {
                 <div className="mt-4 flex items-baseline text-6xl font-extrabold">
                   €{tier.price}
                   <span className="ml-1 text-2xl font-medium text-muted-foreground">
-                    /{billingInterval === "monthly" ? "mo" : "yr"}
+                    /{billingInterval === 'monthly' ? 'mo' : 'yr'}
                   </span>
                 </div>
                 <ul className="mt-8 space-y-4">
                   {tier.features.map((feature) => (
                     <li key={feature} className="flex items-center">
                       <Check className="h-5 w-5 text-primary flex-shrink-0" />
-                      <span className="ml-3 text-muted-foreground">
-                        {feature}
-                      </span>
+                      <span className="ml-3 text-muted-foreground">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -147,13 +140,11 @@ export default function PricingPage() {
                 <Button
                   onClick={() => handlePayment(tier.name)}
                   className="w-full"
-                  variant={tier.highlighted ? "default" : "outline"}
+                  variant={tier.highlighted ? 'default' : 'outline'}
                 >
-                  {tier.name === "Basic"
-                    ? "Kostenlos starten"
-                    : "Jetzt upgraden"}
+                  {tier.name === 'Basic' ? 'Kostenlos starten' : 'Jetzt upgraden'}
                 </Button>
-                {tier.name !== "Basic" && (
+                {tier.name !== 'Basic' && (
                   <div className="flex justify-center gap-2 w-full">
                     <CreditCard className="h-5 w-5 text-muted-foreground" />
                     <Image
@@ -173,8 +164,7 @@ export default function PricingPage() {
 
       <div className="mt-12 text-center">
         <p className="text-muted-foreground">
-          Alle Preise zzgl. MwSt. · Jederzeit kündbar · 14 Tage
-          Geld-zurück-Garantie
+          Alle Preise zzgl. MwSt. · Jederzeit kündbar · 14 Tage Geld-zurück-Garantie
         </p>
       </div>
     </div>
