@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import React, { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Form,
   FormControl,
@@ -16,8 +16,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { useToast } from "@/hooks/use-toast";
+} from '@/components/ui/form';
+import { useToast } from '@/hooks/use-toast';
 import {
   Card,
   CardHeader,
@@ -25,14 +25,14 @@ import {
   CardDescription,
   CardContent,
   CardFooter,
-} from "@/components/ui/card";
+} from '@/components/ui/card';
 
 const gdprSchema = z.object({
   dataRetentionPeriod: z.number().min(1, {
-    message: "Die Aufbewahrungsfrist muss mindestens 1 Tag betragen.",
+    message: 'Die Aufbewahrungsfrist muss mindestens 1 Tag betragen.',
   }),
   privacyPolicy: z.string().min(10, {
-    message: "Die Datenschutzerklärung muss mindestens 10 Zeichen lang sein.",
+    message: 'Die Datenschutzerklärung muss mindestens 10 Zeichen lang sein.',
   }),
   anonymizeResponses: z.boolean(),
   encryptData: z.boolean(),
@@ -52,7 +52,7 @@ export function GDPRSettings({ surveyId }: GDPRSettingsProps) {
     resolver: zodResolver(gdprSchema),
     defaultValues: {
       dataRetentionPeriod: 30,
-      privacyPolicy: "",
+      privacyPolicy: '',
       anonymizeResponses: false,
       encryptData: true,
     },
@@ -64,16 +64,16 @@ export function GDPRSettings({ surveyId }: GDPRSettingsProps) {
       try {
         const response = await fetch(`/api/survey/${surveyId}/gdpr`);
         if (!response.ok) {
-          throw new Error("Fehler beim Laden der DSGVO-Einstellungen");
+          throw new Error('Fehler beim Laden der DSGVO-Einstellungen');
         }
         const result = await response.json();
         form.reset(result);
       } catch (error) {
-        console.error("Fehler beim Laden der DSGVO-Einstellungen:", error);
+        console.error('Fehler beim Laden der DSGVO-Einstellungen:', error);
         toast({
-          title: "Fehler",
-          description: "Die DSGVO-Einstellungen konnten nicht geladen werden.",
-          variant: "destructive",
+          title: 'Fehler',
+          description: 'Die DSGVO-Einstellungen konnten nicht geladen werden.',
+          variant: 'destructive',
         });
       } finally {
         setIsLoading(false);
@@ -87,31 +87,27 @@ export function GDPRSettings({ surveyId }: GDPRSettingsProps) {
     setIsLoading(true);
     try {
       const response = await fetch(`/api/survey/${surveyId}/gdpr`, {
-        method: "PUT",
+        method: 'PUT',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(values),
       });
 
       if (!response.ok) {
-        throw new Error("Fehler beim Aktualisieren der DSGVO-Einstellungen");
+        throw new Error('Fehler beim Aktualisieren der DSGVO-Einstellungen');
       }
 
       toast({
-        title: "Einstellungen gespeichert",
-        description: "Die DSGVO-Einstellungen wurden erfolgreich aktualisiert.",
+        title: 'Einstellungen gespeichert',
+        description: 'Die DSGVO-Einstellungen wurden erfolgreich aktualisiert.',
       });
     } catch (error) {
-      console.error(
-        "Fehler beim Aktualisieren der DSGVO-Einstellungen:",
-        error,
-      );
+      console.error('Fehler beim Aktualisieren der DSGVO-Einstellungen:', error);
       toast({
-        title: "Fehler",
-        description:
-          "Die DSGVO-Einstellungen konnten nicht aktualisiert werden.",
-        variant: "destructive",
+        title: 'Fehler',
+        description: 'Die DSGVO-Einstellungen konnten nicht aktualisiert werden.',
+        variant: 'destructive',
       });
     } finally {
       setIsLoading(false);
@@ -139,14 +135,11 @@ export function GDPRSettings({ surveyId }: GDPRSettingsProps) {
                     <Input
                       type="number"
                       {...field}
-                      onChange={(e) =>
-                        field.onChange(parseInt(e.target.value, 10))
-                      }
+                      onChange={(e) => field.onChange(parseInt(e.target.value, 10))}
                     />
                   </FormControl>
                   <FormDescription>
-                    Geben Sie an, wie lange die Umfragedaten aufbewahrt werden
-                    sollen.
+                    Geben Sie an, wie lange die Umfragedaten aufbewahrt werden sollen.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -161,9 +154,7 @@ export function GDPRSettings({ surveyId }: GDPRSettingsProps) {
                   <FormControl>
                     <Textarea {...field} rows={5} />
                   </FormControl>
-                  <FormDescription>
-                    Fügen Sie hier Ihre Datenschutzerklärung ein.
-                  </FormDescription>
+                  <FormDescription>Fügen Sie hier Ihre Datenschutzerklärung ein.</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -174,16 +165,12 @@ export function GDPRSettings({ surveyId }: GDPRSettingsProps) {
               render={({ field }) => (
                 <FormItem className="flex flex-row items-start space-x-3 space-y-0">
                   <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
+                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                   </FormControl>
                   <div className="space-y-1 leading-none">
                     <FormLabel>Antworten anonymisieren</FormLabel>
                     <FormDescription>
-                      Aktivieren Sie diese Option, um alle Antworten zu
-                      anonymisieren.
+                      Aktivieren Sie diese Option, um alle Antworten zu anonymisieren.
                     </FormDescription>
                   </div>
                 </FormItem>
@@ -195,16 +182,12 @@ export function GDPRSettings({ surveyId }: GDPRSettingsProps) {
               render={({ field }) => (
                 <FormItem className="flex flex-row items-start space-x-3 space-y-0">
                   <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
+                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                   </FormControl>
                   <div className="space-y-1 leading-none">
                     <FormLabel>Daten verschlüsseln</FormLabel>
                     <FormDescription>
-                      Aktivieren Sie diese Option, um alle gespeicherten Daten
-                      zu verschlüsseln.
+                      Aktivieren Sie diese Option, um alle gespeicherten Daten zu verschlüsseln.
                     </FormDescription>
                   </div>
                 </FormItem>
@@ -214,12 +197,8 @@ export function GDPRSettings({ surveyId }: GDPRSettingsProps) {
         </Form>
       </CardContent>
       <CardFooter>
-        <Button
-          type="submit"
-          onClick={form.handleSubmit(onSubmit)}
-          disabled={isLoading}
-        >
-          {isLoading ? "Wird gespeichert..." : "Einstellungen speichern"}
+        <Button type="submit" onClick={form.handleSubmit(onSubmit)} disabled={isLoading}>
+          {isLoading ? 'Wird gespeichert...' : 'Einstellungen speichern'}
         </Button>
       </CardFooter>
     </Card>

@@ -1,11 +1,11 @@
 // path: src/pages/api/survey/[surveyId]/index.ts
-import { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "@/lib/prisma";
-import { withMethods } from "@/lib/apiMiddlewares/withMethods";
-import { withSurvey } from "@/lib/apiMiddlewares/withSurvey";
+import { NextApiRequest, NextApiResponse } from 'next';
+import { prisma } from '@/lib/prisma';
+import { withMethods } from '@/lib/apiMiddlewares/withMethods';
+import { withSurvey } from '@/lib/apiMiddlewares/withSurvey';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === "GET") {
+  if (req.method === 'GET') {
     const { surveyId } = req.query;
 
     try {
@@ -14,16 +14,16 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       });
 
       if (!survey) {
-        res.status(404).json({ error: "Survey not found" });
+        res.status(404).json({ error: 'Survey not found' });
         return;
       }
 
       res.status(200).json(survey);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: "Server error" });
+      res.status(500).json({ error: 'Server error' });
     }
-  } else if (req.method === "PUT") {
+  } else if (req.method === 'PUT') {
     const { surveyId } = req.query;
     const { name, userId } = req.body;
 
@@ -36,9 +36,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       res.status(200).json(updatedsurvey);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: "Server error" });
+      res.status(500).json({ error: 'Server error' });
     }
-  } else if (req.method === "DELETE") {
+  } else if (req.method === 'DELETE') {
     const surveyId = req.query.surveyId as string;
 
     try {
@@ -49,11 +49,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       res.status(204).end();
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: "Server error" });
+      res.status(500).json({ error: 'Server error' });
     }
   } else {
     res.status(405).end();
   }
 }
 
-export default withMethods(["GET", "PUT", "DELETE"], withSurvey(handler));
+export default withMethods(['GET', 'PUT', 'DELETE'], withSurvey(handler));

@@ -1,10 +1,7 @@
-import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
 
-export async function POST(
-  request: Request,
-  { params }: { params: { surveyId: string } },
-) {
+export async function POST(request: Request, { params }: { params: { surveyId: string } }) {
   try {
     const { surveyId } = params;
 
@@ -42,27 +39,22 @@ export async function POST(
 
     // Speichere die Statistiken für jede Frage
     await prisma.$transaction(
-      Object.entries(questionStats).map(
-        ([questionId, stats]: [string, any]) => {
-          return prisma.question.update({
-            where: {
-              id: questionId,
-            },
-            data: {
-              responseCount: stats.totalResponses,
-              averageValue: stats.averageValue,
-            },
-          });
-        },
-      ),
+      Object.entries(questionStats).map(([questionId, stats]: [string, any]) => {
+        return prisma.question.update({
+          where: {
+            id: questionId,
+          },
+          data: {
+            responseCount: stats.totalResponses,
+            averageValue: stats.averageValue,
+          },
+        });
+      })
     );
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Error updating survey stats:", error);
-    return NextResponse.json(
-      { error: "Failed to update survey statistics" },
-      { status: 500 },
-    );
+    console.error('Error updating survey stats:', error);
+    return NextResponse.json({ error: 'Failed to update survey statistics' }, { status: 500 });
   }
 }

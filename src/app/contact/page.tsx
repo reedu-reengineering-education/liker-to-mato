@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { Container } from "@/components/ui/layout/Container";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Send, Loader2 } from "lucide-react";
-import { useState } from "react";
-import { useToast } from "@/hooks/use-toast";
+import { Container } from '@/components/ui/layout/Container';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+import { motion } from 'framer-motion';
+import { Mail, Phone, MapPin, Send, Loader2 } from 'lucide-react';
+import { useState } from 'react';
+import { useToast } from '@/hooks/use-toast';
 
 export default function ContactPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,8 +20,8 @@ export default function ContactPage() {
     // Simuliere API-Aufruf
     setTimeout(() => {
       toast({
-        title: "Nachricht gesendet",
-        description: "Wir werden uns in Kürze bei Ihnen melden.",
+        title: 'Nachricht gesendet',
+        description: 'Wir werden uns in Kürze bei Ihnen melden.',
         duration: 3000,
       });
       setIsLoading(false);
@@ -37,12 +37,9 @@ export default function ContactPage() {
       >
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold tracking-tight mb-4">
-            Kontaktieren Sie uns
-          </h1>
+          <h1 className="text-4xl font-bold tracking-tight mb-4">Kontaktieren Sie uns</h1>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Haben Sie Fragen oder Anregungen? Wir sind für Sie da und freuen uns
-            auf Ihre Nachricht.
+            Haben Sie Fragen oder Anregungen? Wir sind für Sie da und freuen uns auf Ihre Nachricht.
           </p>
         </div>
 
@@ -55,9 +52,7 @@ export default function ContactPage() {
             className="space-y-8"
           >
             <div>
-              <h2 className="text-2xl font-semibold mb-6">
-                Unsere Kontaktdaten
-              </h2>
+              <h2 className="text-2xl font-semibold mb-6">Unsere Kontaktdaten</h2>
               <div className="space-y-6">
                 <div className="flex items-center space-x-4">
                   <div className="bg-primary/10 p-3 rounded-lg">
@@ -140,12 +135,7 @@ export default function ContactPage() {
                   >
                     E-Mail
                   </label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="max@beispiel.de"
-                    required
-                  />
+                  <Input id="email" type="email" placeholder="max@beispiel.de" required />
                 </div>
               </div>
 
@@ -156,11 +146,7 @@ export default function ContactPage() {
                 >
                   Betreff
                 </label>
-                <Input
-                  id="subject"
-                  placeholder="Wie können wir Ihnen helfen?"
-                  required
-                />
+                <Input id="subject" placeholder="Wie können wir Ihnen helfen?" required />
               </div>
 
               <div className="space-y-2">

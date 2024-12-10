@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { XCircle } from "lucide-react";
+import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { XCircle } from 'lucide-react';
 
 export default function PaymentCancelledPage() {
   const router = useRouter();
@@ -19,14 +19,10 @@ export default function PaymentCancelledPage() {
           Die Zahlung wurde abgebrochen. Keine Sorge, es wurde nichts berechnet.
         </p>
         <div className="space-y-4">
-          <Button onClick={() => router.push("/pricing")} className="w-full">
+          <Button onClick={() => router.push('/pricing')} className="w-full">
             Zurück zur Preisübersicht
           </Button>
-          <Button
-            variant="outline"
-            onClick={() => router.push("/support")}
-            className="w-full"
-          >
+          <Button variant="outline" onClick={() => router.push('/support')} className="w-full">
             Support kontaktieren
           </Button>
         </div>

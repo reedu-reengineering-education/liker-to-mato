@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 
 interface SimplePieChartProps {
   data: Array<{ status: string; count: number }>;
   className?: string;
 }
 
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 const SimplePieChart: React.FC<SimplePieChartProps> = ({ data, className }) => {
   return (
@@ -19,19 +19,14 @@ const SimplePieChart: React.FC<SimplePieChartProps> = ({ data, className }) => {
             cx="50%"
             cy="50%"
             labelLine={false}
-            label={({ name, percent }) =>
-              `${name} ${(percent * 100).toFixed(0)}%`
-            }
+            label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
             outerRadius={80}
             fill="#8884d8"
             dataKey="count"
             nameKey="status"
           >
             {data.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-              />
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
           <Tooltip />

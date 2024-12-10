@@ -74,12 +74,12 @@
 // }
 
 // export default DeleteSurveyDialog;
-"use client";
+'use client';
 
-import React from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
 import {
   Dialog,
   DialogContent,
@@ -88,9 +88,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -98,15 +98,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Trash2 } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
-import { deleteSurvey } from "@/lib/api/surveyClient";
+} from '@/components/ui/form';
+import { Trash2 } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import { deleteSurvey } from '@/lib/api/surveyClient';
 
 const deleteSchema = z.object({
-  surveyId: z
-    .string()
-    .min(1, { message: "Bitte geben Sie eine Umfrage-ID ein." }),
+  surveyId: z.string().min(1, { message: 'Bitte geben Sie eine Umfrage-ID ein.' }),
 });
 
 type DeleteFormValues = z.infer<typeof deleteSchema>;
@@ -118,7 +116,7 @@ export function DeleteSurveyDialog() {
   const form = useForm<DeleteFormValues>({
     resolver: zodResolver(deleteSchema),
     defaultValues: {
-      surveyId: "",
+      surveyId: '',
     },
   });
 
@@ -126,18 +124,18 @@ export function DeleteSurveyDialog() {
     try {
       await deleteSurvey(values.surveyId);
       toast({
-        title: "Umfrage gelöscht",
-        description: "Die Umfrage wurde erfolgreich gelöscht.",
+        title: 'Umfrage gelöscht',
+        description: 'Die Umfrage wurde erfolgreich gelöscht.',
       });
       setIsDialogOpen(false);
       form.reset();
     } catch (error) {
-      console.error("Fehler beim Löschen der Umfrage:", error);
+      console.error('Fehler beim Löschen der Umfrage:', error);
       toast({
-        title: "Fehler",
+        title: 'Fehler',
         description:
-          "Die Umfrage konnte nicht gelöscht werden. Bitte überprüfen Sie die Umfrage-ID und versuchen Sie es erneut.",
-        variant: "destructive",
+          'Die Umfrage konnte nicht gelöscht werden. Bitte überprüfen Sie die Umfrage-ID und versuchen Sie es erneut.',
+        variant: 'destructive',
       });
     }
   };
@@ -154,8 +152,8 @@ export function DeleteSurveyDialog() {
         <DialogHeader>
           <DialogTitle>Umfrage löschen</DialogTitle>
           <DialogDescription>
-            Bitte geben Sie die ID der Umfrage ein, die Sie löschen möchten.
-            Diese Aktion kann nicht rückgängig gemacht werden.
+            Bitte geben Sie die ID der Umfrage ein, die Sie löschen möchten. Diese Aktion kann nicht
+            rückgängig gemacht werden.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -167,21 +165,14 @@ export function DeleteSurveyDialog() {
                 <FormItem>
                   <FormLabel>Umfrage-ID</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Geben Sie die Umfrage-ID ein"
-                      {...field}
-                    />
+                    <Input placeholder="Geben Sie die Umfrage-ID ein" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <DialogFooter>
-              <Button
-                type="button"
-                variant="secondary"
-                onClick={() => setIsDialogOpen(false)}
-              >
+              <Button type="button" variant="secondary" onClick={() => setIsDialogOpen(false)}>
                 Abbrechen
               </Button>
               <Button type="submit" variant="destructive">

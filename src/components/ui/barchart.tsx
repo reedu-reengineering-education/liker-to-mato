@@ -1,23 +1,23 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { getGroupedAnswers } from "@/lib/api/answerClient";
-import { useToast } from "@/hooks/use-toast";
+import { useEffect, useState } from 'react';
+import { getGroupedAnswers } from '@/lib/api/answerClient';
+import { useToast } from '@/hooks/use-toast';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 import {
   BarChartComponent,
   LineChartComponent,
   DonutChartComponent,
   AreaChartComponent,
   ScatterChartComponent,
-} from "@/components/charts/chart-types";
-import { BarChart, LineChart, PieChart, Activity, Circle } from "lucide-react";
+} from '@/components/charts/chart-types';
+import { BarChart, LineChart, PieChart, Activity, Circle } from 'lucide-react';
 
 interface BarChartProps {
   questionId: string;
@@ -34,14 +34,14 @@ interface GroupedAnswer {
 }
 
 const COLORS = [
-  "#2563eb", // blue-600
-  "#3b82f6", // blue-500
-  "#60a5fa", // blue-400
-  "#93c5fd", // blue-300
-  "#bfdbfe", // blue-200
+  '#2563eb', // blue-600
+  '#3b82f6', // blue-500
+  '#60a5fa', // blue-400
+  '#93c5fd', // blue-300
+  '#bfdbfe', // blue-200
 ];
 
-type ChartType = "bar" | "line" | "donut" | "area" | "scatter";
+type ChartType = 'bar' | 'line' | 'donut' | 'area' | 'scatter';
 
 const chartComponents = {
   bar: BarChartComponent,
@@ -60,23 +60,18 @@ const chartIcons = {
 };
 
 const chartLabels = {
-  bar: "Balkendiagramm",
-  line: "Liniendiagramm",
-  donut: "Donutdiagramm",
-  area: "Flächendiagramm",
-  scatter: "Streudiagramm",
+  bar: 'Balkendiagramm',
+  line: 'Liniendiagramm',
+  donut: 'Donutdiagramm',
+  area: 'Flächendiagramm',
+  scatter: 'Streudiagramm',
 };
 
-const CustomBarChart: React.FC<BarChartProps> = ({
-  questionId,
-  questionName,
-  min,
-  max,
-}) => {
+const CustomBarChart: React.FC<BarChartProps> = ({ questionId, questionName, min, max }) => {
   const [groupedAnswers, setGroupedAnswers] = useState<GroupedAnswer[]>([]);
   const [chartData, setChartData] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [chartType, setChartType] = useState<ChartType>("bar");
+  const [chartType, setChartType] = useState<ChartType>('bar');
   const { toast } = useToast();
 
   useEffect(() => {
@@ -84,14 +79,14 @@ const CustomBarChart: React.FC<BarChartProps> = ({
       try {
         setIsLoading(true);
         const data = await getGroupedAnswers(questionId);
-        console.log("Fetched grouped answers:", data);
+        console.log('Fetched grouped answers:', data);
         setGroupedAnswers(data);
       } catch (error) {
-        console.error("Error fetching grouped answers:", error);
+        console.error('Error fetching grouped answers:', error);
         toast({
-          title: "Fehler",
-          description: "Die Antworten konnten nicht geladen werden.",
-          variant: "destructive",
+          title: 'Fehler',
+          description: 'Die Antworten konnten nicht geladen werden.',
+          variant: 'destructive',
         });
       } finally {
         setIsLoading(false);
@@ -103,16 +98,11 @@ const CustomBarChart: React.FC<BarChartProps> = ({
   useEffect(() => {
     if (groupedAnswers.length > 0) {
       const data = groupedAnswers.map((answer, index) => ({
-        name:
-          index === 0
-            ? min
-            : index === groupedAnswers.length - 1
-              ? max
-              : `${answer.value}`,
+        name: index === 0 ? min : index === groupedAnswers.length - 1 ? max : `${answer.value}`,
         value: answer._count.value,
         fill: COLORS[index % COLORS.length],
       }));
-      console.log("Transformed chart data:", data);
+      console.log('Transformed chart data:', data);
       setChartData(data);
     }
   }, [groupedAnswers, min, max]);
@@ -138,10 +128,7 @@ const CustomBarChart: React.FC<BarChartProps> = ({
   return (
     <div className="space-y-4">
       <div className="flex justify-end">
-        <Select
-          value={chartType}
-          onValueChange={(value) => setChartType(value as ChartType)}
-        >
+        <Select value={chartType} onValueChange={(value) => setChartType(value as ChartType)}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Wähle einen Diagrammtyp" />
           </SelectTrigger>

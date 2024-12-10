@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { PayPalButton } from "@/components/payment/paypal-button";
-import { Button } from "@/components/ui/button";
+import { PayPalButton } from '@/components/payment/paypal-button';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -9,51 +9,46 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { useToast } from "@/hooks/use-toast";
+} from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { useToast } from '@/hooks/use-toast';
 
 const plans = [
   {
-    id: "plan_free",
-    name: "Free",
+    id: 'plan_free',
+    name: 'Free',
     price: 0,
-    description: "Perfekt zum Testen und für kleine Projekte",
-    features: [
-      "1 Umfrage",
-      "50 Antworten pro Monat",
-      "Basis-Auswertungen",
-      "Community Support",
-    ],
+    description: 'Perfekt zum Testen und für kleine Projekte',
+    features: ['1 Umfrage', '50 Antworten pro Monat', 'Basis-Auswertungen', 'Community Support'],
     popular: false,
   },
   {
-    id: "plan_professional",
-    name: "Professional",
+    id: 'plan_professional',
+    name: 'Professional',
     price: 29.99,
-    description: "Ideal für wachsende Unternehmen",
+    description: 'Ideal für wachsende Unternehmen',
     features: [
-      "Unbegrenzte Umfragen",
-      "1000 Antworten pro Monat",
-      "Erweiterte Auswertungen",
-      "Prioritäts-Support",
-      "Eigenes Branding",
+      'Unbegrenzte Umfragen',
+      '1000 Antworten pro Monat',
+      'Erweiterte Auswertungen',
+      'Prioritäts-Support',
+      'Eigenes Branding',
     ],
     popular: true,
   },
   {
-    id: "plan_enterprise",
-    name: "Enterprise",
+    id: 'plan_enterprise',
+    name: 'Enterprise',
     price: 99.99,
-    description: "Für große Organisationen",
+    description: 'Für große Organisationen',
     features: [
-      "Unbegrenzte Umfragen",
-      "Unbegrenzte Antworten",
-      "Premium Auswertungen",
-      "24/7 Support",
-      "Eigenes Branding",
-      "API Zugang",
-      "SLA Garantie",
+      'Unbegrenzte Umfragen',
+      'Unbegrenzte Antworten',
+      'Premium Auswertungen',
+      '24/7 Support',
+      'Eigenes Branding',
+      'API Zugang',
+      'SLA Garantie',
     ],
     popular: false,
   },
@@ -63,49 +58,49 @@ export default function PlansPage() {
   const { toast } = useToast();
 
   const handleSuccess = (details: any) => {
-    console.log("Zahlung erfolgreich!", details);
+    console.log('Zahlung erfolgreich!', details);
     toast({
-      title: "Plan aktiviert",
-      description: "Dein neuer Plan wurde erfolgreich aktiviert.",
+      title: 'Plan aktiviert',
+      description: 'Dein neuer Plan wurde erfolgreich aktiviert.',
     });
   };
 
   const handleError = (error: any) => {
-    console.error("Fehler bei der Zahlung:", error);
+    console.error('Fehler bei der Zahlung:', error);
     toast({
-      title: "Fehler",
-      description: "Es gab einen Fehler bei der Aktivierung des Plans.",
-      variant: "destructive",
+      title: 'Fehler',
+      description: 'Es gab einen Fehler bei der Aktivierung des Plans.',
+      variant: 'destructive',
     });
   };
 
   const handleFreePlan = async () => {
     try {
-      const response = await fetch("/api/plans/activate", {
-        method: "POST",
+      const response = await fetch('/api/plans/activate', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          planId: "plan_free",
-          paymentDetails: { id: "free_plan" },
+          planId: 'plan_free',
+          paymentDetails: { id: 'free_plan' },
         }),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to activate free plan");
+        throw new Error('Failed to activate free plan');
       }
 
       toast({
-        title: "Plan aktiviert",
-        description: "Der kostenlose Plan wurde aktiviert.",
+        title: 'Plan aktiviert',
+        description: 'Der kostenlose Plan wurde aktiviert.',
       });
     } catch (error) {
-      console.error("Error activating free plan:", error);
+      console.error('Error activating free plan:', error);
       toast({
-        title: "Fehler",
-        description: "Der Plan konnte nicht aktiviert werden.",
-        variant: "destructive",
+        title: 'Fehler',
+        description: 'Der Plan konnte nicht aktiviert werden.',
+        variant: 'destructive',
       });
     }
   };
@@ -123,9 +118,7 @@ export default function PlansPage() {
         {plans.map((plan) => (
           <Card
             key={plan.name}
-            className={`relative ${
-              plan.popular ? "border-primary shadow-lg" : ""
-            }`}
+            className={`relative ${plan.popular ? 'border-primary shadow-lg' : ''}`}
           >
             {plan.popular && (
               <Badge className="absolute -top-2 -right-2" variant="default">
@@ -171,11 +164,7 @@ export default function PlansPage() {
             <CardFooter>
               <div className="w-full">
                 {plan.price === 0 ? (
-                  <Button
-                    onClick={handleFreePlan}
-                    className="w-full"
-                    variant="outline"
-                  >
+                  <Button onClick={handleFreePlan} className="w-full" variant="outline">
                     Kostenlos starten
                   </Button>
                 ) : (

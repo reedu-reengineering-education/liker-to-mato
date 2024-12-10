@@ -1,26 +1,16 @@
 export enum UserRole {
-  USER = "USER",
-  ADMIN = "ADMIN",
-  RESEARCHER = "RESEARCHER",
+  RESEARCHER = 'RESEARCHER',
 }
 
+// Einfache Berechtigungsstruktur für Researcher
 export interface Permission {
   action: string;
   subject: string;
 }
 
+// Alle Berechtigungen für Researcher
 export const rolePermissions: Record<UserRole, Permission[]> = {
-  [UserRole.USER]: [
-    { action: "read", subject: "survey" },
-    { action: "create", subject: "response" },
-  ],
   [UserRole.RESEARCHER]: [
-    { action: "read", subject: "survey" },
-    { action: "create", subject: "survey" },
-    { action: "update", subject: "survey" },
-    { action: "delete", subject: "survey" },
-    { action: "read", subject: "response" },
-    { action: "export", subject: "response" },
+    { action: '*', subject: '*' }, // Voller Zugriff für Researcher
   ],
-  [UserRole.ADMIN]: [{ action: "*", subject: "*" }],
 };

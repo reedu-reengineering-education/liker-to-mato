@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import * as React from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import {
   Card,
   CardHeader,
@@ -10,15 +10,15 @@ import {
   CardDescription,
   CardContent,
   CardFooter,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useToast } from "@/hooks/use-toast";
-import { Survey, Question, Answer } from "@prisma/client";
-import CreateAnswerDialog from "./create-answer-form";
-import { Progress } from "@/components/ui/progress";
-import { AlertCircle, CheckCircle2 } from "lucide-react";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useToast } from '@/hooks/use-toast';
+import { Survey, Question, Answer } from '@prisma/client';
+import CreateAnswerDialog from './create-answer-form';
+import { Progress } from '@/components/ui/progress';
+import { AlertCircle, CheckCircle2 } from 'lucide-react';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 export function StudentSurveyView({ surveyId }: { surveyId: string }) {
   const [survey, setSurvey] = useState<Survey | null>(null);
@@ -29,9 +29,7 @@ export function StudentSurveyView({ surveyId }: { surveyId: string }) {
   const { toast } = useToast();
 
   const progress =
-    questions.length > 0
-      ? (Object.keys(answers).length / questions.length) * 100
-      : 0;
+    questions.length > 0 ? (Object.keys(answers).length / questions.length) * 100 : 0;
 
   useEffect(() => {
     const fetchSurveyData = async () => {
@@ -42,35 +40,31 @@ export function StudentSurveyView({ surveyId }: { surveyId: string }) {
         // Fetch survey data
         const surveyResponse = await axios.get(`/api/survey/${surveyId}`);
         if (!surveyResponse.data) {
-          throw new Error("Survey not found");
+          throw new Error('Survey not found');
         }
         setSurvey(surveyResponse.data);
 
         // Fetch questions
-        const questionsResponse = await axios.get(
-          `/api/question/survey/${surveyId}`,
-        );
+        const questionsResponse = await axios.get(`/api/question/survey/${surveyId}`);
         setQuestions(questionsResponse.data || []);
 
         // Fetch existing answers
-        const answersResponse = await axios.get(
-          `/api/answer/question/${surveyId}`,
-        );
+        const answersResponse = await axios.get(`/api/answer/question/${surveyId}`);
         const answersMap = (answersResponse.data || []).reduce(
           (acc: Record<string, Answer>, answer: Answer) => {
             acc[answer.questionId] = answer;
             return acc;
           },
-          {},
+          {}
         );
         setAnswers(answersMap);
       } catch (error) {
-        console.error("Error fetching survey data:", error);
+        console.error('Error fetching survey data:', error);
         toast({
-          title: "Fehler",
+          title: 'Fehler',
           description:
-            "Die Umfragedaten konnten nicht geladen werden. Bitte versuchen Sie es später erneut.",
-          variant: "destructive",
+            'Die Umfragedaten konnten nicht geladen werden. Bitte versuchen Sie es später erneut.',
+          variant: 'destructive',
         });
       } finally {
         setIsLoading(false);
@@ -93,15 +87,15 @@ export function StudentSurveyView({ surveyId }: { surveyId: string }) {
       }));
 
       toast({
-        title: "Erfolg",
-        description: "Ihre Antwort wurde gespeichert.",
+        title: 'Erfolg',
+        description: 'Ihre Antwort wurde gespeichert.',
       });
     } catch (error) {
-      console.error("Error submitting answer:", error);
+      console.error('Error submitting answer:', error);
       toast({
-        title: "Fehler",
-        description: "Ihre Antwort konnte nicht gespeichert werden.",
-        variant: "destructive",
+        title: 'Fehler',
+        description: 'Ihre Antwort konnte nicht gespeichert werden.',
+        variant: 'destructive',
       });
     }
   };
@@ -109,10 +103,9 @@ export function StudentSurveyView({ surveyId }: { surveyId: string }) {
   const handleSurveySubmit = async () => {
     if (questions.length !== Object.keys(answers).length) {
       toast({
-        title: "Achtung",
-        description:
-          "Bitte beantworten Sie alle Fragen, bevor Sie die Umfrage abschließen.",
-        variant: "destructive",
+        title: 'Achtung',
+        description: 'Bitte beantworten Sie alle Fragen, bevor Sie die Umfrage abschließen.',
+        variant: 'destructive',
       });
       return;
     }
@@ -121,8 +114,8 @@ export function StudentSurveyView({ surveyId }: { surveyId: string }) {
     try {
       // Zeige eine "Wird gespeichert" Nachricht
       toast({
-        title: "Wird gespeichert",
-        description: "Ihre Antworten werden gespeichert...",
+        title: 'Wird gespeichert',
+        description: 'Ihre Antworten werden gespeichert...',
       });
 
       // Sende alle Antworten an den Server
@@ -136,30 +129,29 @@ export function StudentSurveyView({ surveyId }: { surveyId: string }) {
       await axios.post(`/api/survey/${surveyId}/stats/update`);
 
       toast({
-        title: "Erfolg",
-        description:
-          "Vielen Dank! Ihre Antworten wurden erfolgreich gespeichert.",
+        title: 'Erfolg',
+        description: 'Vielen Dank! Ihre Antworten wurden erfolgreich gespeichert.',
       });
 
       // Warte kurz, bevor zur Bestätigungsseite weitergeleitet wird
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       // Weiterleitung zur Bestätigungsseite mit sanftem Übergang
-      document.body.style.opacity = "0";
-      document.body.style.transition = "opacity 0.5s ease";
+      document.body.style.opacity = '0';
+      document.body.style.transition = 'opacity 0.5s ease';
 
       setTimeout(() => {
-        window.location.href = "/surveys/completed";
+        window.location.href = '/surveys/completed';
       }, 500);
     } catch (error) {
-      console.error("Error submitting survey:", error);
+      console.error('Error submitting survey:', error);
       toast({
-        title: "Fehler",
+        title: 'Fehler',
         description:
-          "Beim Speichern Ihrer Antworten ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
-        variant: "destructive",
+          'Beim Speichern Ihrer Antworten ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.',
+        variant: 'destructive',
       });
-      document.body.style.opacity = "1";
+      document.body.style.opacity = '1';
     } finally {
       setIsSubmitting(false);
     }
@@ -209,9 +201,7 @@ export function StudentSurveyView({ surveyId }: { surveyId: string }) {
       <Card>
         <CardHeader>
           <CardTitle>{survey.name}</CardTitle>
-          <CardDescription>
-            Bitte beantworten Sie alle Fragen der Umfrage.
-          </CardDescription>
+          <CardDescription>Bitte beantworten Sie alle Fragen der Umfrage.</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-2">
@@ -226,16 +216,11 @@ export function StudentSurveyView({ surveyId }: { surveyId: string }) {
 
       {questions.length > 0 ? (
         questions.map((question) => (
-          <Card
-            key={question.id}
-            className={answers[question.id] ? "border-green-200" : ""}
-          >
+          <Card key={question.id} className={answers[question.id] ? 'border-green-200' : ''}>
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle>{question.name}</CardTitle>
-                {answers[question.id] && (
-                  <CheckCircle2 className="h-5 w-5 text-green-500" />
-                )}
+                {answers[question.id] && <CheckCircle2 className="h-5 w-5 text-green-500" />}
               </div>
             </CardHeader>
             <CardContent>
@@ -255,25 +240,20 @@ export function StudentSurveyView({ surveyId }: { surveyId: string }) {
       ) : (
         <Card>
           <CardContent className="text-center py-8">
-            <p className="text-lg font-semibold text-gray-700">
-              Keine Fragen verfügbar
-            </p>
+            <p className="text-lg font-semibold text-gray-700">Keine Fragen verfügbar</p>
           </CardContent>
         </Card>
       )}
 
       <div className="flex justify-between items-center">
         <div className="text-sm text-gray-600">
-          {Object.keys(answers).length} von {questions.length} Fragen
-          beantwortet
+          {Object.keys(answers).length} von {questions.length} Fragen beantwortet
         </div>
         <Button
           onClick={handleSurveySubmit}
-          disabled={
-            isSubmitting || questions.length !== Object.keys(answers).length
-          }
+          disabled={isSubmitting || questions.length !== Object.keys(answers).length}
         >
-          {isSubmitting ? "Wird gespeichert..." : "Umfrage abschließen"}
+          {isSubmitting ? 'Wird gespeichert...' : 'Umfrage abschließen'}
         </Button>
       </div>
     </div>

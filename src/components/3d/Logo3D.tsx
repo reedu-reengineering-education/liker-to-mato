@@ -1,14 +1,9 @@
-"use client";
+'use client';
 
-import { Canvas, useFrame, extend } from "@react-three/fiber";
-import {
-  Center,
-  Float,
-  OrbitControls,
-  shaderMaterial,
-} from "@react-three/drei";
-import { useRef } from "react";
-import { Mesh, Group, ShaderMaterial } from "three";
+import { Canvas, useFrame, extend } from '@react-three/fiber';
+import { Center, Float, OrbitControls, shaderMaterial } from '@react-three/drei';
+import { useRef } from 'react';
+import { Mesh, Group, ShaderMaterial } from 'three';
 
 // Shader für den Farbverlauf
 const GradientMaterial = shaderMaterial(
@@ -47,7 +42,7 @@ const GradientMaterial = shaderMaterial(
       
       gl_FragColor = finalColor;
     }
-  `,
+  `
 );
 
 extend({ GradientMaterial });
@@ -83,11 +78,7 @@ function Bar({ position, height, delay = 0, isPrimary = true }: BarProps) {
     <mesh ref={barRef} position={position}>
       <boxGeometry args={[0.8, 1, 0.8]} />
       {/* @ts-ignore */}
-      <gradientMaterial
-        ref={materialRef}
-        transparent
-        isPrimary={isPrimary ? 1.0 : 0.0}
-      />
+      <gradientMaterial ref={materialRef} transparent isPrimary={isPrimary ? 1.0 : 0.0} />
     </mesh>
   );
 }
@@ -98,8 +89,7 @@ function BarChart() {
 
   useFrame((state) => {
     if (groupRef.current) {
-      groupRef.current.rotation.y =
-        Math.sin(state.clock.elapsedTime * 0.5) * 0.2;
+      groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.2;
     }
   });
 
@@ -135,18 +125,10 @@ function BarChart() {
 export default function Logo3D() {
   return (
     <div className="fixed inset-0 -z-10 opacity-25">
-      <Canvas
-        camera={{ position: [0, 6, 12], fov: 45 }}
-        style={{ background: "transparent" }}
-      >
+      <Canvas camera={{ position: [0, 6, 12], fov: 45 }} style={{ background: 'transparent' }}>
         <ambientLight intensity={0.4} />
         <pointLight position={[10, 10, 10]} intensity={0.8} />
-        <Float
-          speed={1}
-          rotationIntensity={0.2}
-          floatIntensity={0.2}
-          floatingRange={[-0.05, 0.05]}
-        >
+        <Float speed={1} rotationIntensity={0.2} floatIntensity={0.2} floatingRange={[-0.05, 0.05]}>
           <Center>
             <BarChart />
           </Center>

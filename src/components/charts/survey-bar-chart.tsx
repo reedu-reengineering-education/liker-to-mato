@@ -1,12 +1,6 @@
-"use client";
+'use client';
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Bar,
   BarChart,
@@ -16,7 +10,7 @@ import {
   Tooltip,
   Legend,
   CartesianGrid,
-} from "recharts";
+} from 'recharts';
 
 interface SurveyBarChartProps {
   data: {
@@ -28,15 +22,15 @@ interface SurveyBarChartProps {
 }
 
 export function SurveyBarChart({ data }: SurveyBarChartProps) {
-  console.log("Rendering SurveyBarChart with data:", data);
+  console.log('Rendering SurveyBarChart with data:', data);
 
   const chartData = data.map((item) => ({
     name: item.name,
-    "Durchschnittliche Bewertung": Number(item.averageValue),
-    "Anzahl Antworten": item.responseCount,
+    'Durchschnittliche Bewertung': Number(item.averageValue),
+    'Anzahl Antworten': item.responseCount,
   }));
 
-  console.log("Transformed chart data:", chartData);
+  console.log('Transformed chart data:', chartData);
 
   return (
     <Card className="w-full h-full">
@@ -77,11 +71,11 @@ export function SurveyBarChart({ data }: SurveyBarChartProps) {
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: "hsl(var(--background))",
-                border: "1px solid hsl(var(--border))",
-                borderRadius: "6px",
+                backgroundColor: 'hsl(var(--background))',
+                border: '1px solid hsl(var(--border))',
+                borderRadius: '6px',
               }}
-              labelStyle={{ color: "hsl(var(--foreground))" }}
+              labelStyle={{ color: 'hsl(var(--foreground))' }}
             />
             <Legend verticalAlign="top" height={36} />
             <Bar

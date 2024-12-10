@@ -1,26 +1,20 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useCallback } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Grid } from "@/components/ui/layout/Grid";
-import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
-import { PlusCircle, GripVertical, Trash2, Settings2 } from "lucide-react";
+import { useState, useEffect, useCallback } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Grid } from '@/components/ui/layout/Grid';
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
+import { PlusCircle, GripVertical, Trash2, Settings2 } from 'lucide-react';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 import {
   Dialog,
   DialogContent,
@@ -29,10 +23,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Switch } from "@/components/ui/switch";
-import { Question } from "@/types/templates";
-import { useToast } from "@/hooks/use-toast";
+} from '@/components/ui/dialog';
+import { Switch } from '@/components/ui/switch';
+import { Question } from '@/types/templates';
+import { useToast } from '@/hooks/use-toast';
 
 interface SurveyEditorProps {
   surveyId: string;
@@ -40,11 +34,7 @@ interface SurveyEditorProps {
   onSave?: (questions: Question[]) => void;
 }
 
-export function SurveyEditor({
-  surveyId,
-  initialQuestions = [],
-  onSave,
-}: SurveyEditorProps) {
+export function SurveyEditor({ surveyId, initialQuestions = [], onSave }: SurveyEditorProps) {
   const [questions, setQuestions] = useState<Question[]>(initialQuestions);
   const [editingQuestion, setEditingQuestion] = useState<Question | null>(null);
   const { toast } = useToast();
@@ -52,15 +42,15 @@ export function SurveyEditor({
   const loadQuestions = useCallback(async () => {
     try {
       const response = await fetch(`/api/surveys/${surveyId}/questions`);
-      if (!response.ok) throw new Error("Failed to load questions");
+      if (!response.ok) throw new Error('Failed to load questions');
       const data = await response.json();
       setQuestions(data);
     } catch (error) {
-      console.error("Error loading questions:", error);
+      console.error('Error loading questions:', error);
       toast({
-        title: "Fehler",
-        description: "Die Fragen konnten nicht geladen werden.",
-        variant: "destructive",
+        title: 'Fehler',
+        description: 'Die Fragen konnten nicht geladen werden.',
+        variant: 'destructive',
       });
     }
   }, [surveyId, toast]);
@@ -72,27 +62,27 @@ export function SurveyEditor({
   const saveQuestions = async (updatedQuestions: Question[]) => {
     try {
       const response = await fetch(`/api/surveys/${surveyId}/questions`, {
-        method: "PUT",
+        method: 'PUT',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(updatedQuestions),
       });
 
-      if (!response.ok) throw new Error("Failed to save questions");
+      if (!response.ok) throw new Error('Failed to save questions');
 
       toast({
-        title: "Erfolg",
-        description: "Die Änderungen wurden gespeichert.",
+        title: 'Erfolg',
+        description: 'Die Änderungen wurden gespeichert.',
       });
 
       onSave?.(updatedQuestions);
     } catch (error) {
-      console.error("Error saving questions:", error);
+      console.error('Error saving questions:', error);
       toast({
-        title: "Fehler",
-        description: "Die Änderungen konnten nicht gespeichert werden.",
-        variant: "destructive",
+        title: 'Fehler',
+        description: 'Die Änderungen konnten nicht gespeichert werden.',
+        variant: 'destructive',
       });
     }
   };
@@ -100,8 +90,8 @@ export function SurveyEditor({
   const addQuestion = () => {
     const newQuestion: Question = {
       id: Math.random().toString(36).substr(2, 9),
-      type: "likert",
-      text: "",
+      type: 'likert',
+      text: '',
       required: true,
       scale: 5,
     };
@@ -113,7 +103,7 @@ export function SurveyEditor({
 
   const updateQuestion = (updatedQuestion: Question) => {
     const updatedQuestions = questions.map((q) =>
-      q.id === updatedQuestion.id ? updatedQuestion : q,
+      q.id === updatedQuestion.id ? updatedQuestion : q
     );
     setQuestions(updatedQuestions);
     setEditingQuestion(null);
@@ -159,23 +149,15 @@ export function SurveyEditor({
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="questions">
           {(provided) => (
-            <div
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              className="space-y-4"
-            >
+            <div {...provided.droppableProps} ref={provided.innerRef} className="space-y-4">
               {questions.map((question, index) => (
-                <Draggable
-                  key={question.id}
-                  draggableId={question.id}
-                  index={index}
-                >
+                <Draggable key={question.id} draggableId={question.id} index={index}>
                   {(provided, snapshot) => (
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       className={`transition-all duration-200 ${
-                        snapshot.isDragging ? "scale-[1.02] shadow-lg" : ""
+                        snapshot.isDragging ? 'scale-[1.02] shadow-lg' : ''
                       }`}
                     >
                       <Card className="border-2 hover:border-primary/20">
@@ -192,7 +174,7 @@ export function SurveyEditor({
                                 Frage {index + 1}
                               </CardTitle>
                               <CardDescription className="mt-1 line-clamp-1">
-                                {question.text || "Keine Frage eingegeben"}
+                                {question.text || 'Keine Frage eingegeben'}
                               </CardDescription>
                             </div>
                           </div>
@@ -230,8 +212,7 @@ export function SurveyEditor({
                 <Card className="border-dashed">
                   <CardHeader className="flex flex-col items-center justify-center py-8">
                     <CardDescription>
-                      Noch keine Fragen vorhanden. Klicke auf "Neue Frage" um zu
-                      beginnen.
+                      Noch keine Fragen vorhanden. Klicke auf "Neue Frage" um zu beginnen.
                     </CardDescription>
                   </CardHeader>
                 </Card>
@@ -242,16 +223,11 @@ export function SurveyEditor({
       </DragDropContext>
 
       {editingQuestion && (
-        <Dialog
-          open={!!editingQuestion}
-          onOpenChange={() => setEditingQuestion(null)}
-        >
+        <Dialog open={!!editingQuestion} onOpenChange={() => setEditingQuestion(null)}>
           <DialogContent className="sm:max-w-[500px]">
             <DialogHeader>
               <DialogTitle>Frage bearbeiten</DialogTitle>
-              <DialogDescription>
-                Passe die Eigenschaften der Frage an
-              </DialogDescription>
+              <DialogDescription>Passe die Eigenschaften der Frage an</DialogDescription>
             </DialogHeader>
             <div className="space-y-6 py-4">
               <div className="space-y-2">
@@ -304,15 +280,10 @@ export function SurveyEditor({
               </div>
             </div>
             <DialogFooter>
-              <Button
-                variant="outline"
-                onClick={() => setEditingQuestion(null)}
-              >
+              <Button variant="outline" onClick={() => setEditingQuestion(null)}>
                 Abbrechen
               </Button>
-              <Button onClick={() => updateQuestion(editingQuestion)}>
-                Speichern
-              </Button>
+              <Button onClick={() => updateQuestion(editingQuestion)}>Speichern</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>

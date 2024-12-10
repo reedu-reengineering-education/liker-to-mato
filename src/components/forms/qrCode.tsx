@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import * as React from 'react';
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogTrigger,
@@ -11,11 +11,11 @@ import {
   DialogDescription,
   DialogFooter,
   DialogTitle,
-} from "@/components/ui/dialog";
-import QRCode from "qrcode.react";
-import { QrCode, Link as LinkIcon, Copy } from "lucide-react";
-import Link from "next/link";
-import { useToast } from "@/hooks/use-toast";
+} from '@/components/ui/dialog';
+import QRCode from 'qrcode.react';
+import { QrCode, Link as LinkIcon, Copy } from 'lucide-react';
+import Link from 'next/link';
+import { useToast } from '@/hooks/use-toast';
 
 type QrCodeDialogProps = {
   surveyId: string;
@@ -28,25 +28,22 @@ export function QrCodeDialog({ surveyId }: QrCodeDialogProps) {
 
   // Konstruiere die absolute URL für die Umfrage
   const baseUrl =
-    typeof window !== "undefined"
-      ? window.location.origin
-      : process.env.NEXT_PUBLIC_BASE_URL || "";
+    typeof window !== 'undefined' ? window.location.origin : process.env.NEXT_PUBLIC_BASE_URL || '';
   const surveyUrl = `${baseUrl}/student/survey/${surveyId}`;
 
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(surveyUrl);
       toast({
-        title: "Link kopiert",
-        description: "Der Umfrage-Link wurde in die Zwischenablage kopiert.",
+        title: 'Link kopiert',
+        description: 'Der Umfrage-Link wurde in die Zwischenablage kopiert.',
       });
     } catch (err) {
-      console.error("Fehler beim Kopieren in die Zwischenablage:", err);
+      console.error('Fehler beim Kopieren in die Zwischenablage:', err);
       toast({
-        title: "Fehler",
-        description:
-          "Der Link konnte nicht kopiert werden. Bitte versuchen Sie es erneut.",
-        variant: "destructive",
+        title: 'Fehler',
+        description: 'Der Link konnte nicht kopiert werden. Bitte versuchen Sie es erneut.',
+        variant: 'destructive',
       });
     }
   };
@@ -63,8 +60,7 @@ export function QrCodeDialog({ surveyId }: QrCodeDialogProps) {
         <DialogHeader>
           <DialogTitle>Umfrage-QR-Code</DialogTitle>
           <DialogDescription>
-            Scannen Sie den QR-Code oder nutzen Sie den Link, um an der Umfrage
-            teilzunehmen.
+            Scannen Sie den QR-Code oder nutzen Sie den Link, um an der Umfrage teilzunehmen.
           </DialogDescription>
         </DialogHeader>
 
@@ -74,9 +70,7 @@ export function QrCodeDialog({ surveyId }: QrCodeDialogProps) {
           </div>
 
           <div className="flex items-center gap-2 w-full">
-            <code className="flex-1 p-2 bg-muted rounded text-sm break-all">
-              {surveyUrl}
-            </code>
+            <code className="flex-1 p-2 bg-muted rounded text-sm break-all">{surveyUrl}</code>
             <Button variant="outline" size="icon" onClick={copyToClipboard}>
               <Copy className="h-4 w-4" />
             </Button>

@@ -1,4 +1,4 @@
-import { StudentSurveyView } from "@/components/forms/student-survey-view";
+import { StudentSurveyView } from '@/components/forms/student-survey-view';
 
 interface Props {
   params: {

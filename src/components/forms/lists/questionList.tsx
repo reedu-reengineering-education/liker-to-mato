@@ -1,29 +1,23 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect, useCallback } from "react";
-import { useRouter } from "next/navigation";
-import { Question } from "@prisma/client";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useToast } from "@/hooks/use-toast";
+import React, { useState, useEffect, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
+import { Question } from '@prisma/client';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useToast } from '@/hooks/use-toast';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { ArrowLeft, Trash, Edit, Code, MoreVertical } from "lucide-react";
-import { surveyQuestions } from "@/lib/api/surveyClient";
-import { deleteQuestion } from "@/lib/api/questionClient";
-import CreateQuestionDialog from "../create-question-form";
-import EditQuestionDialog from "@/components/buttons/edit-question-button";
+} from '@/components/ui/dropdown-menu';
+import { ArrowLeft, Trash, Edit, Code, MoreVertical } from 'lucide-react';
+import { surveyQuestions } from '@/lib/api/surveyClient';
+import { deleteQuestion } from '@/lib/api/questionClient';
+import CreateQuestionDialog from '../create-question-form';
+import EditQuestionDialog from '@/components/buttons/edit-question-button';
 
 export function ListQuestions({ surveyId }: { surveyId: string }) {
   const router = useRouter();
@@ -37,11 +31,11 @@ export function ListQuestions({ surveyId }: { surveyId: string }) {
       const fetchedQuestions = await surveyQuestions(surveyId);
       setQuestions(fetchedQuestions);
     } catch (error) {
-      console.error("Error fetching questions:", error);
+      console.error('Error fetching questions:', error);
       toast({
-        title: "Error",
-        description: "Failed to load questions. Please try again.",
-        variant: "destructive",
+        title: 'Error',
+        description: 'Failed to load questions. Please try again.',
+        variant: 'destructive',
       });
     } finally {
       setIsLoading(false);
@@ -56,18 +50,18 @@ export function ListQuestions({ surveyId }: { surveyId: string }) {
     try {
       await deleteQuestion(questionId);
       setQuestions((prevQuestions) =>
-        prevQuestions.filter((question) => question.id !== questionId),
+        prevQuestions.filter((question) => question.id !== questionId)
       );
       toast({
-        title: "Question deleted",
-        description: "The question has been successfully deleted.",
+        title: 'Question deleted',
+        description: 'The question has been successfully deleted.',
       });
     } catch (error) {
-      console.error("Error when deleting the question:", error);
+      console.error('Error when deleting the question:', error);
       toast({
-        title: "Error",
-        description: "Failed to delete the question. Please try again.",
-        variant: "destructive",
+        title: 'Error',
+        description: 'Failed to delete the question. Please try again.',
+        variant: 'destructive',
       });
     }
   };
@@ -99,10 +93,7 @@ export function ListQuestions({ surveyId }: { surveyId: string }) {
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center">
-        <CreateQuestionDialog
-          surveyId={surveyId}
-          handleQuestionCreated={onQuestionCreated}
-        />
+        <CreateQuestionDialog surveyId={surveyId} handleQuestionCreated={onQuestionCreated} />
         <Button variant="outline" onClick={() => router.back()}>
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back
@@ -115,9 +106,7 @@ export function ListQuestions({ surveyId }: { surveyId: string }) {
             <CardTitle>{question.name}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground">
-              {question.description}
-            </p>
+            <p className="text-sm text-muted-foreground">{question.description}</p>
             <div className="mt-2 grid grid-cols-3 gap-2 text-sm">
               <div>Min: {question.min}</div>
               <div>Max: {question.max}</div>
@@ -137,7 +126,7 @@ export function ListQuestions({ surveyId }: { surveyId: string }) {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => console.log("Embed clicked")}>
+                <DropdownMenuItem onClick={() => console.log('Embed clicked')}>
                   <Code className="mr-2 h-4 w-4" />
                   Embed
                 </DropdownMenuItem>

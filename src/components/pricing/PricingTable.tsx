@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { CheckCircle, XCircle } from "lucide-react";
-import { motion } from "framer-motion";
+import { Button } from '@/components/ui/button';
+import { CheckCircle, XCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface PricingFeature {
   name: string;
@@ -13,43 +13,43 @@ interface PricingFeature {
 
 const features: PricingFeature[] = [
   {
-    name: "Unbegrenzte Umfragen",
+    name: 'Unbegrenzte Umfragen',
     basic: true,
     pro: true,
     enterprise: true,
   },
   {
-    name: "Basis-Analytik",
+    name: 'Basis-Analytik',
     basic: true,
     pro: true,
     enterprise: true,
   },
   {
-    name: "Erweiterte Analytik",
+    name: 'Erweiterte Analytik',
     basic: false,
     pro: true,
     enterprise: true,
   },
   {
-    name: "Benutzerdefinierte Themes",
+    name: 'Benutzerdefinierte Themes',
     basic: false,
     pro: true,
     enterprise: true,
   },
   {
-    name: "Export als PDF/Excel",
+    name: 'Export als PDF/Excel',
     basic: false,
     pro: true,
     enterprise: true,
   },
   {
-    name: "Prioritäts-Support",
+    name: 'Prioritäts-Support',
     basic: false,
     pro: false,
     enterprise: true,
   },
   {
-    name: "Individuelle Anpassungen",
+    name: 'Individuelle Anpassungen',
     basic: false,
     pro: false,
     enterprise: true,
@@ -57,7 +57,7 @@ const features: PricingFeature[] = [
 ];
 
 interface PricingTableProps {
-  currentPlan?: "basic" | "pro" | "enterprise";
+  currentPlan?: 'basic' | 'pro' | 'enterprise';
   onUpgrade?: (plan: string) => void;
 }
 
@@ -91,9 +91,7 @@ export function PricingTable({ currentPlan, onUpgrade }: PricingTableProps) {
         <motion.div
           variants={itemAnimation}
           className={`rounded-lg p-6 ${
-            currentPlan === "basic"
-              ? "border-2 border-primary"
-              : "border border-border"
+            currentPlan === 'basic' ? 'border-2 border-primary' : 'border border-border'
           }`}
         >
           <h3 className="text-2xl font-bold">Basic</h3>
@@ -104,11 +102,11 @@ export function PricingTable({ currentPlan, onUpgrade }: PricingTableProps) {
           </div>
           <Button
             className="w-full mt-6"
-            variant={currentPlan === "basic" ? "outline" : "default"}
-            disabled={currentPlan === "basic"}
-            onClick={() => onUpgrade?.("basic")}
+            variant={currentPlan === 'basic' ? 'outline' : 'default'}
+            disabled={currentPlan === 'basic'}
+            onClick={() => onUpgrade?.('basic')}
           >
-            {currentPlan === "basic" ? "Aktueller Plan" : "Auswählen"}
+            {currentPlan === 'basic' ? 'Aktueller Plan' : 'Auswählen'}
           </Button>
           <ul className="mt-6 space-y-4">
             {features.map((feature) => (
@@ -118,11 +116,7 @@ export function PricingTable({ currentPlan, onUpgrade }: PricingTableProps) {
                 ) : (
                   <XCircle className="w-4 h-4 text-muted-foreground" />
                 )}
-                <span
-                  className={
-                    !feature.basic ? "text-muted-foreground" : undefined
-                  }
-                >
+                <span className={!feature.basic ? 'text-muted-foreground' : undefined}>
                   {feature.name}
                 </span>
               </li>
@@ -134,26 +128,22 @@ export function PricingTable({ currentPlan, onUpgrade }: PricingTableProps) {
         <motion.div
           variants={itemAnimation}
           className={`rounded-lg p-6 ${
-            currentPlan === "pro"
-              ? "border-2 border-primary"
-              : "border border-border"
+            currentPlan === 'pro' ? 'border-2 border-primary' : 'border border-border'
           }`}
         >
           <h3 className="text-2xl font-bold">Pro</h3>
-          <p className="text-muted-foreground mt-2">
-            Für professionelle Nutzer
-          </p>
+          <p className="text-muted-foreground mt-2">Für professionelle Nutzer</p>
           <div className="mt-4">
             <span className="text-3xl font-bold">€29</span>
             <span className="text-muted-foreground">/Monat</span>
           </div>
           <Button
             className="w-full mt-6"
-            variant={currentPlan === "pro" ? "outline" : "default"}
-            disabled={currentPlan === "pro"}
-            onClick={() => onUpgrade?.("pro")}
+            variant={currentPlan === 'pro' ? 'outline' : 'default'}
+            disabled={currentPlan === 'pro'}
+            onClick={() => onUpgrade?.('pro')}
           >
-            {currentPlan === "pro" ? "Aktueller Plan" : "Auswählen"}
+            {currentPlan === 'pro' ? 'Aktueller Plan' : 'Auswählen'}
           </Button>
           <ul className="mt-6 space-y-4">
             {features.map((feature) => (
@@ -163,9 +153,7 @@ export function PricingTable({ currentPlan, onUpgrade }: PricingTableProps) {
                 ) : (
                   <XCircle className="w-4 h-4 text-muted-foreground" />
                 )}
-                <span
-                  className={!feature.pro ? "text-muted-foreground" : undefined}
-                >
+                <span className={!feature.pro ? 'text-muted-foreground' : undefined}>
                   {feature.name}
                 </span>
               </li>
@@ -177,9 +165,7 @@ export function PricingTable({ currentPlan, onUpgrade }: PricingTableProps) {
         <motion.div
           variants={itemAnimation}
           className={`rounded-lg p-6 ${
-            currentPlan === "enterprise"
-              ? "border-2 border-primary"
-              : "border border-border"
+            currentPlan === 'enterprise' ? 'border-2 border-primary' : 'border border-border'
           }`}
         >
           <h3 className="text-2xl font-bold">Enterprise</h3>
@@ -190,11 +176,11 @@ export function PricingTable({ currentPlan, onUpgrade }: PricingTableProps) {
           </div>
           <Button
             className="w-full mt-6"
-            variant={currentPlan === "enterprise" ? "outline" : "default"}
-            disabled={currentPlan === "enterprise"}
-            onClick={() => onUpgrade?.("enterprise")}
+            variant={currentPlan === 'enterprise' ? 'outline' : 'default'}
+            disabled={currentPlan === 'enterprise'}
+            onClick={() => onUpgrade?.('enterprise')}
           >
-            {currentPlan === "enterprise" ? "Aktueller Plan" : "Auswählen"}
+            {currentPlan === 'enterprise' ? 'Aktueller Plan' : 'Auswählen'}
           </Button>
           <ul className="mt-6 space-y-4">
             {features.map((feature) => (
@@ -204,11 +190,7 @@ export function PricingTable({ currentPlan, onUpgrade }: PricingTableProps) {
                 ) : (
                   <XCircle className="w-4 h-4 text-muted-foreground" />
                 )}
-                <span
-                  className={
-                    !feature.enterprise ? "text-muted-foreground" : undefined
-                  }
-                >
+                <span className={!feature.enterprise ? 'text-muted-foreground' : undefined}>
                   {feature.name}
                 </span>
               </li>

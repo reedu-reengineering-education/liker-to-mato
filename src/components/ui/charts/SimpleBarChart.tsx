@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Bar,
@@ -8,7 +8,7 @@ import {
   XAxis,
   Tooltip,
   ResponsiveContainer,
-} from "recharts";
+} from 'recharts';
 
 interface SimpleBarChartProps {
   data: Array<{ type: string; count: number }>;

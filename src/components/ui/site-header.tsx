@@ -1,5 +1,5 @@
-"use client";
-import Link from "next/link";
+'use client';
+import Link from 'next/link';
 import {
   Ghost,
   UserCircle,
@@ -8,10 +8,10 @@ import {
   FileText,
   Shield,
   CreditCard,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { MainNav } from "./navigation";
-import { useSession, signIn, signOut } from "next-auth/react";
+} from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { MainNav } from './navigation';
+import { useSession, signIn, signOut } from 'next-auth/react';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -28,62 +28,62 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuRadioGroup,
-} from "@/components/ui/dropdown-menu";
-import React from "react";
+} from '@/components/ui/dropdown-menu';
+import React from 'react';
 
 export function SiteHeader() {
   const { data: session } = useSession();
-  const [position, setPosition] = React.useState("top");
+  const [position, setPosition] = React.useState('top');
 
   function cn(...classes: string[]): string {
-    return classes.filter(Boolean).join(" ");
+    return classes.filter(Boolean).join(' ');
   }
   return (
     <header
       className={cn(
-        "relative bg-white dark:bg-gray-900",
-        "top-0 z-40 w-full border-b-2 border-indigo-500 dark:border-indigo-400",
-        "shadow-sm",
+        'relative bg-white dark:bg-gray-900',
+        'top-0 z-40 w-full border-b-2 border-indigo-500 dark:border-indigo-400',
+        'shadow-sm'
       )}
     >
       <div className="container flex h-16 w-auto items-center space-x-4 sm:justify-between sm:space-x-0">
         <MainNav
           items={[
             {
-              title: "Studio",
-              href: "/studio",
+              title: 'Studio',
+              href: '/studio',
             },
             {
-              title: "About",
-              href: "/about",
+              title: 'About',
+              href: '/about',
             },
             {
-              title: "FAQ",
-              href: "/faq",
+              title: 'FAQ',
+              href: '/faq',
             },
             {
-              title: "Contact",
-              href: "/contact",
+              title: 'Contact',
+              href: '/contact',
             },
             {
-              title: "Dashboard",
-              href: "/dashboard",
+              title: 'Dashboard',
+              href: '/dashboard',
             },
             {
-              title: "Account",
-              href: "/account",
+              title: 'Account',
+              href: '/account',
             },
             {
-              title: "Pläne",
-              href: "/account/plans",
+              title: 'Pläne',
+              href: '/account/plans',
             },
             {
-              title: "Impressum",
-              href: "/imprint",
+              title: 'Impressum',
+              href: '/imprint',
             },
             {
-              title: "Datenschutz",
-              href: "/privacy",
+              title: 'Datenschutz',
+              href: '/privacy',
             },
           ]}
         />

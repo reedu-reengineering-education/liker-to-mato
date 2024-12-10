@@ -61,21 +61,15 @@
 // }
 
 // export default CreateAnswerDialog;
-"use client";
+'use client';
 
-import React, { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Slider } from "@/components/ui/slider";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { useToast } from "@/hooks/use-toast";
-import { createAnswer } from "@/lib/api/answerClient";
-import { Answer } from "@prisma/client";
+import React, { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import { Slider } from '@/components/ui/slider';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { useToast } from '@/hooks/use-toast';
+import { createAnswer } from '@/lib/api/answerClient';
+import { Answer } from '@prisma/client';
 
 interface CreateAnswerDialogProps {
   questionId: string;
@@ -96,9 +90,7 @@ export function CreateAnswerDialog({
   onAnswerSubmit,
   initialValue,
 }: CreateAnswerDialogProps) {
-  const [value, setValue] = useState<number>(
-    initialValue || Math.floor(steps / 2),
-  );
+  const [value, setValue] = useState<number>(initialValue || Math.floor(steps / 2));
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const { toast } = useToast();
 
@@ -118,15 +110,15 @@ export function CreateAnswerDialog({
       }
 
       toast({
-        title: "Erfolg",
-        description: "Ihre Antwort wurde gespeichert.",
+        title: 'Erfolg',
+        description: 'Ihre Antwort wurde gespeichert.',
       });
     } catch (error) {
-      console.error("Error when creating the answer:", error);
+      console.error('Error when creating the answer:', error);
       toast({
-        title: "Fehler",
-        description: "Beim Speichern Ihrer Antwort ist ein Fehler aufgetreten.",
-        variant: "destructive",
+        title: 'Fehler',
+        description: 'Beim Speichern Ihrer Antwort ist ein Fehler aufgetreten.',
+        variant: 'destructive',
       });
     } finally {
       setIsSubmitting(false);
@@ -152,16 +144,10 @@ export function CreateAnswerDialog({
         className="my-4"
       />
 
-      <div className="text-center text-sm text-gray-600">
-        Ausgewählter Wert: {value}
-      </div>
+      <div className="text-center text-sm text-gray-600">Ausgewählter Wert: {value}</div>
 
-      <Button
-        className="w-full"
-        disabled={isSubmitting}
-        onClick={onSubmitCreate}
-      >
-        {isSubmitting ? "Wird gespeichert..." : "Antwort speichern"}
+      <Button className="w-full" disabled={isSubmitting} onClick={onSubmitCreate}>
+        {isSubmitting ? 'Wird gespeichert...' : 'Antwort speichern'}
       </Button>
     </div>
   );

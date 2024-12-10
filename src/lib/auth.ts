@@ -1,26 +1,38 @@
-import { NextAuthOptions } from "next-auth";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { prisma } from "./prisma";
-import GoogleProvider from "next-auth/providers/google";
-import { UserRole } from "./auth/roles";
+import { NextAuthOptions } from 'next-auth';
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import { prisma } from './prisma';
+import GoogleProvider from 'next-auth/providers/google';
+import EmailProvider from 'next-auth/providers/email';
+import { UserRole } from './auth/roles';
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   session: {
-    strategy: "jwt",
-    maxAge: 30 * 24 * 60 * 60, // 30 Tage
-    updateAge: 24 * 60 * 60, // 24 Stunden
+    strategy: 'jwt',
+    maxAge: 24 * 60 * 60, // 24 Stunden
+    updateAge: 60 * 60, // 1 Stunde
   },
   providers: [
+    EmailProvider({
+      server: {
+        host: process.env.EMAIL_SERVER_HOST,
+        port: Number(process.env.EMAIL_SERVER_PORT),
+        auth: {
+          user: process.env.EMAIL_SERVER_USER,
+          pass: process.env.EMAIL_SERVER_PASSWORD,
+        },
+      },
+      from: process.env.EMAIL_FROM || 'noreply@likert-o-mat.com',
+    }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
   pages: {
-    signIn: "/auth/signin",
-    error: "/auth/error",
-    verifyRequest: "/auth/verify-request",
+    signIn: '/auth/signin',
+    error: '/auth/error',
+    verifyRequest: '/auth/verify-request',
   },
   callbacks: {
     async session({ session, token }) {
@@ -39,6 +51,8 @@ export const authOptions: NextAuthOptions = {
       }
 
       if (user) {
+        token.id = user.id;
+        // Überprüfe, ob Benutzer bereits in der Datenbank existiert
         const dbUser = await prisma.user.findUnique({
           where: { email: user.email! },
         });
@@ -50,7 +64,7 @@ export const authOptions: NextAuthOptions = {
               email: user.email!,
               name: user.name,
               image: user.image,
-              role: UserRole.USER,
+              role: UserRole.RESEARCHER,
             },
           });
           token.id = newUser.id;

@@ -1,21 +1,15 @@
-"use client";
+'use client';
 
-import { Container } from "@/components/ui/layout/Container";
-import { Grid } from "@/components/ui/layout/Grid";
-import { CreateSurveyDialog } from "@/components/forms/create-survey-form";
-import { ListSurvey } from "@/components/forms/lists/surveyList";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-  CardDescription,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Plus, BarChart2, FileText, Settings } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { TemplateList } from "@/components/templates/TemplateList";
-import { SurveyAnalytics } from "@/components/analytics/SurveyAnalytics";
+import { Container } from '@/components/ui/layout/Container';
+import { Grid } from '@/components/ui/layout/Grid';
+import { CreateSurveyDialog } from '@/components/forms/create-survey-form';
+import { ListSurvey } from '@/components/forms/lists/surveyList';
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Plus, BarChart2, FileText, Settings } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { TemplateList } from '@/components/templates/TemplateList';
+import { SurveyAnalytics } from '@/components/analytics/SurveyAnalytics';
 
 export default function Studio() {
   return (
@@ -24,9 +18,7 @@ export default function Studio() {
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-3xl font-bold tracking-tight">Studio</h1>
-            <p className="text-muted-foreground mt-2">
-              Erstelle und verwalte deine Umfragen
-            </p>
+            <p className="text-muted-foreground mt-2">Erstelle und verwalte deine Umfragen</p>
           </div>
           <CreateSurveyDialog />
         </div>
@@ -44,8 +36,7 @@ export default function Studio() {
                 <CardHeader>
                   <CardTitle>Aktive Umfragen</CardTitle>
                   <CardDescription>
-                    Verwalte deine laufenden Umfragen und siehe dir die
-                    Ergebnisse an
+                    Verwalte deine laufenden Umfragen und siehe dir die Ergebnisse an
                   </CardDescription>
                 </CardHeader>
                 <CardContent>

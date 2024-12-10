@@ -1,13 +1,13 @@
 // path: src/app/studio/%5BsurveyId%5D/page.tsx
-"use client";
+'use client';
 
-import React from "react";
-import { SurveyEditor } from "@/components/forms/edit/SurveyEditor";
-import { SurveyAnalytics } from "@/components/analytics/SurveyAnalytics";
-import { EditSurveyName } from "@/components/buttons/edit-survey-option";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Container } from "@/components/ui/layout/Container";
+import React from 'react';
+import { SurveyEditor } from '@/components/forms/edit/SurveyEditor';
+import { SurveyAnalytics } from '@/components/analytics/SurveyAnalytics';
+import { EditSurveyName } from '@/components/buttons/edit-survey-option';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Container } from '@/components/ui/layout/Container';
 
 export default function Studio({ params }: { params: { surveyId: string } }) {
   return (
@@ -39,9 +39,7 @@ export default function Studio({ params }: { params: { surveyId: string } }) {
           <TabsContent value="settings" className="mt-0">
             <Card>
               <CardContent className="pt-6">
-                <p className="text-muted-foreground">
-                  Einstellungen werden bald verfügbar sein...
-                </p>
+                <p className="text-muted-foreground">Einstellungen werden bald verfügbar sein...</p>
               </CardContent>
             </Card>
           </TabsContent>

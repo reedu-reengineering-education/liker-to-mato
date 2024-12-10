@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 export async function createQuestion(
   name: string,
@@ -8,9 +8,9 @@ export async function createQuestion(
   max: string,
   surveyId: string,
   scaleType?: string,
-  scaleOptions?: string[],
+  scaleOptions?: string[]
 ) {
-  const apiUrl = "/api/question";
+  const apiUrl = '/api/question';
   try {
     const response = await axios.post(apiUrl, {
       name,
@@ -24,7 +24,7 @@ export async function createQuestion(
     });
     return response.data;
   } catch (error) {
-    console.error("Error when creating the question:", error);
+    console.error('Error when creating the question:', error);
     throw error;
   }
 }
@@ -35,7 +35,7 @@ export async function readQuestion(questionId: string) {
     const response = await axios.get(apiUrl);
     return response.data;
   } catch (error) {
-    console.error("Error when requesting the question:", error);
+    console.error('Error when requesting the question:', error);
     throw error;
   }
 }
@@ -49,7 +49,7 @@ export async function updateQuestion(
   max: string,
   surveyId: string,
   scaleType?: string,
-  scaleOptions?: string[],
+  scaleOptions?: string[]
 ) {
   const apiUrl = `/api/question/${questionId}`;
   try {
@@ -65,7 +65,7 @@ export async function updateQuestion(
     });
     return response.data;
   } catch (error) {
-    console.error("Error when updating the question:", error);
+    console.error('Error when updating the question:', error);
     throw error;
   }
 }
@@ -76,7 +76,7 @@ export async function deleteQuestion(questionId: string) {
     const response = await axios.delete(apiUrl);
     return response.data;
   } catch (error) {
-    console.error("Error when deleting the question:", error);
+    console.error('Error when deleting the question:', error);
     throw error;
   }
 }

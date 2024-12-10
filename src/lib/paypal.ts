@@ -1,4 +1,4 @@
-import checkoutNodeJssdk from "@paypal/checkout-server-sdk";
+import checkoutNodeJssdk from '@paypal/checkout-server-sdk';
 
 // Diese Funktion erstellt einen PayPal-Client basierend auf dem Environment
 function environment() {
@@ -6,12 +6,10 @@ function environment() {
   const clientSecret = process.env.PAYPAL_CLIENT_SECRET;
 
   if (!clientId || !clientSecret) {
-    throw new Error(
-      "PAYPAL_CLIENT_ID and PAYPAL_CLIENT_SECRET must be defined",
-    );
+    throw new Error('PAYPAL_CLIENT_ID and PAYPAL_CLIENT_SECRET must be defined');
   }
 
-  return process.env.PAYPAL_MODE === "live"
+  return process.env.PAYPAL_MODE === 'live'
     ? new checkoutNodeJssdk.core.LiveEnvironment(clientId, clientSecret)
     : new checkoutNodeJssdk.core.SandboxEnvironment(clientId, clientSecret);
 }
@@ -29,13 +27,13 @@ export function formatPrice(amount: number): string {
 // Erstellt eine neue Bestellung
 export async function createOrder(amount: number) {
   const request = new checkoutNodeJssdk.orders.OrdersCreateRequest();
-  request.prefer("return=representation");
+  request.prefer('return=representation');
   request.requestBody({
-    intent: "CAPTURE",
+    intent: 'CAPTURE',
     purchase_units: [
       {
         amount: {
-          currency_code: "EUR",
+          currency_code: 'EUR',
           value: formatPrice(amount),
         },
       },

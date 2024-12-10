@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
+import React, { useEffect, useState } from 'react';
+import { Button } from '@/components/ui/button';
 import {
   Drawer,
   DrawerClose,
@@ -10,7 +10,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
   DrawerDescription,
-} from "@/components/ui/drawer";
+} from '@/components/ui/drawer';
 import {
   Carousel,
   CarouselContent,
@@ -18,21 +18,19 @@ import {
   CarouselNext,
   CarouselPrevious,
   type CarouselApi,
-} from "@/components/ui/carousel";
-import { BarChart, ChevronLeft, ChevronRight } from "lucide-react";
-import CustomBarChart from "@/components/ui/barchart";
-import { surveyQuestions } from "@/lib/api/surveyClient";
-import { Question } from "@prisma/client";
-import { useToast } from "@/hooks/use-toast";
-import { Progress } from "@/components/ui/progress";
+} from '@/components/ui/carousel';
+import { BarChart, ChevronLeft, ChevronRight } from 'lucide-react';
+import CustomBarChart from '@/components/ui/barchart';
+import { surveyQuestions } from '@/lib/api/surveyClient';
+import { Question } from '@prisma/client';
+import { useToast } from '@/hooks/use-toast';
+import { Progress } from '@/components/ui/progress';
 
 interface SurveyChartsDrawerProps {
   surveyId: string;
 }
 
-export default function SurveyChartsDrawer({
-  surveyId,
-}: SurveyChartsDrawerProps) {
+export default function SurveyChartsDrawer({ surveyId }: SurveyChartsDrawerProps) {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -46,12 +44,11 @@ export default function SurveyChartsDrawer({
         const fetchedQuestions = await surveyQuestions(surveyId);
         setQuestions(fetchedQuestions);
       } catch (error) {
-        console.error("Fehler beim Laden der Fragen:", error);
+        console.error('Fehler beim Laden der Fragen:', error);
         toast({
-          title: "Fehler",
-          description:
-            "Die Fragen konnten nicht geladen werden. Bitte versuchen Sie es erneut.",
-          variant: "destructive",
+          title: 'Fehler',
+          description: 'Die Fragen konnten nicht geladen werden. Bitte versuchen Sie es erneut.',
+          variant: 'destructive',
         });
       } finally {
         setIsLoading(false);
@@ -66,18 +63,14 @@ export default function SurveyChartsDrawer({
       return;
     }
 
-    api.on("select", () => {
+    api.on('select', () => {
       setCurrentSlide(api.selectedScrollSnap());
     });
   }, [api]);
 
   const renderChartCarousel = () => (
     <div className="relative">
-      <Carousel
-        opts={{ align: "start" }}
-        className="w-full max-w-6xl mx-auto"
-        setApi={setApi}
-      >
+      <Carousel opts={{ align: 'start' }} className="w-full max-w-6xl mx-auto" setApi={setApi}>
         <CarouselContent>
           {questions.map((question) => (
             <CarouselItem key={question.id} className="pt-6">
@@ -109,14 +102,9 @@ export default function SurveyChartsDrawer({
           <span>
             Frage {currentSlide + 1} von {questions.length}
           </span>
-          <span>
-            {Math.round(((currentSlide + 1) / questions.length) * 100)}%
-          </span>
+          <span>{Math.round(((currentSlide + 1) / questions.length) * 100)}%</span>
         </div>
-        <Progress
-          value={((currentSlide + 1) / questions.length) * 100}
-          className="h-1"
-        />
+        <Progress value={((currentSlide + 1) / questions.length) * 100} className="h-1" />
       </div>
     </div>
   );
@@ -134,8 +122,7 @@ export default function SurveyChartsDrawer({
           <DrawerHeader>
             <DrawerTitle>Umfrage-Auswertung</DrawerTitle>
             <DrawerDescription>
-              Visualisierung der Umfrageantworten mit verschiedenen
-              Diagrammtypen
+              Visualisierung der Umfrageantworten mit verschiedenen Diagrammtypen
             </DrawerDescription>
           </DrawerHeader>
 

@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useCallback } from "react";
-import { useRouter } from "next/navigation";
-import { Question } from "@prisma/client";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
+import { useState, useEffect, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
+import { Question } from '@prisma/client';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 import {
   Card,
   CardHeader,
@@ -13,21 +13,17 @@ import {
   CardContent,
   CardDescription,
   CardFooter,
-} from "@/components/ui/card";
-import { Search, ArrowLeft, Edit, Trash } from "lucide-react";
-import { surveyQuestions } from "@/lib/api/surveyClient";
-import { deleteQuestion } from "@/lib/api/questionClient";
-import CreateQuestionDialog from "@/components/forms/create-question-form";
-import EditQuestionDialog from "@/components/buttons/edit-question-button";
+} from '@/components/ui/card';
+import { Search, ArrowLeft, Edit, Trash } from 'lucide-react';
+import { surveyQuestions } from '@/lib/api/surveyClient';
+import { deleteQuestion } from '@/lib/api/questionClient';
+import CreateQuestionDialog from '@/components/forms/create-question-form';
+import EditQuestionDialog from '@/components/buttons/edit-question-button';
 
-export default function SurveyQuestionsDashboard({
-  surveyId,
-}: {
-  surveyId: string;
-}) {
+export default function SurveyQuestionsDashboard({ surveyId }: { surveyId: string }) {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [filteredQuestions, setFilteredQuestions] = useState<Question[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const router = useRouter();
   const { toast } = useToast();
 
@@ -35,17 +31,17 @@ export default function SurveyQuestionsDashboard({
     try {
       const response = await fetch(`/api/question/survey/${surveyId}`);
       if (!response.ok) {
-        throw new Error("Failed to fetch questions");
+        throw new Error('Failed to fetch questions');
       }
       const data = await response.json();
       setQuestions(data);
       setFilteredQuestions(data);
     } catch (error) {
-      console.error("Error loading questions:", error);
+      console.error('Error loading questions:', error);
       toast({
-        title: "Error",
-        description: "Failed to load questions. Please try again.",
-        variant: "destructive",
+        title: 'Error',
+        description: 'Failed to load questions. Please try again.',
+        variant: 'destructive',
       });
     }
   }, [surveyId, toast]);
@@ -58,7 +54,7 @@ export default function SurveyQuestionsDashboard({
     const filtered = questions.filter(
       (question) =>
         question.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        question.description.toLowerCase().includes(searchTerm.toLowerCase()),
+        question.description.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredQuestions(filtered);
   }, [searchTerm, questions]);
@@ -68,15 +64,15 @@ export default function SurveyQuestionsDashboard({
       await deleteQuestion(questionId);
       setQuestions(questions.filter((question) => question.id !== questionId));
       toast({
-        title: "Question deleted",
-        description: "The question has been successfully deleted.",
+        title: 'Question deleted',
+        description: 'The question has been successfully deleted.',
       });
     } catch (error) {
-      console.error("Error when deleting the question:", error);
+      console.error('Error when deleting the question:', error);
       toast({
-        title: "Error",
-        description: "Failed to delete the question. Please try again.",
-        variant: "destructive",
+        title: 'Error',
+        description: 'Failed to delete the question. Please try again.',
+        variant: 'destructive',
       });
     }
   };
@@ -96,10 +92,7 @@ export default function SurveyQuestionsDashboard({
             />
           </div>
           <div className="flex space-x-2">
-            <CreateQuestionDialog
-              surveyId={surveyId}
-              handleQuestionCreated={loadQuestions}
-            />
+            <CreateQuestionDialog surveyId={surveyId} handleQuestionCreated={loadQuestions} />
             <Button variant="outline" onClick={() => router.back()}>
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back
@@ -114,9 +107,7 @@ export default function SurveyQuestionsDashboard({
               className="bg-gradient-to-r from-blue-100 to-blue-200 hover:scale-[1.02] transition-transform duration-300 shadow-lg shadow-blue-300/50 rounded-lg group relative"
             >
               <CardHeader>
-                <CardTitle className="text-xl font-bold">
-                  {question.name}
-                </CardTitle>
+                <CardTitle className="text-xl font-bold">{question.name}</CardTitle>
                 <CardDescription>Question title</CardDescription>
               </CardHeader>
               <CardContent>
@@ -147,11 +138,7 @@ export default function SurveyQuestionsDashboard({
                 {/* <Button variant="secondary" size="icon">
                   <Edit className="h-4 w-4" />
                 </Button> */}
-                <Button
-                  variant="destructive"
-                  size="icon"
-                  onClick={() => handleDelete(question.id)}
-                >
+                <Button variant="destructive" size="icon" onClick={() => handleDelete(question.id)}>
                   <Trash className="h-4 w-4" />
                 </Button>
               </div>

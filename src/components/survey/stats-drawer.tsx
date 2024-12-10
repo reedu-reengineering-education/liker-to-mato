@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import {
   Drawer,
   DrawerContent,
   DrawerDescription,
   DrawerHeader,
   DrawerTitle,
-} from "@/components/ui/drawer";
-import { SurveyBarChart } from "@/components/charts/survey-bar-chart";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useToast } from "@/hooks/use-toast";
+} from '@/components/ui/drawer';
+import { SurveyBarChart } from '@/components/charts/survey-bar-chart';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useToast } from '@/hooks/use-toast';
 
 interface StatsDrawerProps {
   surveyId: string;
@@ -26,11 +26,7 @@ interface QuestionStats {
   responseCount: number;
 }
 
-export function StatsDrawer({
-  surveyId,
-  isOpen,
-  onOpenChange,
-}: StatsDrawerProps) {
+export function StatsDrawer({ surveyId, isOpen, onOpenChange }: StatsDrawerProps) {
   const [stats, setStats] = useState<QuestionStats[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
@@ -44,9 +40,9 @@ export function StatsDrawer({
 
       setIsLoading(true);
       try {
-        console.log("Fetching stats for survey:", surveyId);
+        console.log('Fetching stats for survey:', surveyId);
         const response = await axios.get(`/api/survey/${surveyId}/stats`);
-        console.log("Response data:", response.data);
+        console.log('Response data:', response.data);
 
         if (response.data && Array.isArray(response.data)) {
           const formattedStats = response.data.map((stat) => ({
@@ -54,17 +50,17 @@ export function StatsDrawer({
             averageValue: Number(stat.averageValue.toFixed(2)),
             responseCount: Number(stat.responseCount),
           }));
-          console.log("Formatted stats:", formattedStats);
+          console.log('Formatted stats:', formattedStats);
           setStats(formattedStats);
         } else {
-          throw new Error("Ungültiges Datenformat");
+          throw new Error('Ungültiges Datenformat');
         }
       } catch (error) {
-        console.error("Error fetching survey stats:", error);
+        console.error('Error fetching survey stats:', error);
         toast({
-          title: "Fehler",
-          description: "Die Statistiken konnten nicht geladen werden.",
-          variant: "destructive",
+          title: 'Fehler',
+          description: 'Die Statistiken konnten nicht geladen werden.',
+          variant: 'destructive',
         });
         setStats([]);
       } finally {

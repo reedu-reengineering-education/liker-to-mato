@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
 import {
   Dialog,
   DialogContent,
@@ -12,9 +12,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -22,13 +22,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { PlusIcon } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+} from '@/components/ui/form';
+import { PlusIcon } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 const mediaSchema = z.object({
-  type: z.enum(["image", "video", "audio"]),
-  url: z.string().url({ message: "Bitte geben Sie eine gültige URL ein." }),
+  type: z.enum(['image', 'video', 'audio']),
+  url: z.string().url({ message: 'Bitte geben Sie eine gültige URL ein.' }),
 });
 
 type MediaFormValues = z.infer<typeof mediaSchema>;
@@ -38,18 +38,15 @@ type AddMediaProps = {
   onMediaAdded: (media: MediaFormValues) => void;
 };
 
-export function AddMediaToQuestion({
-  questionId,
-  onMediaAdded,
-}: AddMediaProps) {
+export function AddMediaToQuestion({ questionId, onMediaAdded }: AddMediaProps) {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const { toast } = useToast();
 
   const form = useForm<MediaFormValues>({
     resolver: zodResolver(mediaSchema),
     defaultValues: {
-      type: "image",
-      url: "",
+      type: 'image',
+      url: '',
     },
   });
 
@@ -59,18 +56,17 @@ export function AddMediaToQuestion({
       // Für dieses Beispiel nehmen wir an, dass dies erfolgreich war
       onMediaAdded(values);
       toast({
-        title: "Medium hinzugefügt",
-        description: "Das Medium wurde erfolgreich zur Frage hinzugefügt.",
+        title: 'Medium hinzugefügt',
+        description: 'Das Medium wurde erfolgreich zur Frage hinzugefügt.',
       });
       setIsDialogOpen(false);
       form.reset();
     } catch (error) {
-      console.error("Fehler beim Hinzufügen des Mediums:", error);
+      console.error('Fehler beim Hinzufügen des Mediums:', error);
       toast({
-        title: "Fehler",
-        description:
-          "Das Medium konnte nicht hinzugefügt werden. Bitte versuchen Sie es erneut.",
-        variant: "destructive",
+        title: 'Fehler',
+        description: 'Das Medium konnte nicht hinzugefügt werden. Bitte versuchen Sie es erneut.',
+        variant: 'destructive',
       });
     }
   };
@@ -116,21 +112,14 @@ export function AddMediaToQuestion({
                 <FormItem>
                   <FormLabel>URL</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="https://example.com/media.jpg"
-                      {...field}
-                    />
+                    <Input placeholder="https://example.com/media.jpg" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <DialogFooter>
-              <Button
-                type="button"
-                variant="secondary"
-                onClick={() => setIsDialogOpen(false)}
-              >
+              <Button type="button" variant="secondary" onClick={() => setIsDialogOpen(false)}>
                 Abbrechen
               </Button>
               <Button type="submit">Hinzufügen</Button>

@@ -20,13 +20,9 @@
 //     html,
 //   });
 // }
-import { createTransport } from "nodemailer";
+import { createTransport } from 'nodemailer';
 
-export async function sendVerificationEmail(
-  email: string,
-  url: string,
-  provider: any,
-) {
+export async function sendVerificationEmail(email: string, url: string, provider: any) {
   const { host, port, auth } = provider.server;
 
   const transport = createTransport({
@@ -52,6 +48,6 @@ export async function sendVerificationEmail(
 
   const failed = result.rejected.concat(result.pending).filter(Boolean);
   if (failed.length) {
-    throw new Error(`Email(s) (${failed.join(", ")}) could not be sent`);
+    throw new Error(`Email(s) (${failed.join(', ')}) could not be sent`);
   }
 }

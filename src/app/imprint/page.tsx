@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { Container } from "@/components/ui/layout/Container";
-import { motion } from "framer-motion";
-import { Shield, Scale, Mail } from "lucide-react";
+import { Container } from '@/components/ui/layout/Container';
+import { motion } from 'framer-motion';
+import { Shield, Scale, Mail } from 'lucide-react';
 
 export default function ImprintPage() {
   return (
@@ -67,11 +67,8 @@ export default function ImprintPage() {
               <p>
                 <strong>Telefon:</strong> +49 (0) 251 83-0
                 <br />
-                <strong>E-Mail:</strong>{" "}
-                <a
-                  href="mailto:kontakt@likert-o-mat.de"
-                  className="text-primary hover:underline"
-                >
+                <strong>E-Mail:</strong>{' '}
+                <a href="mailto:kontakt@likert-o-mat.de" className="text-primary hover:underline">
                   kontakt@likert-o-mat.de
                 </a>
               </p>
@@ -93,29 +90,26 @@ export default function ImprintPage() {
               <div>
                 <h3 className="font-semibold mb-2">Haftung für Inhalte</h3>
                 <p className="text-muted-foreground">
-                  Die Inhalte unserer Seiten wurden mit größter Sorgfalt
-                  erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität
-                  der Inhalte können wir jedoch keine Gewähr übernehmen.
+                  Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die
+                  Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine
+                  Gewähr übernehmen.
                 </p>
               </div>
               <div>
                 <h3 className="font-semibold mb-2">Haftung für Links</h3>
                 <p className="text-muted-foreground">
-                  Unser Angebot enthält Links zu externen Webseiten Dritter, auf
-                  deren Inhalte wir keinen Einfluss haben. Für die Inhalte der
-                  verlinkten Seiten ist stets der jeweilige Anbieter oder
-                  Betreiber der Seiten verantwortlich.
+                  Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir
+                  keinen Einfluss haben. Für die Inhalte der verlinkten Seiten ist stets der
+                  jeweilige Anbieter oder Betreiber der Seiten verantwortlich.
                 </p>
               </div>
               <div>
                 <h3 className="font-semibold mb-2">Urheberrecht</h3>
                 <p className="text-muted-foreground">
-                  Die durch die Seitenbetreiber erstellten Inhalte und Werke auf
-                  diesen Seiten unterliegen dem deutschen Urheberrecht. Die
-                  Vervielfältigung, Bearbeitung, Verbreitung und jede Art der
-                  Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen
-                  der schriftlichen Zustimmung des jeweiligen Autors bzw.
-                  Erstellers.
+                  Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten
+                  unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung,
+                  Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes
+                  bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.
                 </p>
               </div>
             </div>

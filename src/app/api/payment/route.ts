@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
-import { createOrder, capturePayment } from "@/lib/paypal";
+import { NextResponse } from 'next/server';
+import { createOrder, capturePayment } from '@/lib/paypal';
 
 export async function POST(req: Request) {
   try {
@@ -7,11 +7,8 @@ export async function POST(req: Request) {
     const order = await createOrder(amount);
     return NextResponse.json({ id: order.id });
   } catch (error) {
-    console.error("Error creating PayPal order:", error);
-    return NextResponse.json(
-      { error: "Failed to create order" },
-      { status: 500 },
-    );
+    console.error('Error creating PayPal order:', error);
+    return NextResponse.json({ error: 'Failed to create order' }, { status: 500 });
   }
 }
 
@@ -21,10 +18,7 @@ export async function PUT(request: Request) {
     const captureData = await capturePayment(orderId);
     return NextResponse.json(captureData);
   } catch (error) {
-    console.error("Error capturing PayPal payment:", error);
-    return NextResponse.json(
-      { error: "Failed to capture payment" },
-      { status: 500 },
-    );
+    console.error('Error capturing PayPal payment:', error);
+    return NextResponse.json({ error: 'Failed to capture payment' }, { status: 500 });
   }
 }

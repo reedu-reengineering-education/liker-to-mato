@@ -78,13 +78,13 @@
 // }
 
 // export default EditSurveyName;
-"use client";
+'use client';
 
-import React, { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { readSurvey, updateSurvey } from "@/lib/api/surveyClient";
+import React, { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { readSurvey, updateSurvey } from '@/lib/api/surveyClient';
 import {
   Dialog,
   DialogContent,
@@ -93,12 +93,12 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Pencil } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { Pencil } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 import {
   Form,
   FormControl,
@@ -106,18 +106,18 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from '@/components/ui/form';
 
 const formSchema = z.object({
   name: z.string().min(3, {
-    message: "Der Umfragename muss mindestens 3 Zeichen lang sein.",
+    message: 'Der Umfragename muss mindestens 3 Zeichen lang sein.',
   }),
 });
 
 type FormValues = z.infer<typeof formSchema>;
 
 export function EditSurveyName({ surveyId }: { surveyId: string }) {
-  const [surveyName, setSurveyName] = useState<string>("");
+  const [surveyName, setSurveyName] = useState<string>('');
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { toast } = useToast();
@@ -125,7 +125,7 @@ export function EditSurveyName({ surveyId }: { surveyId: string }) {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
+      name: '',
     },
   });
 
@@ -137,11 +137,11 @@ export function EditSurveyName({ surveyId }: { surveyId: string }) {
         setSurveyName(survey.name);
         form.reset({ name: survey.name });
       } catch (error) {
-        console.error("Fehler beim Laden des Umfragenamens:", error);
+        console.error('Fehler beim Laden des Umfragenamens:', error);
         toast({
-          title: "Fehler",
-          description: "Der Umfragename konnte nicht geladen werden.",
-          variant: "destructive",
+          title: 'Fehler',
+          description: 'Der Umfragename konnte nicht geladen werden.',
+          variant: 'destructive',
         });
       } finally {
         setIsLoading(false);
@@ -157,15 +157,15 @@ export function EditSurveyName({ surveyId }: { surveyId: string }) {
       setSurveyName(values.name);
       setIsDialogOpen(false);
       toast({
-        title: "Erfolg",
-        description: "Der Umfragename wurde erfolgreich aktualisiert.",
+        title: 'Erfolg',
+        description: 'Der Umfragename wurde erfolgreich aktualisiert.',
       });
     } catch (error) {
-      console.error("Fehler beim Aktualisieren des Umfragenamens:", error);
+      console.error('Fehler beim Aktualisieren des Umfragenamens:', error);
       toast({
-        title: "Fehler",
-        description: "Der Umfragename konnte nicht aktualisiert werden.",
-        variant: "destructive",
+        title: 'Fehler',
+        description: 'Der Umfragename konnte nicht aktualisiert werden.',
+        variant: 'destructive',
       });
     }
   };
@@ -207,11 +207,7 @@ export function EditSurveyName({ surveyId }: { surveyId: string }) {
                 )}
               />
               <DialogFooter>
-                <Button
-                  type="button"
-                  variant="secondary"
-                  onClick={() => setIsDialogOpen(false)}
-                >
+                <Button type="button" variant="secondary" onClick={() => setIsDialogOpen(false)}>
                   Abbrechen
                 </Button>
                 <Button type="submit">Speichern</Button>

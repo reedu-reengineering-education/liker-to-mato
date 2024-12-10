@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import React, { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   Table,
   TableBody,
@@ -13,7 +13,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table';
 import {
   Form,
   FormControl,
@@ -21,14 +21,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { useToast } from "@/hooks/use-toast";
+} from '@/components/ui/form';
+import { useToast } from '@/hooks/use-toast';
 
 const teamMemberSchema = z.object({
-  email: z
-    .string()
-    .email({ message: "Bitte geben Sie eine gültige E-Mail-Adresse ein." }),
-  role: z.enum(["editor", "viewer"]),
+  email: z.string().email({ message: 'Bitte geben Sie eine gültige E-Mail-Adresse ein.' }),
+  role: z.enum(['editor', 'viewer']),
 });
 
 type TeamMemberFormValues = z.infer<typeof teamMemberSchema>;
@@ -36,7 +34,7 @@ type TeamMemberFormValues = z.infer<typeof teamMemberSchema>;
 type TeamMember = {
   id: string;
   email: string;
-  role: "editor" | "viewer";
+  role: 'editor' | 'viewer';
 };
 
 type TeamManagementProps = {
@@ -50,8 +48,8 @@ export function TeamManagement({ surveyId }: TeamManagementProps) {
   const form = useForm<TeamMemberFormValues>({
     resolver: zodResolver(teamMemberSchema),
     defaultValues: {
-      email: "",
-      role: "viewer",
+      email: '',
+      role: 'viewer',
     },
   });
 
@@ -64,11 +62,11 @@ export function TeamManagement({ surveyId }: TeamManagementProps) {
         const result = await response.json();
         setTeamMembers(result);
       } catch (error) {
-        console.error("Fehler beim Laden der Teammitglieder:", error);
+        console.error('Fehler beim Laden der Teammitglieder:', error);
         toast({
-          title: "Fehler",
-          description: "Die Teammitglieder konnten nicht geladen werden.",
-          variant: "destructive",
+          title: 'Fehler',
+          description: 'Die Teammitglieder konnten nicht geladen werden.',
+          variant: 'destructive',
         });
       }
     };
@@ -86,16 +84,16 @@ export function TeamManagement({ surveyId }: TeamManagementProps) {
       };
       setTeamMembers([...teamMembers, newMember]);
       toast({
-        title: "Teammitglied hinzugefügt",
-        description: "Das Teammitglied wurde erfolgreich hinzugefügt.",
+        title: 'Teammitglied hinzugefügt',
+        description: 'Das Teammitglied wurde erfolgreich hinzugefügt.',
       });
       form.reset();
     } catch (error) {
-      console.error("Fehler beim Hinzufügen des Teammitglieds:", error);
+      console.error('Fehler beim Hinzufügen des Teammitglieds:', error);
       toast({
-        title: "Fehler",
-        description: "Das Teammitglied konnte nicht hinzugefügt werden.",
-        variant: "destructive",
+        title: 'Fehler',
+        description: 'Das Teammitglied konnte nicht hinzugefügt werden.',
+        variant: 'destructive',
       });
     }
   };
@@ -155,9 +153,7 @@ export function TeamManagement({ surveyId }: TeamManagementProps) {
                   variant="destructive"
                   onClick={() => {
                     // Hier würden Sie normalerweise Ihre API aufrufen
-                    setTeamMembers(
-                      teamMembers.filter((m) => m.id !== member.id),
-                    );
+                    setTeamMembers(teamMembers.filter((m) => m.id !== member.id));
                   }}
                 >
                   Entfernen
