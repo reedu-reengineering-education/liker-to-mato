@@ -46,6 +46,7 @@ Likert-o-mat 2.0 ist eine Open-Source-Anwendung zur Erstellung und Verwaltung vo
 Likert-o-mat 2.0 verwendet eine moderne, passwortlose Authentifizierung mit Magic Links:
 
 1. **Magic Link Anmeldung**
+
    - Benutzer geben ihre E-Mail-Adresse ein
    - Ein einmaliger Anmeldelink wird per E-Mail versendet
    - Sichere, passwortlose Authentifizierung durch Klick auf den Link
@@ -64,11 +65,13 @@ Die Anwendung bietet eine nahtlose Integration mit PayPal für Zahlungen und Abo
 ### PayPal-Integration
 
 1. **Zahlungsoptionen**
+
    - Einmalige Zahlungen für Premium-Funktionen
    - Wiederkehrende Abonnements
    - Flexible Preisgestaltung und Planoptionen
 
 2. **Implementierte Funktionen**
+
    - PayPal Smart Buttons
    - Automatische Zahlungsbestätigungen
    - Webhook-Integration für Zahlungsereignisse
@@ -85,6 +88,7 @@ Die Anwendung bietet eine nahtlose Integration mit PayPal für Zahlungen und Abo
 1. **PayPal-Konfiguration**
 
    Fügen Sie diese Umgebungsvariablen zu Ihrer `.env`-Datei hinzu:
+
    ```env
    PAYPAL_CLIENT_ID=your-paypal-client-id
    PAYPAL_CLIENT_SECRET=your-paypal-client-secret
