@@ -2,11 +2,14 @@ import { NextAuthOptions } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "./prisma";
 import GoogleProvider from "next-auth/providers/google";
+import { UserRole } from "./auth/roles";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   session: {
     strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 Tage
+    updateAge: 24 * 60 * 60, // 24 Stunden
   },
   providers: [
     GoogleProvider({
@@ -14,37 +17,60 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
+  pages: {
+    signIn: "/auth/signin",
+    error: "/auth/error",
+    verifyRequest: "/auth/verify-request",
+  },
   callbacks: {
     async session({ session, token }) {
       if (token) {
-        session.user.id = token.id;
+        session.user.id = token.id as string;
+        session.user.role = token.role as UserRole;
         session.user.name = token.name;
         session.user.email = token.email;
         session.user.image = token.picture;
       }
-
       return session;
     },
-    async jwt({ token, user }) {
-      const dbUser = await prisma.user.findFirst({
-        where: {
-          email: token.email,
-        },
-      });
-
-      if (!dbUser) {
-        if (user) {
-          token.id = user?.id;
-        }
-        return token;
+    async jwt({ token, user, account }) {
+      if (account) {
+        token.accessToken = account.access_token;
       }
 
-      return {
-        id: dbUser.id,
-        name: dbUser.name,
-        email: dbUser.email,
-        picture: dbUser.image,
-      };
+      if (user) {
+        const dbUser = await prisma.user.findUnique({
+          where: { email: user.email! },
+        });
+
+        if (!dbUser) {
+          // Erstelle neuen Benutzer mit Standardrolle
+          const newUser = await prisma.user.create({
+            data: {
+              email: user.email!,
+              name: user.name,
+              image: user.image,
+              role: UserRole.USER,
+            },
+          });
+          token.id = newUser.id;
+          token.role = newUser.role;
+        } else {
+          token.id = dbUser.id;
+          token.role = dbUser.role;
+        }
+      }
+      return token;
+    },
+  },
+  events: {
+    async signIn({ user }) {
+      // Protokolliere erfolgreiche Anmeldungen
+      console.log(`Benutzer angemeldet: ${user.email}`);
+    },
+    async signOut({ session }) {
+      // Protokolliere Abmeldungen
+      console.log(`Benutzer abgemeldet: ${session?.user?.email}`);
     },
   },
 };
