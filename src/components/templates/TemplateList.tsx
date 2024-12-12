@@ -41,7 +41,7 @@ const defaultTemplates: SurveyTemplate[] = [
         text: 'Wie zufrieden sind Sie mit Ihrer aktuellen Arbeitsumgebung?',
         required: true,
         scale: 5,
-        position: 1
+        position: 1,
       },
       {
         id: 'q2',
@@ -50,7 +50,7 @@ const defaultTemplates: SurveyTemplate[] = [
         description: 'Offene Frage zu Verbesserungsvorschlägen',
         text: 'Was könnte verbessert werden?',
         required: false,
-        position: 2
+        position: 2,
       },
     ],
     createdAt: new Date(),
@@ -71,7 +71,7 @@ const defaultTemplates: SurveyTemplate[] = [
         text: 'Wie wahrscheinlich ist es, dass Sie unser Produkt weiterempfehlen würden?',
         required: true,
         scale: 10,
-        position: 1
+        position: 1,
       },
     ],
     createdAt: new Date(),
@@ -92,7 +92,7 @@ const defaultTemplates: SurveyTemplate[] = [
         text: 'Der Kursinhalt war gut strukturiert',
         required: true,
         scale: 5,
-        position: 1
+        position: 1,
       },
       {
         id: 'q2',
@@ -102,7 +102,7 @@ const defaultTemplates: SurveyTemplate[] = [
         text: 'Welche Themen fanden Sie besonders interessant?',
         required: true,
         options: ['Theorie', 'Praxis', 'Diskussionen', 'Übungen'],
-        position: 2
+        position: 2,
       },
     ],
     createdAt: new Date(),
