@@ -25,8 +25,10 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Switch } from '@/components/ui/switch';
-import { Question } from '@/types/templates';
+import { Question, QuestionType } from '@/types/templates';
 import { useToast } from '@/hooks/use-toast';
+import { deleteQuestion as deleteQuestionApi } from '@/lib/api/questionClient';
+import { DeleteAlertDialog } from '@/components/ui/alert-dialog-custom';
 
 interface SurveyEditorProps {
   surveyId: string;
@@ -35,16 +37,18 @@ interface SurveyEditorProps {
 }
 
 export function SurveyEditor({ surveyId, initialQuestions = [], onSave }: SurveyEditorProps) {
-  const [questions, setQuestions] = useState<Question[]>(initialQuestions);
   const [editingQuestion, setEditingQuestion] = useState<Question | null>(null);
   const { toast } = useToast();
+
+  // Verwende die initialQuestions direkt statt eines lokalen States
+  const questions = initialQuestions;
 
   const loadQuestions = useCallback(async () => {
     try {
       const response = await fetch(`/api/surveys/${surveyId}/questions`);
       if (!response.ok) throw new Error('Failed to load questions');
       const data = await response.json();
-      setQuestions(data);
+      // Kein lokaler State, daher keine Aktualisierung von questions
     } catch (error) {
       console.error('Error loading questions:', error);
       toast({
@@ -61,59 +65,104 @@ export function SurveyEditor({ surveyId, initialQuestions = [], onSave }: Survey
 
   const saveQuestions = async (updatedQuestions: Question[]) => {
     try {
-      const response = await fetch(`/api/surveys/${surveyId}/questions`, {
+      const response = await fetch(`/api/surveys/${surveyId}/questions/reorder`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(updatedQuestions),
+        body: JSON.stringify(
+          updatedQuestions.map((question, index) => ({
+            id: question.id,
+            position: index,
+          }))
+        ),
       });
 
-      if (!response.ok) throw new Error('Failed to save questions');
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to save questions');
+      }
 
-      toast({
-        title: 'Erfolg',
-        description: 'Die Änderungen wurden gespeichert.',
-      });
+      if (onSave) {
+        onSave(updatedQuestions);
+      }
 
-      onSave?.(updatedQuestions);
+      return true;
     } catch (error) {
       console.error('Error saving questions:', error);
       toast({
         title: 'Fehler',
-        description: 'Die Änderungen konnten nicht gespeichert werden.',
+        description: 'Die Reihenfolge konnte nicht gespeichert werden.',
         variant: 'destructive',
       });
+      throw error;
     }
   };
 
-  const addQuestion = () => {
+  const addQuestion = async () => {
     const newQuestion: Question = {
       id: Math.random().toString(36).substr(2, 9),
       type: 'likert',
-      text: '',
+      name: '',
+      description: '',
       required: true,
       scale: 5,
+      text: '',
+      position: questions.length,
     };
-    const updatedQuestions = [...questions, newQuestion];
-    setQuestions(updatedQuestions);
-    setEditingQuestion(newQuestion);
-    saveQuestions(updatedQuestions);
+
+    try {
+      // Kein lokaler State, daher kein optimistisches UI-Update
+      // Speichern der Fragen
+      await saveQuestions([...questions, newQuestion]);
+      // Dialog zum Bearbeiten öffnen
+      setEditingQuestion(newQuestion);
+      // Neu laden der Fragen um sicherzustellen, dass alles synchron ist
+      await loadQuestions();
+      toast({
+        title: 'Erfolg',
+        description: 'Neue Frage wurde erstellt.',
+      });
+    } catch (error) {
+      console.error('Error adding question:', error);
+      toast({
+        title: 'Fehler',
+        description: 'Die Frage konnte nicht erstellt werden.',
+        variant: 'destructive',
+      });
+    }
   };
 
   const updateQuestion = (updatedQuestion: Question) => {
     const updatedQuestions = questions.map((q) =>
       q.id === updatedQuestion.id ? updatedQuestion : q
     );
-    setQuestions(updatedQuestions);
     setEditingQuestion(null);
     saveQuestions(updatedQuestions);
   };
 
-  const deleteQuestion = (questionId: string) => {
-    const updatedQuestions = questions.filter((q) => q.id !== questionId);
-    setQuestions(updatedQuestions);
-    saveQuestions(updatedQuestions);
+  const deleteQuestion = async (questionId: string) => {
+    try {
+      await deleteQuestionApi(questionId);
+      const updatedQuestions = questions.filter((q) => q.id !== questionId);
+
+      // Benachrichtige die übergeordnete Komponente über die Änderung
+      if (onSave) {
+        onSave(updatedQuestions);
+      }
+
+      toast({
+        title: 'Erfolg',
+        description: 'Die Frage wurde gelöscht.',
+      });
+    } catch (error) {
+      console.error('Error deleting question:', error);
+      toast({
+        title: 'Fehler',
+        description: 'Die Frage konnte nicht gelöscht werden.',
+        variant: 'destructive',
+      });
+    }
   };
 
   const onDragEnd = (result: any) => {
@@ -123,7 +172,6 @@ export function SurveyEditor({ surveyId, initialQuestions = [], onSave }: Survey
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
 
-    setQuestions(items);
     saveQuestions(items);
   };
 
@@ -138,10 +186,6 @@ export function SurveyEditor({ surveyId, initialQuestions = [], onSave }: Survey
                 Erstelle und organisiere deine Fragen durch Drag & Drop
               </CardDescription>
             </div>
-            <Button onClick={addQuestion} size="lg">
-              <PlusCircle className="mr-2 h-5 w-5" />
-              Neue Frage
-            </Button>
           </div>
         </CardHeader>
       </Card>
@@ -171,10 +215,10 @@ export function SurveyEditor({ surveyId, initialQuestions = [], onSave }: Survey
                             </div>
                             <div>
                               <CardTitle className="text-base font-medium">
-                                Frage {index + 1}
+                                {question.name || 'Unbenannte Frage'}
                               </CardTitle>
                               <CardDescription className="mt-1 line-clamp-1">
-                                {question.text || 'Keine Frage eingegeben'}
+                                {question.description || 'Keine Beschreibung'}
                               </CardDescription>
                             </div>
                           </div>
@@ -192,14 +236,27 @@ export function SurveyEditor({ surveyId, initialQuestions = [], onSave }: Survey
                                 </Button>
                               </DialogTrigger>
                             </Dialog>
-                            <Button
+                            {/* <Button
                               variant="ghost"
                               size="sm"
                               className="text-destructive hover:text-destructive hover:bg-destructive/10"
                               onClick={() => deleteQuestion(question.id)}
                             >
                               <Trash2 className="h-4 w-4" />
-                            </Button>
+                            </Button> */}
+                            <DeleteAlertDialog
+                              title="Frage löschen"
+                              description="Möchten Sie diese Frage wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden."
+                              onConfirm={() => deleteQuestion(question.id)}
+                            >
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </DeleteAlertDialog>
                           </div>
                         </CardHeader>
                       </Card>
@@ -231,24 +288,38 @@ export function SurveyEditor({ surveyId, initialQuestions = [], onSave }: Survey
             </DialogHeader>
             <div className="space-y-6 py-4">
               <div className="space-y-2">
-                <label className="text-sm font-medium">Fragetext</label>
-                <Textarea
-                  value={editingQuestion.text}
+                <label className="text-sm font-medium">Name der Frage</label>
+                <Input
+                  value={editingQuestion.name}
                   onChange={(e) =>
                     setEditingQuestion({
                       ...editingQuestion,
-                      text: e.target.value,
+                      name: e.target.value,
                     })
                   }
-                  placeholder="Gib hier deine Frage ein..."
-                  className="min-h-[100px]"
+                  placeholder="Gib hier den Namen der Frage ein..."
                 />
               </div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Beschreibung</label>
+                <Textarea
+                  value={editingQuestion.description}
+                  onChange={(e) =>
+                    setEditingQuestion({
+                      ...editingQuestion,
+                      description: e.target.value,
+                    })
+                  }
+                  placeholder="Gib hier die Beschreibung der Frage ein..."
+                />
+              </div>
+
               <div className="space-y-2">
                 <label className="text-sm font-medium">Fragetyp</label>
                 <Select
                   value={editingQuestion.type}
-                  onValueChange={(value: any) =>
+                  onValueChange={(value: QuestionType) =>
                     setEditingQuestion({
                       ...editingQuestion,
                       type: value,

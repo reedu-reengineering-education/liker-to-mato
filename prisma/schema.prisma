@@ -28,14 +28,17 @@ model Question {
   steps         Int
   max           String
   createdAt     DateTime  @default(now())
-  surveyId      String
   updatedAt     DateTime? @updatedAt
   responseCount Int       @default(0)
   averageValue  Float     @default(0)
-  scaleType     String    @default("default")
-  scaleOptions  String[]  @default([])
-  answers       Answer[]
+  surveyId      String
   survey        Survey    @relation(fields: [surveyId], references: [id], onDelete: Cascade)
+  answers       Answer[]
+  scaleType     String    @default("numeric")
+  scaleOptions  String[]  @default([])
+  position      Int       @default(0)
+
+  @@index([surveyId])
 }
 
 model Answer {

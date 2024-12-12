@@ -1,64 +1,7 @@
-// // path: src/pages/api/survey/index.ts
-// import { NextApiRequest, NextApiResponse } from "next";
-// import { prisma } from "@/lib/prisma";
-// import { getServerSession } from "next-auth/next";
-// import { authOptions } from "@/pages/api/auth/[...nextauth]";
-
-// async function handler(req: NextApiRequest, res: NextApiResponse) {
-//   if (req.method === "POST") {
-//     const session = await getServerSession(req, res, authOptions);
-
-//     if (!session) {
-//       return res.status(401).json({ error: "Unauthorized" });
-//     }
-//     console.log(session);
-//     const { name } = req.body;
-
-//     try {
-//       const survey = await prisma.survey.create({
-//         data: {
-//           name,
-//           userId: session.user.id,
-//         },
-//       });
-
-//       res.status(200).json(survey);
-//     } catch (error) {
-//       console.error(error);
-//       res.status(500).json({ error: "Server error" });
-//     }
-//   }
-//   if (req.method === "GET") {
-//     console.log("Attempting to get server session");
-//     const session = await getServerSession(req, res, authOptions);
-//     console.log(session);
-
-//     if (!session) {
-//       console.log("No session found, returning 401");
-//       return res.status(401).json({ error: "Unauthorized" });
-//     }
-
-//     try {
-//       console.log("Fetching surveys for user:", session.user.id);
-//       const surveys = await prisma.survey.findMany({
-//         where: {
-//           userId: session.user.id,
-//         },
-//       });
-//       console.log("Surveys fetched:", surveys);
-//       res.status(200).json(surveys);
-//     } catch (error) {
-//       console.error("Error fetching surveys", error);
-//       res.status(500).json({ error: "Server error" });
-//     }
-//   }
-// }
-
-// export default handler;
 import { NextApiRequest, NextApiResponse } from 'next';
+import { prisma } from '@/lib/prisma';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
-import { prisma } from '@/lib/prisma';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const session = await getServerSession(req, res, authOptions);
@@ -70,33 +13,66 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
-  if (req.method === 'GET') {
+  if (req.method === 'POST') {
+    const { name, startDate, endDate } = req.body;
+
     try {
-      const surveys = await prisma.survey.findMany({
-        where: {
-          userId: session.user.id,
-        },
+      // Hole den Benutzer mit Plan-Informationen
+      const user = await prisma.user.findUnique({
+        where: { id: session.user.id },
+        include: { plan: true },
       });
 
-      res.status(200).json(surveys);
-    } catch (error) {
-      console.error('Error fetching surveys:', error);
-      res.status(500).json({ error: 'Server error' });
-    }
-  } else if (req.method === 'POST') {
-    const { name } = req.body;
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
 
-    try {
+      // Überprüfe das Umfragen-Limit basierend auf dem Plan
+      const surveyCount = await prisma.survey.count({
+        where: { userId: user.id },
+      });
+
+      // Wenn kein Plan (Free) oder Free Plan, dann max 1 Umfrage
+      if (!user.plan || user.plan.name === 'Free') {
+        if (surveyCount >= 1) {
+          return res.status(403).json({
+            error: 'Upgrade to Professional or Enterprise plan to create more surveys',
+          });
+        }
+      }
+
       const survey = await prisma.survey.create({
         data: {
           name,
           userId: session.user.id,
+          status: 'draft',
+          ...(startDate && { startDate: new Date(startDate) }),
+          ...(endDate && { endDate: new Date(endDate) }),
         },
       });
 
       res.status(201).json(survey);
     } catch (error) {
       console.error('Error creating survey:', error);
+      res.status(500).json({ error: 'Server error' });
+    }
+  } else if (req.method === 'GET') {
+    try {
+      const surveys = await prisma.survey.findMany({
+        where: {
+          userId: session.user.id,
+        },
+        include: {
+          questions: true,
+        },
+        orderBy: {
+          createdAt: 'desc',
+        },
+      });
+
+      res.status(200).json(surveys);
+    } catch (error) {
+      console.error('Error fetching surveys:', error);
       res.status(500).json({ error: 'Server error' });
     }
   } else {

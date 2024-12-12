@@ -18,9 +18,13 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         return;
       }
 
+      // Füge Cache-Header hinzu
+      res.setHeader('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=30');
       res.status(200).json(survey);
     } catch (error) {
-      console.error(error);
+      if (process.env.NODE_ENV === 'development') {
+        console.error(error);
+      }
       res.status(500).json({ error: 'Server error' });
     }
   } else if (req.method === 'PUT') {
@@ -35,7 +39,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
       res.status(200).json(updatedsurvey);
     } catch (error) {
-      console.error(error);
+      if (process.env.NODE_ENV === 'development') {
+        console.error(error);
+      }
       res.status(500).json({ error: 'Server error' });
     }
   } else if (req.method === 'DELETE') {
@@ -48,7 +54,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
       res.status(204).end();
     } catch (error) {
-      console.error(error);
+      if (process.env.NODE_ENV === 'development') {
+        console.error(error);
+      }
       res.status(500).json({ error: 'Server error' });
     }
   } else {

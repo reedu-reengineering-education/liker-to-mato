@@ -11,6 +11,9 @@
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,scss,yml,yaml}\"",
     "seed": "ts-node prisma/seed.ts"
   },
+  "prisma": {
+    "seed": " ts-node prisma/seed.ts"
+  },
   "dependencies": {
     "@hello-pangea/dnd": "^17.0.0",
     "@heroicons/react": "^2.0.18",
@@ -21,6 +24,7 @@
     "@paypal/react-paypal-js": "^8.7.0",
     "@prisma/client": "^5.13.0",
     "@radix-ui/react-accordion": "^1.2.1",
+    "@radix-ui/react-alert-dialog": "^1.1.2",
     "@radix-ui/react-avatar": "^1.1.1",
     "@radix-ui/react-checkbox": "^1.1.2",
     "@radix-ui/react-dialog": "1.0.4",

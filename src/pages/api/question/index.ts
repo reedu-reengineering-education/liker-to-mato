@@ -25,6 +25,19 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
 
     try {
+      // Finde die höchste Position der existierenden Fragen
+      const existingQuestions = await prisma.question.findMany({
+        where: {
+          surveyId,
+        },
+        orderBy: {
+          position: 'desc',
+        },
+        take: 1,
+      });
+
+      const nextPosition = existingQuestions[0]?.position ?? 0;
+
       const question = await prisma.question.create({
         data: {
           name,
@@ -35,9 +48,14 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           surveyId,
           scaleType: scaleType || 'default',
           scaleOptions: scaleOptions || [],
+          position: nextPosition + 1,
         },
       });
 
+      // Nach dem Erstellen einer neuen Frage setzen wir Cache-Control auf no-store
+      res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '0');
       res.status(200).json(question);
     } catch (error) {
       console.error(error);
@@ -68,6 +86,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         },
       });
 
+      // Nach dem Aktualisieren einer Frage setzen wir Cache-Control auf no-store
+      res.setHeader('Cache-Control', 'no-store');
       res.status(200).json(updatedQuestion);
     } catch (error) {
       console.error(error);

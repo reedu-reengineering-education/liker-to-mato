@@ -71,7 +71,14 @@ export function StudentSurveyView({ surveyId }: { surveyId: string }) {
       }
     };
 
+    // Initial fetch
     fetchSurveyData();
+
+    // Set up interval for periodic updates (every 60 seconds)
+    const intervalId = setInterval(fetchSurveyData, 60000);
+
+    // Cleanup interval on unmount
+    return () => clearInterval(intervalId);
   }, [surveyId, toast]);
 
   const handleAnswerSubmit = async (questionId: string, answer: Answer) => {

@@ -80,3 +80,19 @@ export async function deleteQuestion(questionId: string) {
     throw error;
   }
 }
+
+export async function getQuestionsForSurvey(surveyId: string) {
+  const apiUrl = `/api/surveys/${surveyId}/questions`;
+  try {
+    const response = await axios.get(apiUrl, {
+      headers: {
+        'Cache-Control': 'no-cache',
+        Pragma: 'no-cache',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error when requesting questions:', error);
+    throw error;
+  }
+}

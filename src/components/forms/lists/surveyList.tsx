@@ -84,7 +84,7 @@ export function ListSurvey() {
   }
 
   function handleEdit(id: string): void {
-    throw new Error('Function not implemented.');
+    router.push(`/studio/${id}`);
   }
 
   return (

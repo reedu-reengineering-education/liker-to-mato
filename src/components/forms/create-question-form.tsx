@@ -48,7 +48,7 @@ type QuestionFormValues = z.infer<typeof questionSchema>;
 
 type CreateQuestionProps = {
   surveyId: string;
-  handleQuestionCreated: () => void;
+  handleQuestionCreated: (question: any) => void;
 };
 
 export function CreateQuestionDialog({ surveyId, handleQuestionCreated }: CreateQuestionProps) {
@@ -78,7 +78,7 @@ export function CreateQuestionDialog({ surveyId, handleQuestionCreated }: Create
 
   const onSubmit = async (values: QuestionFormValues) => {
     try {
-      await createQuestion(
+      const newQuestion = await createQuestion(
         values.name,
         values.description,
         values.scaleOptions[0].value,
@@ -88,13 +88,18 @@ export function CreateQuestionDialog({ surveyId, handleQuestionCreated }: Create
         values.scaleType,
         values.scaleOptions.map((option) => option.value)
       );
-      toast({
-        title: 'Frage erstellt',
-        description: 'Die Frage wurde erfolgreich hinzugefügt.',
-      });
-      setIsDialogOpen(false);
-      handleQuestionCreated();
-      form.reset();
+
+      if (newQuestion) {
+        toast({
+          title: 'Frage erstellt',
+          description: 'Die Frage wurde erfolgreich hinzugefügt.',
+        });
+        setIsDialogOpen(false);
+        form.reset();
+        // Warte einen kurzen Moment, damit die API Zeit hat, die Änderungen zu verarbeiten
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        handleQuestionCreated(newQuestion);
+      }
     } catch (error) {
       console.error('Fehler beim Erstellen der Frage:', error);
       toast({

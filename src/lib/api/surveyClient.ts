@@ -50,7 +50,6 @@ export async function deleteSurvey(surveyId: String) {
 
   try {
     const response = await axios.delete(apiUrl);
-
     const deleteSurvey = response.data;
     return deleteSurvey;
   } catch (error) {
@@ -64,10 +63,10 @@ export async function userSurveys() {
 
   try {
     const response = await axios.get(apiUrl);
-    const surveyList = response.data;
-    return surveyList;
+    const userSurveys = response.data;
+    return userSurveys;
   } catch (error) {
-    console.error('Error when requesting the survey:', error);
+    console.error('Error when requesting user surveys:', error);
     throw error;
   }
 }
@@ -77,10 +76,10 @@ export async function surveyQuestions(surveyId: String) {
 
   try {
     const response = await axios.get(apiUrl);
-    const questionList = response.data;
-    return questionList;
+    const questions = response.data;
+    return questions;
   } catch (error) {
-    console.error('Error when requesting the questions:', error);
+    console.error('Error when requesting survey questions:', error);
     throw error;
   }
 }

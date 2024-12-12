@@ -3,7 +3,9 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
-  // Lösche existierende Pläne
+  // Lösche existierende Daten in der richtigen Reihenfolge
+  await prisma.survey.deleteMany();
+  await prisma.user.deleteMany();
   await prisma.plan.deleteMany();
 
   // Erstelle Standard-Pläne
@@ -48,9 +50,34 @@ async function main() {
     },
   ];
 
+  // Erstelle Pläne und speichere die IDs
+  const createdPlans: Record<string, string> = {};
   for (const plan of plans) {
-    await prisma.plan.create({
+    const createdPlan = await prisma.plan.create({
       data: plan,
+    });
+    createdPlans[createdPlan.name] = createdPlan.id;
+  }
+
+  // Erstelle Pro-User
+  const proUsers = [
+    {
+      email: 'semov_georgi@yahoo.de',
+      name: 'Georgi Semov',
+    },
+    {
+      email: 't.bartoschek@reedu.de',
+      name: 'Thomas Bartoschek',
+    },
+  ];
+
+  for (const user of proUsers) {
+    await prisma.user.create({
+      data: {
+        ...user,
+        planId: createdPlans['Professional'],
+        planActiveUntil: new Date('2025-12-31'), // Plan gültig bis Ende 2025
+      },
     });
   }
 
