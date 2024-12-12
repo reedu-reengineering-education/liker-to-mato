@@ -41,7 +41,7 @@ model Question {
 model Answer {
   id         String    @id @default(cuid())
   questionId String
-  surveyId   String?   
+  surveyId   String?
   createdAt  DateTime  @default(now())
   value      Int
   updatedAt  DateTime? @updatedAt
@@ -62,9 +62,6 @@ model User {
   accounts      Account[]
   sessions      Session[]
   surveys       Survey[]
-  plan          Plan?     @relation("UserPlan", fields: [planId], references: [id])
-  planId        String?
-  planActiveUntil DateTime?
 }
 
 model Session {
@@ -83,8 +80,8 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
+  refresh_token     String?   @db.Text
+  access_token      String?   @db.Text
   expires_at        Int?
   token_type        String?
   scope             String?
@@ -104,16 +101,4 @@ model VerificationToken {
   createdAt  DateTime @default(now())
 
   @@unique([identifier, token])
-}
-
-model Plan {
-  id          String    @id @default(cuid())
-  name        String
-  price       Float
-  description String
-  features    String[]
-  popular     Boolean   @default(false)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  users       User[]    @relation("UserPlan")
 }
