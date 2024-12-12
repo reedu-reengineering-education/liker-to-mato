@@ -36,15 +36,21 @@ const defaultTemplates: SurveyTemplate[] = [
       {
         id: 'q1',
         type: 'likert',
+        name: 'Arbeitsumgebung',
+        description: 'Bewertung der Arbeitsumgebung',
         text: 'Wie zufrieden sind Sie mit Ihrer aktuellen Arbeitsumgebung?',
         required: true,
         scale: 5,
+        position: 1
       },
       {
         id: 'q2',
         type: 'text',
+        name: 'Verbesserungsvorschläge',
+        description: 'Offene Frage zu Verbesserungsvorschlägen',
         text: 'Was könnte verbessert werden?',
         required: false,
+        position: 2
       },
     ],
     createdAt: new Date(),
@@ -60,9 +66,12 @@ const defaultTemplates: SurveyTemplate[] = [
       {
         id: 'q1',
         type: 'likert',
+        name: 'Weiterempfehlung',
+        description: 'NPS Score',
         text: 'Wie wahrscheinlich ist es, dass Sie unser Produkt weiterempfehlen würden?',
         required: true,
         scale: 10,
+        position: 1
       },
     ],
     createdAt: new Date(),
@@ -78,16 +87,22 @@ const defaultTemplates: SurveyTemplate[] = [
       {
         id: 'q1',
         type: 'likert',
+        name: 'Kursstruktur',
+        description: 'Bewertung der Kursstruktur',
         text: 'Der Kursinhalt war gut strukturiert',
         required: true,
         scale: 5,
+        position: 1
       },
       {
         id: 'q2',
         type: 'multiple',
+        name: 'Interessante Themen',
+        description: 'Bewertung der Kursthemen',
         text: 'Welche Themen fanden Sie besonders interessant?',
         required: true,
         options: ['Theorie', 'Praxis', 'Diskussionen', 'Übungen'],
+        position: 2
       },
     ],
     createdAt: new Date(),
