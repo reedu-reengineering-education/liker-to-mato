@@ -50,18 +50,21 @@ model Answer {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  createdAt     DateTime  @default(now())
-  lastLogin     DateTime?
-  role          String    @default("RESEARCHER")
-  updatedAt     DateTime? @updatedAt
-  accounts      Account[]
-  sessions      Session[]
-  surveys       Survey[]
+  id              String    @id @default(cuid())
+  name            String?
+  email           String?   @unique
+  emailVerified   DateTime?
+  image           String?
+  createdAt       DateTime  @default(now())
+  lastLogin       DateTime?
+  role            String    @default("RESEARCHER")
+  updatedAt       DateTime? @updatedAt
+  planId          String?
+  planActiveUntil DateTime?
+  accounts        Account[]
+  sessions        Session[]
+  surveys         Survey[]
+  plan            Plan?     @relation(fields: [planId], references: [id])
 }
 
 model Session {
@@ -101,4 +104,15 @@ model VerificationToken {
   createdAt  DateTime @default(now())
 
   @@unique([identifier, token])
+}
+
+model Plan {
+  id          String    @id @default(cuid())
+  name        String
+  price       Float
+  description String
+  features    String[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
+  users       User[]
 }
